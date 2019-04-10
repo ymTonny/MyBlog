@@ -5,23 +5,23 @@
   
 
   
-  <title>Adair Blog</title>
+  <title>YmTonny Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
   
-  <meta name="description" content="Adair Blog">
+  <meta name="description" content="YmTonny Blog">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Adair Blog">
+<meta property="og:title" content="YmTonny Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Adair Blog">
-<meta property="og:description" content="Adair Blog">
+<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:description" content="YmTonny Blog">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Adair Blog">
-<meta name="twitter:description" content="Adair Blog">
+<meta name="twitter:title" content="YmTonny Blog">
+<meta name="twitter:description" content="YmTonny Blog">
   
-    <link rel="alternate" href="/atom.xml" title="Adair Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -31,6 +31,9 @@
   
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>
 </html>
 <body>
@@ -60,65 +63,21 @@
       <div id="middlecontent" title class="global-width sidebar-right">
         <section id="main">
   
-    <article id="post-interview" class="article global-container article-type-post" itemscope itemprop="blogPost">
+    <article id="post-vue-router" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
   
     <header class="article-header">
       
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/25/interview/">前端面试题 --vue</a>
+      <a class="article-title" href="/2019/04/10/vue-router/">vue路由归纳</a>
     </h1>
   
 
     </header>
   
   <div class="article-meta">
-    <a href="/2019/03/25/interview/" class="article-date">
-  <time datetime="2019-03-25T09:28:19.548Z" itemprop="datePublished">2019-03-25</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/面试/">面试</a>
-  </div>
-
-    
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h3 id="1-说一下Vue的双向绑定数据的原理"><a href="#1-说一下Vue的双向绑定数据的原理" class="headerlink" title="1. 说一下Vue的双向绑定数据的原理"></a>1. 说一下Vue的双向绑定数据的原理</h3><p><code>vue</code> 实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过 <code>Object.defineProperty()</code> 来劫持各个属性的 <code>setter</code>，<code>getter</code>，在数据变动时发布消息给订阅者，触发相应监听回调</p>
-        
-          <p class="article-more-link">
-            <a href="/2019/03/25/interview/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-  
-    <article id="post-vue-interview" class="article global-container article-type-post" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/25/vue-interview/">关于vuex</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/03/25/vue-interview/" class="article-date">
-  <time datetime="2019-03-25T09:02:59.492Z" itemprop="datePublished">2019-03-25</time>
+    <a href="/2019/04/10/vue-router/" class="article-date">
+  <time datetime="2019-04-10T06:41:22.931Z" itemprop="datePublished">2019-04-10</time>
 </a>
     
   <div class="article-category">
@@ -126,6 +85,8 @@
   </div>
 
     
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
   </div>
   
 
@@ -133,10 +94,12 @@
     
     <div class="article-content article-content-doorframe" itemprop="articleBody">
       
-        <h2 id="vuex数据流"><a href="#vuex数据流" class="headerlink" title="vuex数据流"></a>vuex数据流</h2><p>说实话，看了官方文档我并不清楚vuex到底是个什么东西，通过例子，我知道如何使用后，我才慢慢理解一点。我的理解就是：为什么会存在组件不能通信？简单粗暴的回答就是，变量的作用域导致的，vue的每一个组件都有自己的生命周期，都是独立存在的个体。vuex就是在根组件创建一个叫state的全局变量，让不同组件共享这个变量，并且定义了一系列方法和规范，也就是action、mutation等等，去统一触发这个全局变量也就是state。<br>
+        <h2 id="vue路由的原理"><a href="#vue路由的原理" class="headerlink" title="vue路由的原理"></a>vue路由的原理</h2><p>单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置<code>mode</code>字段，如果不去配置这个<code>mode</code>字段，默认路由跳转就为<code>hash</code>模式。</p>
+<p><code>hash</code>模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发<code>hashchange</code>事件，动态的渲染出页面。</p>
+<p>另外一种模式为<code>history</code>模式，即使用浏览器的historyAPI,<code>pushState</code>和<code>replaceState</code>。通过调用<code>pushState</code>去操作浏览器的<code>history</code>对象，改变当前链接地址，同时结合<code>window.onpopstate</code>监控浏览器的返回前进事件，同样可以实现无刷新的跳转页面。<code>replaceState</code>和<code>pushState</code>的区别就是，前者代表替换，后者代表插入。</p>
         
-          </p><p class="article-more-link">
-            <a href="/2019/03/25/vue-interview/#more">阅读全文</a>
+          <p class="article-more-link">
+            <a href="/2019/04/10/vue-router/#more">阅读全文</a>
           </p>
         
       
@@ -147,31 +110,183 @@
   
 </article>
 
+
+  
+    <article id="post-array" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/02/array/">js数组去重多一种选择</a>
+    </h1>
   
 
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/02/array/" class="article-date">
+  <time datetime="2019-04-02T08:16:26.222Z" itemprop="datePublished">2019-04-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试/">面试</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <p>数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。</p>
+<p>数组去重的方法：</p>
+<h2 id="一、利用ES6-Set去重"><a href="#一、利用ES6-Set去重" class="headerlink" title="一、利用ES6 Set去重"></a>一、利用ES6 Set去重</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line">  return Array.from(new Set(arr))</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,1,2,2,3,3];</span><br><span class="line">console.log(uniq(arr));</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/02/array/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+
+  
+    <article id="post-reflux" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/01/reflux/">什么是回流与重绘</a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/01/reflux/" class="article-date">
+  <time datetime="2019-04-01T07:35:45.207Z" itemprop="datePublished">2019-04-01</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/browser/">browser</a></li></ul>
+
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <p>要想知道什么是回流与重绘，首先我们得清楚浏览器的渲染过程。你知道是渲染过程是怎样的么？下面和我一起了解一下吧。<br>
+        
+          </p><p class="article-more-link">
+            <a href="/2019/04/01/reflux/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+
+  
+    <article id="post-vue-shake" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/28/vue-shake/">防抖与节流</a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/28/vue-shake/" class="article-date">
+  <time datetime="2019-03-28T08:50:40.166Z" itemprop="datePublished">2019-03-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="什么是节流与防抖呢"><a href="#什么是节流与防抖呢" class="headerlink" title="什么是节流与防抖呢"></a>什么是节流与防抖呢</h2><p>在开发环境中，我们经常会遇见这样的问题，一个按钮连续点击就会连续调用<code>api</code>，从而使之出现不必要的麻烦。那么我们要怎么解决这样的问题呢？解决方法有很多，但是这里我想说的是利用函数防抖与节流来解决这样的问题，至于为什么我要使用防抖与节流来解决这样的问题看了下面你们就知道啦。</p>
+<ul>
+<li>函数防抖： 一个任务频繁触发的情况下，只有任务触发的间隔时间超过指定间隔的时候，任务才会去执行。</li>
+<li>函数节流：在指定的时间间隔里只会去执行一次任务。
+        
+          <p class="article-more-link">
+            <a href="/2019/03/28/vue-shake/#more">阅读全文</a>
+          </p>
+        
+      
+    </li></ul></div>
+    
+  </div>
+  
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
 
 
 </section>
         <aside id="sidebar">
   
-    <div class="widget-box">
+    <div class="widget-box wow fadeInUp" data-wow-duration="2s">
   <div class="avatar-box">
     <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
     <h3 class="avatar-name">
       
-        Adair
+        YmTonny
       
     </h3>
     <p class="avatar-slogan">
-      特别耐撕的小前端，资深的打酱油攻城狮。
+      真相有时之所以难以被接受，是因为谎言听起来美好多了。
     </p>
+    <div class="link_g">
+      <div>友情链接</div>
+      <a href="http://glieen.cn/" target="_blank">Glieen&#39;s Blog</a>
+    </div>
   </div>
 </div>
 
 
   
     
-  <div class="widget-box">
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
@@ -181,31 +296,50 @@
 
   
     
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
 
   
     
   
     
-  <div class="widget-box">
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
     </div>
   </div>
 
   
     
-  <div class="widget-box">
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2019/03/25/interview/">前端面试题 --vue</a>
+            <a href="/2019/04/10/vue-router/">vue路由归纳</a>
           </li>
         
           <li>
-            <a href="/2019/03/25/vue-interview/">关于vuex</a>
+            <a href="/2019/04/02/array/">js数组去重多一种选择</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/01/reflux/">什么是回流与重绘</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/28/vue-shake/">防抖与节流</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/27/clip-path/">玩转clip-path</a>
           </li>
         
       </ul>
@@ -217,10 +351,10 @@
       </div>
       <footer id="footer">
   <div class="foot-box global-width">
-    &copy; 2019 Adair &nbsp;&nbsp;
+    &copy; 2019 YmTonny &nbsp;&nbsp;
     <br>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_uv"></span>个访客</span>
   </div>
 </footer>
       <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -252,5 +386,34 @@
   <div class="mobile-nav-img  mobile-nav-bottom"></div>
 </nav>    
   </div>
+      <script type="text/javascript" src="/js/love.js"></script>
+      <script type="text/javascript" src="/assets/waifu-tips.js"></script>
+      <script type="text/javascript" src="/assets/live2d.min.js"></script>
+      <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+      <script type="text/javascript">
+          new WOW().init();
+          const live2d_path = "/assets/";
+          $("<link>").attr({href: live2d_path + "waifu.css", rel: "stylesheet", type: "text/css"}).appendTo("head");
+          //waifu.css的绝对路径
+          $.ajax({
+              url: live2d_path + "live2d.min.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          //live2d.min.js的绝对路径
+
+          $.ajax({
+              url: live2d_path + "waifu-tips.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          $(window).on("load", function() {
+              initWidget(live2d_path + "waifu-tips.json", "https://live2d.fghrsh.net/api");
+          });
+          //initWidget第一个参数为waifu-tips.json的绝对路径
+          //第二个参数为api地址（无需修改）
+      </script>
 </body>
 </html>

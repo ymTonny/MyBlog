@@ -326,6 +326,7 @@ html, body, #fullpage{
   position: relative;
 }
 .avatar-box {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -338,6 +339,16 @@ html, body, #fullpage{
 .avatar-slogan {
   writing-mode: vertical-lr;
   max-height: 200px;
+}
+.link_g{
+  position: absolute;
+  bottom:0;
+  left:5px;
+  text-align: center;
+}
+.link_g a{
+  border-bottom:1px solid #333;
+  padding-bottom:4px;
 }
 .global-container {
   box-shadow: 1px 2px 3px #ddd;

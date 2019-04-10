@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>js数组去重多一种选择 | YmTonny Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。 数组去重的方法： 一、利用ES6 Set去重12345function uniq(arr)&amp;#123;  return Array.from(new Set(arr))&amp;#125;let arr = [1,1,2,2,3,3];console.log(uniq">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js数组去重多一种选择">
+<meta property="og:url" content="http://yoursite.com/2019/04/02/array/index.html">
+<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:description" content="数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。 数组去重的方法： 一、利用ES6 Set去重12345function uniq(arr)&amp;#123;  return Array.from(new Set(arr))&amp;#125;let arr = [1,1,2,2,3,3];console.log(uniq">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-04-02T08:19:15.452Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js数组去重多一种选择">
+<meta name="twitter:description" content="数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。 数组去重的方法： 一、利用ES6 Set去重12345function uniq(arr)&amp;#123;  return Array.from(new Set(arr))&amp;#125;let arr = [1,1,2,2,3,3];console.log(uniq">
+  
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/default-avatar.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+        <a class="nav-item" href="https://github.com/ymTonny" title target="_blank">仓库</a>
+      
+        <a class="nav-item" href="/resume" title>简历</a>
+      
+        <a class="nav-item" href="/Tap" title>玩一玩</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-array" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      js数组去重多一种选择
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/02/array/" class="article-date">
+  <time datetime="2019-04-02T08:16:26.222Z" itemprop="datePublished">2019-04-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试/">面试</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <p>数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。</p>
+<p>数组去重的方法：</p>
+<h2 id="一、利用ES6-Set去重"><a href="#一、利用ES6-Set去重" class="headerlink" title="一、利用ES6 Set去重"></a>一、利用ES6 Set去重</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line">  return Array.from(new Set(arr))</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,1,2,2,3,3];</span><br><span class="line">console.log(uniq(arr));</span><br></pre></td></tr></table></figure></div>
+<a id="more"></a>
+<p>如果不考虑兼容性的话，此方法代码最少。</p>
+<h2 id="二、利用splice去重。"><a href="#二、利用splice去重。" class="headerlink" title="二、利用splice去重。"></a>二、利用splice去重。</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line">  if(!Array.isArray(arr))&#123;</span><br><span class="line">     console.log(&quot;no array&quot;);</span><br><span class="line">     return</span><br><span class="line">  &#125;</span><br><span class="line">  for(let i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">    for(let j=i+1;j&lt;arr.length;j++)&#123;</span><br><span class="line">       if(arr[i]==arr[j])&#123;</span><br><span class="line">         arr.splice(j,1);</span><br><span class="line">       &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br><span class="line">let arr=[1,1,2,2,3,3];</span><br><span class="line">console.log(uniq(arr));</span><br></pre></td></tr></table></figure></div>
+<p>双重for循环，外层循环元素，内层判断值，值相等就通过<code>splice</code>删除。</p>
+<h2 id="三、利用indexOf去重"><a href="#三、利用indexOf去重" class="headerlink" title="三、利用indexOf去重"></a>三、利用indexOf去重</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line">  if(!Array.isArray(arr))&#123;</span><br><span class="line">     console.log(&quot;no array&quot;);</span><br><span class="line">     return</span><br><span class="line">  &#125;</span><br><span class="line">  let array=[];</span><br><span class="line">  for(let i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">     if(array.indexOf(arr[i])==-1)&#123;</span><br><span class="line">       array.push(arr[i]);</span><br><span class="line">     &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return array;</span><br><span class="line">&#125;</span><br><span class="line">let arr=[1,1,2,2,3,3];</span><br><span class="line">console.log(uniq(arr))</span><br></pre></td></tr></table></figure></div>
+<p>通过新建一个空数组，for循环判断空数组中是否存在当前元素，如果不存在就<code>push</code>进去，如果存在就跳过。</p>
+<h2 id="四、利用sort"><a href="#四、利用sort" class="headerlink" title="四、利用sort()"></a>四、利用sort()</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line"> if(!Array.isArray(arr))&#123;</span><br><span class="line">   console.log(&quot;no array&quot;);</span><br><span class="line">   return</span><br><span class="line"> &#125;</span><br><span class="line"> arr = arr.sort();</span><br><span class="line"> let array = [];</span><br><span class="line"> for(let i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">   if(arr[i]!=arr[i+1])&#123;</span><br><span class="line">     array.push(arr[i]);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> return array;</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,2,3,6,4,2,1];</span><br><span class="line">console.log(uniq(arr))</span><br></pre></td></tr></table></figure></div>
+<p>通过<code>sort()</code>排序过后，再用for循环遍历比较相邻元素。</p>
+<h2 id="五、利用对象的属性不能相同去重"><a href="#五、利用对象的属性不能相同去重" class="headerlink" title="五、利用对象的属性不能相同去重"></a>五、利用对象的属性不能相同去重</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line">  if(!Array.isArray(arr))&#123;</span><br><span class="line">    console.log(&quot;no array&quot;);</span><br><span class="line">    return</span><br><span class="line">  &#125;</span><br><span class="line">  let array=[],obj=&#123;&#125;;</span><br><span class="line">  for(let i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">    if(!obj[arr[i]])&#123;</span><br><span class="line">      array.push(arr[i]);</span><br><span class="line">      obj[arr[i]]=1;</span><br><span class="line">    &#125;else&#123;</span><br><span class="line">      obj[arr[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  return array;</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,2,3,4,2,3,1];</span><br><span class="line">console.log(uniq(arr))</span><br></pre></td></tr></table></figure></div>
+<h2 id="六、利用includes"><a href="#六、利用includes" class="headerlink" title="六、利用includes"></a>六、利用includes</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line"> if(!Array.isArray(arr))&#123;</span><br><span class="line">   console.log(&quot;no array&quot;);</span><br><span class="line">   return;</span><br><span class="line"> &#125;</span><br><span class="line"> let array = [];</span><br><span class="line"> for(let i=0;i&lt;arr.length;i++)&#123;</span><br><span class="line">   if(!array.includes(arr[i]))&#123; //array中是否存在arr[i]元素</span><br><span class="line">     array.push(arr[i]);</span><br><span class="line">   &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> return array;</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,2,3,5,2,1];</span><br><span class="line">console.log(uniq(arr));</span><br></pre></td></tr></table></figure></div>
+<h2 id="七、利用hasOwnProperty"><a href="#七、利用hasOwnProperty" class="headerlink" title="七、利用hasOwnProperty"></a>七、利用hasOwnProperty</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line"> let obj = &#123;&#125;;</span><br><span class="line"> return arr.filter((item,index,arr)=&gt;&#123;</span><br><span class="line">   return obj.hasOwnProperty(typeof item+item) ? false:(obj[typeof item+item]=true)</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,2,3,5,2,1];</span><br><span class="line">console.log(uniq(arr));</span><br></pre></td></tr></table></figure></div>
+<h2 id="八、利用filter"><a href="#八、利用filter" class="headerlink" title="八、利用filter"></a>八、利用filter</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line"> return arr.filter((item,index,arr)=&gt;&#123;</span><br><span class="line">   //当前元素，在原数组中的第一个索引 === 当前索引值,否则返回当前元素</span><br><span class="line">   return arr.indexOf(item,0) === index;</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,2,3,5,2,1];</span><br><span class="line">console.log(uniq(arr));</span><br></pre></td></tr></table></figure></div>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/10/vue-router/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            vue路由归纳
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/01/reflux/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">什么是回流与重绘</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'ymTonny',
+  repo: 'MyBlog',
+  oauth: {
+    client_id: '2144b8ba49571a940c51',
+    client_secret: '942f1619cc0a763cc4c1ed7ab9e1c0b1eebddb91',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
+    <h3 class="avatar-name">
+      
+        YmTonny
+      
+    </h3>
+    <p class="avatar-slogan">
+      真相有时之所以难以被接受，是因为谎言听起来美好多了。
+    </p>
+    <div class="link_g">
+      <div>友情链接</div>
+      <a href="http://glieen.cn/" target="_blank">Glieen&#39;s Blog</a>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/10/vue-router/">vue路由归纳</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/02/array/">js数组去重多一种选择</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/01/reflux/">什么是回流与重绘</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/28/vue-shake/">防抖与节流</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/27/clip-path/">玩转clip-path</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 YmTonny &nbsp;&nbsp;
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_uv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="https://github.com/ymTonny" class="mobile-nav-link">仓库</a>
+  
+    <a href="/resume" class="mobile-nav-link">简历</a>
+  
+    <a href="/Tap" class="mobile-nav-link">玩一玩</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+      <script type="text/javascript" src="/js/love.js"></script>
+      <script type="text/javascript" src="/assets/waifu-tips.js"></script>
+      <script type="text/javascript" src="/assets/live2d.min.js"></script>
+      <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+      <script type="text/javascript">
+          new WOW().init();
+          const live2d_path = "/assets/";
+          $("<link>").attr({href: live2d_path + "waifu.css", rel: "stylesheet", type: "text/css"}).appendTo("head");
+          //waifu.css的绝对路径
+          $.ajax({
+              url: live2d_path + "live2d.min.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          //live2d.min.js的绝对路径
+
+          $.ajax({
+              url: live2d_path + "waifu-tips.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          $(window).on("load", function() {
+              initWidget(live2d_path + "waifu-tips.json", "https://live2d.fghrsh.net/api");
+          });
+          //initWidget第一个参数为waifu-tips.json的绝对路径
+          //第二个参数为api地址（无需修改）
+      </script>
+</body>
+</html>

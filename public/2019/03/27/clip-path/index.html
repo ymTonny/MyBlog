@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>玩转clip-path | YmTonny Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="一.基本概念什么是clip-path呢？简而言之就是实现裁剪的css属性,我们可以通过该属性创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的部分隐藏。通过指定路径就可以创建出自己想要的形状，这样网页中的布局就可以是多种多样的了。 在clip-path出现之前，css还有个属性clip也支持裁剪，但是它只支持矩形裁剪,同时它只对position:absolute和positi">
+<meta name="keywords" content="css">
+<meta property="og:type" content="article">
+<meta property="og:title" content="玩转clip-path">
+<meta property="og:url" content="http://yoursite.com/2019/03/27/clip-path/index.html">
+<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:description" content="一.基本概念什么是clip-path呢？简而言之就是实现裁剪的css属性,我们可以通过该属性创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的部分隐藏。通过指定路径就可以创建出自己想要的形状，这样网页中的布局就可以是多种多样的了。 在clip-path出现之前，css还有个属性clip也支持裁剪，但是它只支持矩形裁剪,同时它只对position:absolute和positi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://s2.ax1x.com/2019/03/27/Aa7B0s.png">
+<meta property="og:image" content="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hef0awp6j308r08gq6d.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hekwf3c2j308i089myl.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hez6l3rej309208sdi4.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/mw690/005SNrnIgy1g1hf2dedn8j308x08q0vd.jpg">
+<meta property="og:image" content="https://wx4.sinaimg.cn/large/005SNrnIgy1g1hfchdbflj30z5073gm1.jpg">
+<meta property="og:updated_time" content="2019-03-27T08:31:02.879Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="玩转clip-path">
+<meta name="twitter:description" content="一.基本概念什么是clip-path呢？简而言之就是实现裁剪的css属性,我们可以通过该属性创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的部分隐藏。通过指定路径就可以创建出自己想要的形状，这样网页中的布局就可以是多种多样的了。 在clip-path出现之前，css还有个属性clip也支持裁剪，但是它只支持矩形裁剪,同时它只对position:absolute和positi">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/03/27/Aa7B0s.png">
+  
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/default-avatar.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+        <a class="nav-item" href="https://github.com/ymTonny" title target="_blank">仓库</a>
+      
+        <a class="nav-item" href="/resume" title>简历</a>
+      
+        <a class="nav-item" href="/Tap" title>玩一玩</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-clip-path" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      玩转clip-path
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/03/27/clip-path/" class="article-date">
+  <time datetime="2019-03-27T08:30:38.201Z" itemprop="datePublished">2019-03-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h1 id="一-基本概念"><a href="#一-基本概念" class="headerlink" title="一.基本概念"></a>一.基本概念</h1><p>什么是<code>clip-path</code>呢？简而言之就是实现裁剪的<code>css</code>属性,我们可以通过该属性创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的部分隐藏。通过指定路径就可以创建出自己想要的形状，这样网页中的布局就可以是多种多样的了。</p>
+<p>在<code>clip-path</code>出现之前，css还有个属性<code>clip</code>也支持裁剪，但是它只支持矩形裁剪,同时它只对<code>position:absolute</code>和<code>position:fixed</code>的元素生效。使用如下：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clip: rect(50px,50px,50px,50px) //标准写法</span><br><span class="line">clip: rect(50px 50px 50px 50px) //兼容浏览器写法</span><br></pre></td></tr></table></figure></div></p>
+<p>目前所有主流浏览器都支持<code>clip</code>,但是因为其局限性,<code>clip</code>已经被<code>clip-path</code>代替。<code>clip-path</code>为我们带来了更多的可能，让我们制作出更多有趣的图案。<br><a id="more"></a></p>
+<h1 id="二-用法实例"><a href="#二-用法实例" class="headerlink" title="二.用法实例"></a>二.用法实例</h1><h2 id="1-基本图形：inset"><a href="#1-基本图形：inset" class="headerlink" title="1.基本图形：inset"></a>1.基本图形：inset</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">inset()//定义一个矩形,注意:此处矩形不是 rect 而是 inset.</span><br><span class="line">//语法</span><br><span class="line">inset()可以传入5个参数，分别对应top,right,bottom,left的裁剪位置,和round radius（可选项 圆角）。</span><br><span class="line"></span><br><span class="line">//示例</span><br><span class="line">clip-path:inset(15% 20% 15% 20%)</span><br></pre></td></tr></table></figure></div>
+ <div style="width:200px;height:200px;margin:auto"><img src="https://s2.ax1x.com/2019/03/27/Aa7B0s.png" alt="avatart"></div>
+
+<h2 id="2-基本图形：circle"><a href="#2-基本图形：circle" class="headerlink" title="2.基本图形：circle"></a>2.基本图形：circle</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">circle()//定义一个圆形</span><br><span class="line">//语法</span><br><span class="line">circle()//可以传入2个参数，用at分开,分别对应圆的半径,圆心位置。圆心默认为元素中心点。</span><br><span class="line">//示例</span><br><span class="line">clip-path:circle(50% at 50% 50%)</span><br></pre></td></tr></table></figure></div>
+ <div style="width:200px;height:200px;margin:auto"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hef0awp6j308r08gq6d.jpg" alt="avatart"></div>
+
+<h2 id="3-基本图形：ellipse"><a href="#3-基本图形：ellipse" class="headerlink" title="3.基本图形：ellipse"></a>3.基本图形：ellipse</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ellipse()//定义一个椭圆</span><br><span class="line">//语法</span><br><span class="line">ellipse(x y at positon)//x为椭圆的x轴半径,y为椭圆的y轴半径,position为椭圆中心位置。</span><br><span class="line">//示例</span><br><span class="line">clip-path:ellipse(25% 40% at 50% 50%)</span><br></pre></td></tr></table></figure></div>
+<p> <div style="width:200px;height:200px;margin:auto"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hekwf3c2j308i089myl.jpg" alt="avatart"></div></p>
+<h2 id="4-基本图形：polygon"><a href="#4-基本图形：polygon" class="headerlink" title="4.基本图形：polygon"></a>4.基本图形：polygon</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">plygon()//定义一个多边形</span><br><span class="line">//语法</span><br><span class="line">polygon(fill-rule,[x y])//fill-rule(可选)表示填充规则用来确定该多边形内部,值有nonzero 和evenodd，默认为evenodd。后面的每一对表示连接点的坐标。</span><br><span class="line">//示例</span><br><span class="line">clip-path: polygon(50% 0%, 0 100%, 100% 100%);</span><br><span class="line">clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);</span><br></pre></td></tr></table></figure></div>
+<p> <div style="display:flex;justify-content:space-around;"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hez6l3rej309208sdi4.jpg" alt="avatart"><br> <img src="https://ws4.sinaimg.cn/mw690/005SNrnIgy1g1hf2dedn8j308x08q0vd.jpg" alt="avatart"><br> </div></p>
+<h2 id="5-其他属性"><a href="#5-其他属性" class="headerlink" title="5.其他属性"></a>5.其他属性</h2><p>除了<code>inset</code>，<code>circle</code>，<code>ellipse</code>，<code>polygon</code>属性外，<code>clip-path</code>还具有<code>url</code>，<code>geometry-box</code>等属性值，具体可以参考<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path" target="_blank">MDN</a></p>
+<h1 id="三-兼容性"><a href="#三-兼容性" class="headerlink" title="三.兼容性"></a>三.兼容性</h1><p><img src="https://wx4.sinaimg.cn/large/005SNrnIgy1g1hfchdbflj30z5073gm1.jpg" alt="avatart"></p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/28/vue-shake/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            防抖与节流
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/26/git-operating/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">git常用操作</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'ymTonny',
+  repo: 'MyBlog',
+  oauth: {
+    client_id: '2144b8ba49571a940c51',
+    client_secret: '942f1619cc0a763cc4c1ed7ab9e1c0b1eebddb91',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
+    <h3 class="avatar-name">
+      
+        YmTonny
+      
+    </h3>
+    <p class="avatar-slogan">
+      真相有时之所以难以被接受，是因为谎言听起来美好多了。
+    </p>
+    <div class="link_g">
+      <div>友情链接</div>
+      <a href="http://glieen.cn/" target="_blank">Glieen&#39;s Blog</a>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/10/vue-router/">vue路由归纳</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/02/array/">js数组去重多一种选择</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/01/reflux/">什么是回流与重绘</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/28/vue-shake/">防抖与节流</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/27/clip-path/">玩转clip-path</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 YmTonny &nbsp;&nbsp;
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_uv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="https://github.com/ymTonny" class="mobile-nav-link">仓库</a>
+  
+    <a href="/resume" class="mobile-nav-link">简历</a>
+  
+    <a href="/Tap" class="mobile-nav-link">玩一玩</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+      <script type="text/javascript" src="/js/love.js"></script>
+      <script type="text/javascript" src="/assets/waifu-tips.js"></script>
+      <script type="text/javascript" src="/assets/live2d.min.js"></script>
+      <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+      <script type="text/javascript">
+          new WOW().init();
+          const live2d_path = "/assets/";
+          $("<link>").attr({href: live2d_path + "waifu.css", rel: "stylesheet", type: "text/css"}).appendTo("head");
+          //waifu.css的绝对路径
+          $.ajax({
+              url: live2d_path + "live2d.min.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          //live2d.min.js的绝对路径
+
+          $.ajax({
+              url: live2d_path + "waifu-tips.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          $(window).on("load", function() {
+              initWidget(live2d_path + "waifu-tips.json", "https://live2d.fghrsh.net/api");
+          });
+          //initWidget第一个参数为waifu-tips.json的绝对路径
+          //第二个参数为api地址（无需修改）
+      </script>
+</body>
+</html>

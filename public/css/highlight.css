@@ -96,9 +96,6 @@
   right: 0;
   transform:rotate(-90deg);
 }
-.article-content-doorframe .highlight-box .highlight {
-  padding-bottom: 53px !important;
-}
 .article-content .highlight {
   padding: 15px 20px;
 }
@@ -282,3 +279,4 @@ pre .keyword,
 pre .javascript .function {
   color: #C678DD;
 }
+
