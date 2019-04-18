@@ -5,6 +5,7 @@ categories:
 tags:
 - vue
 ---
+
 ## vue路由的原理
 单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置`mode`字段，如果不去配置这个`mode`字段，默认路由跳转就为`hash`模式。
 
@@ -13,6 +14,7 @@ tags:
 另外一种模式为`history`模式，即使用浏览器的historyAPI,`pushState`和`replaceState`。通过调用`pushState`去操作浏览器的`history`对象，改变当前链接地址，同时结合`window.onpopstate`监控浏览器的返回前进事件，同样可以实现无刷新的跳转页面。`replaceState`和`pushState`的区别就是，前者代表替换，后者代表插入。
 
 <!--more-->
+
 `history`相对于`hash`，就是没有"#"号，看着十分清爽。但是用hash模式的反而较多，为什么呢？因为`history`模式还需要后端的配置，否则刷新页面就会返回404。
 
 ## vue路由两种传参
