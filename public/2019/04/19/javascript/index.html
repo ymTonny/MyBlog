@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>javascript数据属性和访问器属性 | YmTonny Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="前言在javascript中，我们访问对象的时候可以直接通过obj.name进行访问，删除时可以直接通过delete obj.name进行删除，那么你真的知道它为什么能直接访问或则删除么？如果你知道javascript中的数据属性，那就自然知道为什么能访问了；如果不知道呢，咱就接着往下看。">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript数据属性和访问器属性">
+<meta property="og:url" content="http://yoursite.com/2019/04/19/javascript/index.html">
+<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:description" content="前言在javascript中，我们访问对象的时候可以直接通过obj.name进行访问，删除时可以直接通过delete obj.name进行删除，那么你真的知道它为什么能直接访问或则删除么？如果你知道javascript中的数据属性，那就自然知道为什么能访问了；如果不知道呢，咱就接着往下看。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281hehvbwj30cr064mx9.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281m3gn70j30b70353yg.jpg">
+<meta property="og:image" content="https://ws4.sinaimg.cn/mw690/005SNrnIgy1g2821jk29pj30by05jdfu.jpg">
+<meta property="og:updated_time" content="2019-04-19T09:17:03.675Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript数据属性和访问器属性">
+<meta name="twitter:description" content="前言在javascript中，我们访问对象的时候可以直接通过obj.name进行访问，删除时可以直接通过delete obj.name进行删除，那么你真的知道它为什么能直接访问或则删除么？如果你知道javascript中的数据属性，那就自然知道为什么能访问了；如果不知道呢，咱就接着往下看。">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281hehvbwj30cr064mx9.jpg">
+  
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/default-avatar.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+        <a class="nav-item" href="https://github.com/ymTonny" title target="_blank">仓库</a>
+      
+        <a class="nav-item" href="/resume" title>简历</a>
+      
+        <a class="nav-item" href="/Tap" title>玩一玩</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-javascript" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      javascript数据属性和访问器属性
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/19/javascript/" class="article-date">
+  <time datetime="2019-04-19T09:16:39.331Z" itemprop="datePublished">2019-04-19</time>
+</a>
+    
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在<code>javascript</code>中，我们访问对象的时候可以直接通过<code>obj.name</code>进行访问，删除时可以直接通过<code>delete obj.name</code>进行删除，那么你真的知道它为什么能直接访问或则删除么？如果你知道<code>javascript</code>中的数据属性，那就自然知道为什么能访问了；如果不知道呢，咱就接着往下看。<br><a id="more"></a><br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">   name:&quot;abc&quot;</span><br><span class="line">&#125;</span><br><span class="line">console.log(obj.name)</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="数据属性"><a href="#数据属性" class="headerlink" title="数据属性"></a>数据属性</h2><p>在<code>javascript</code>中数据属性分为以下几种：</p>
+<ul>
+<li><code>configurable</code>:表示能否通过delete删除属性，从而重新定义属性，能否修改属性的特性，或者能否把属性修改为访问器属性。默认为true。</li>
+<li><code>enumerable</code>:表示能否通过<code>fon-in</code>循环返回属性，默认为true。</li>
+<li><code>writable</code>:表示能否修改属性的值，默认为true。</li>
+<li><code>value</code>:表示属性的数据值。默认为undefind。</li>
+</ul>
+<p>接下来我们尝试理解上面的含义，首先创建一个对象：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">  name:&quot;张三&quot;,</span><br><span class="line">  age:12</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="1-configurable"><a href="#1-configurable" class="headerlink" title="1.configurable"></a>1.configurable</h3><p>根据configurable的定义，我们通过<code>Object.defineProperty</code>修改obj的name属性的数据属性<code>configurable</code>为false<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj,&quot;name&quot;,&#123;</span><br><span class="line"> configurable:false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>根据上面的定义，我们把configurable设为false时，我们不能通过delete进行删除属性,不能修改属性的特性，不能把属性修改为访问器属性。<br>删除属性：<br><img src="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281hehvbwj30cr064mx9.jpg" alt="image"><br>修改属性特性：<br><img src="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281m3gn70j30b70353yg.jpg" alt="image"><br>当我们把configurable属性修改为false的时候就不能再改回为true了，同时修改enumerable属性也会受到限制，当尝试修改时会报错。</p>
+<h3 id="2-enumerable"><a href="#2-enumerable" class="headerlink" title="2.enumerable"></a>2.enumerable</h3><p>根据上面的定义，我们重新定义并修改name属性的enumerable为false，然后用for in遍历属性对象。<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj,&quot;name&quot;,&#123;</span><br><span class="line">  enumerable:false</span><br><span class="line">&#125;)</span><br><span class="line">for(let key in obj)&#123;</span><br><span class="line">  console.log(key+&quot;--&quot;+obj[key])</span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">age--12</span><br></pre></td></tr></table></figure></div></p>
+<p>因为属性name的enumerable修改为了false,所以当我们用for in循环遍历obj对象时，我们无法遍历到name属性，所以上面代码只会打印age属性。</p>
+<h3 id="3-writable和value"><a href="#3-writable和value" class="headerlink" title="3.writable和value"></a>3.writable和value</h3><p>value属性的值是否能被修改是根据writable确定的，当我们把writable的值设为true的时候，value可以被修改，否在反之。<br><img src="https://ws4.sinaimg.cn/mw690/005SNrnIgy1g2821jk29pj30by05jdfu.jpg" alt="image"><br>所以，当writable为false时，我们不能修改属性值，这里需要注意的是，如果configurable为false，此时我们可以将writable,但如果再设回为true就会报错。</p>
+<h2 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h2><p>访问器属性一共有四个，分别为<code>configurable</code>,<code>enumerable</code>,<code>get</code>,<code>set</code>，其中configurable和enumerable和数据属性中的是一样的，这里就不再进行说明</p>
+<ul>
+<li>get:在读取属性的时候会调用，默认值为undefind。</li>
+<li>set:在设置属性的时候会调用，默认为undefind。</li>
+</ul>
+<p>同样的我们可以通过<code>Object.defineProperty</code>对访问器属性进行设定。有兴趣的小伙伴下来自己试试吧，今天没时间啦(<em>^_^</em>)。</p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/17/electron-packager/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">electron打包react项目</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'ymTonny',
+  repo: 'MyBlog',
+  oauth: {
+    client_id: '2144b8ba49571a940c51',
+    client_secret: '942f1619cc0a763cc4c1ed7ab9e1c0b1eebddb91',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
+    <h3 class="avatar-name">
+      
+        YmTonny
+      
+    </h3>
+    <p class="avatar-slogan">
+      真相有时之所以难以被接受，是因为谎言听起来美好多了。
+    </p>
+    <div class="link_g">
+      <div>友情链接</div>
+      <a href="http://glieen.cn/" target="_blank">Glieen&#39;s Blog</a>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/19/javascript/">javascript数据属性和访问器属性</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/17/electron-packager/">electron打包react项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/11/for/">for循环应该这么用</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/10/vue-router/">vue路由归纳</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/02/array/">js数组去重多一种选择</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 YmTonny &nbsp;&nbsp;
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_uv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="https://github.com/ymTonny" class="mobile-nav-link">仓库</a>
+  
+    <a href="/resume" class="mobile-nav-link">简历</a>
+  
+    <a href="/Tap" class="mobile-nav-link">玩一玩</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+      <script type="text/javascript" src="/js/love.js"></script>
+      <script type="text/javascript" src="/assets/waifu-tips.js"></script>
+      <script type="text/javascript" src="/assets/live2d.min.js"></script>
+      <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+      <script type="text/javascript">
+          new WOW().init();
+          const live2d_path = "/assets/";
+          $("<link>").attr({href: live2d_path + "waifu.css", rel: "stylesheet", type: "text/css"}).appendTo("head");
+          //waifu.css的绝对路径
+          $.ajax({
+              url: live2d_path + "live2d.min.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          //live2d.min.js的绝对路径
+
+          $.ajax({
+              url: live2d_path + "waifu-tips.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          $(window).on("load", function() {
+              initWidget(live2d_path + "waifu-tips.json", "https://live2d.fghrsh.net/api");
+          });
+          //initWidget第一个参数为waifu-tips.json的绝对路径
+          //第二个参数为api地址（无需修改）
+      </script>
+</body>
+</html>
