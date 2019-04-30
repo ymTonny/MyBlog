@@ -5,7 +5,7 @@
   
 
   
-  <title>关于vuex | YmTonny Blog</title>
+  <title>关于vuex | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于vuex">
 <meta property="og:url" content="http://yoursite.com/2019/03/26/vue-interview/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="vuex数据流说实话，看了官方文档我并不清楚vuex到底是个什么东西，通过例子，我知道如何使用后，我才慢慢理解一点。我的理解就是：为什么会存在组件不能通信？简单粗暴的回答就是，变量的作用域导致的，vue的每一个组件都有自己的生命周期，都是独立存在的个体。vuex就是在根组件创建一个叫state的全局变量，让不同组件共享这个变量，并且定义了一系列方法和规范，也就是action、mutation等等，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-03-27T06:35:03.463Z">
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="关于vuex">
 <meta name="twitter:description" content="vuex数据流说实话，看了官方文档我并不清楚vuex到底是个什么东西，通过例子，我知道如何使用后，我才慢慢理解一点。我的理解就是：为什么会存在组件不能通信？简单粗暴的回答就是，变量的作用域导致的，vue的每一个组件都有自己的生命周期，都是独立存在的个体。vuex就是在根组件创建一个叫state的全局变量，让不同组件共享这个变量，并且定义了一系列方法和规范，也就是action、mutation等等，">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -34,6 +34,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>

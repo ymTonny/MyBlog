@@ -5,23 +5,23 @@
   
 
   
-  <title>标签: browser | YmTonny Blog</title>
+  <title>标签: browser | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
   
-  <meta name="description" content="YmTonny Blog">
+  <meta name="description" content="YmTonny Blogs">
 <meta property="og:type" content="website">
-<meta property="og:title" content="YmTonny Blog">
+<meta property="og:title" content="YmTonny Blogs">
 <meta property="og:url" content="http://yoursite.com/tags/browser/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
-<meta property="og:description" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
+<meta property="og:description" content="YmTonny Blogs">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YmTonny Blog">
-<meta name="twitter:description" content="YmTonny Blog">
+<meta name="twitter:title" content="YmTonny Blogs">
+<meta name="twitter:description" content="YmTonny Blogs">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -32,6 +32,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>

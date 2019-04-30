@@ -5,7 +5,7 @@
   
 
   
-  <title>什么是回流与重绘 | YmTonny Blog</title>
+  <title>什么是回流与重绘 | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="什么是回流与重绘">
 <meta property="og:url" content="http://yoursite.com/2019/04/01/reflux/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="要想知道什么是回流与重绘，首先我们得清楚浏览器的渲染过程。你知道是渲染过程是怎样的么？下面和我一起了解一下吧。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-04-01T07:36:04.101Z">
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="什么是回流与重绘">
 <meta name="twitter:description" content="要想知道什么是回流与重绘，首先我们得清楚浏览器的渲染过程。你知道是渲染过程是怎样的么？下面和我一起了解一下吧。">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -34,6 +34,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>

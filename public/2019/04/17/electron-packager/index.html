@@ -5,7 +5,7 @@
   
 
   
-  <title>electron打包react项目 | YmTonny Blog</title>
+  <title>electron打包react项目 | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="electron打包react项目">
 <meta property="og:url" content="http://yoursite.com/2019/04/17/electron-packager/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="前言懂的小伙伴大概已经知道这是个什么了，那么不懂的小伙伴听我大致道来。也许你不甘心只写网页，也想写一个电脑上的exe程序那种；或者你有项目需求必须要写个exe程序，但是你只会前端，没关系，看了这篇文章你也就能写出一个exe程序了。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-04-17T08:41:55.793Z">
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="electron打包react项目">
 <meta name="twitter:description" content="前言懂的小伙伴大概已经知道这是个什么了，那么不懂的小伙伴听我大致道来。也许你不甘心只写网页，也想写一个电脑上的exe程序那种；或者你有项目需求必须要写个exe程序，但是你只会前端，没关系，看了这篇文章你也就能写出一个exe程序了。">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -34,6 +34,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>

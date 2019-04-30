@@ -5,7 +5,7 @@
   
 
   
-  <title>javascript数据属性和访问器属性 | YmTonny Blog</title>
+  <title>javascript数据属性和访问器属性 | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,19 +15,19 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript数据属性和访问器属性">
 <meta property="og:url" content="http://yoursite.com/2019/04/19/javascript/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="前言在javascript中，我们访问对象的时候可以直接通过obj.name进行访问，删除时可以直接通过delete obj.name进行删除，那么你真的知道它为什么能直接访问或则删除么？如果你知道javascript中的数据属性，那就自然知道为什么能访问了；如果不知道呢，咱就接着往下看。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281hehvbwj30cr064mx9.jpg">
-<meta property="og:image" content="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281m3gn70j30b70353yg.jpg">
-<meta property="og:image" content="https://ws4.sinaimg.cn/mw690/005SNrnIgy1g2821jk29pj30by05jdfu.jpg">
-<meta property="og:updated_time" content="2019-04-19T09:17:03.675Z">
+<meta property="og:image" content="http://wx1.sinaimg.cn/large/005SNrnIgy1g281hehvbwj30cr064mx9.jpg">
+<meta property="og:image" content="http://wx4.sinaimg.cn/large/005SNrnIgy1g281m3gn70j30b70353yg.jpg">
+<meta property="og:image" content="http://wx1.sinaimg.cn/large/005SNrnIgy1g2821jk29pj30by05jdfu.jpg">
+<meta property="og:updated_time" content="2019-04-26T01:50:39.091Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript数据属性和访问器属性">
 <meta name="twitter:description" content="前言在javascript中，我们访问对象的时候可以直接通过obj.name进行访问，删除时可以直接通过delete obj.name进行删除，那么你真的知道它为什么能直接访问或则删除么？如果你知道javascript中的数据属性，那就自然知道为什么能访问了；如果不知道呢，咱就接着往下看。">
-<meta name="twitter:image" content="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281hehvbwj30cr064mx9.jpg">
+<meta name="twitter:image" content="http://wx1.sinaimg.cn/large/005SNrnIgy1g281hehvbwj30cr064mx9.jpg">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -38,6 +38,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>
@@ -84,6 +96,10 @@
   <time datetime="2019-04-19T09:16:39.331Z" itemprop="datePublished">2019-04-19</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
     
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
@@ -108,10 +124,10 @@
 </ul>
 <p>接下来我们尝试理解上面的含义，首先创建一个对象：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">  name:&quot;张三&quot;,</span><br><span class="line">  age:12</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
 <h3 id="1-configurable"><a href="#1-configurable" class="headerlink" title="1.configurable"></a>1.configurable</h3><p>根据configurable的定义，我们通过<code>Object.defineProperty</code>修改obj的name属性的数据属性<code>configurable</code>为false<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj,&quot;name&quot;,&#123;</span><br><span class="line"> configurable:false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
-<p>根据上面的定义，我们把configurable设为false时，我们不能通过delete进行删除属性,不能修改属性的特性，不能把属性修改为访问器属性。<br>删除属性：<br><img src="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281hehvbwj30cr064mx9.jpg" alt="image"><br>修改属性特性：<br><img src="https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281m3gn70j30b70353yg.jpg" alt="image"><br>当我们把configurable属性修改为false的时候就不能再改回为true了，同时修改enumerable属性也会受到限制，当尝试修改时会报错。</p>
+<p>根据上面的定义，我们把configurable设为false时，我们不能通过delete进行删除属性,不能修改属性的特性，不能把属性修改为访问器属性。<br>删除属性：<br><img src="http://wx1.sinaimg.cn/large/005SNrnIgy1g281hehvbwj30cr064mx9.jpg" alt="image"><br>修改属性特性：<br><img src="http://wx4.sinaimg.cn/large/005SNrnIgy1g281m3gn70j30b70353yg.jpg" alt="image"><br>当我们把configurable属性修改为false的时候就不能再改回为true了，同时修改enumerable属性也会受到限制，当尝试修改时会报错。</p>
 <h3 id="2-enumerable"><a href="#2-enumerable" class="headerlink" title="2.enumerable"></a>2.enumerable</h3><p>根据上面的定义，我们重新定义并修改name属性的enumerable为false，然后用for in遍历属性对象。<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Object.defineProperty(obj,&quot;name&quot;,&#123;</span><br><span class="line">  enumerable:false</span><br><span class="line">&#125;)</span><br><span class="line">for(let key in obj)&#123;</span><br><span class="line">  console.log(key+&quot;--&quot;+obj[key])</span><br><span class="line">&#125;</span><br><span class="line">//输出</span><br><span class="line">age--12</span><br></pre></td></tr></table></figure></div></p>
 <p>因为属性name的enumerable修改为了false,所以当我们用for in循环遍历obj对象时，我们无法遍历到name属性，所以上面代码只会打印age属性。</p>
-<h3 id="3-writable和value"><a href="#3-writable和value" class="headerlink" title="3.writable和value"></a>3.writable和value</h3><p>value属性的值是否能被修改是根据writable确定的，当我们把writable的值设为true的时候，value可以被修改，否在反之。<br><img src="https://ws4.sinaimg.cn/mw690/005SNrnIgy1g2821jk29pj30by05jdfu.jpg" alt="image"><br>所以，当writable为false时，我们不能修改属性值，这里需要注意的是，如果configurable为false，此时我们可以将writable,但如果再设回为true就会报错。</p>
+<h3 id="3-writable和value"><a href="#3-writable和value" class="headerlink" title="3.writable和value"></a>3.writable和value</h3><p>value属性的值是否能被修改是根据writable确定的，当我们把writable的值设为true的时候，value可以被修改，否在反之。<br><img src="http://wx1.sinaimg.cn/large/005SNrnIgy1g2821jk29pj30by05jdfu.jpg" alt="image"><br>所以，当writable为false时，我们不能修改属性值，这里需要注意的是，如果configurable为false，此时我们可以将writable,但如果再设回为true就会报错。</p>
 <h2 id="访问器属性"><a href="#访问器属性" class="headerlink" title="访问器属性"></a>访问器属性</h2><p>访问器属性一共有四个，分别为<code>configurable</code>,<code>enumerable</code>,<code>get</code>,<code>set</code>，其中configurable和enumerable和数据属性中的是一样的，这里就不再进行说明</p>
 <ul>
 <li>get:在读取属性的时候会调用，默认值为undefind。</li>

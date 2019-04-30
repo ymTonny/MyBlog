@@ -5,7 +5,7 @@
   
 
   
-  <title>git常用操作 | YmTonny Blog</title>
+  <title>git常用操作 | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="git常用操作">
 <meta property="og:url" content="http://yoursite.com/2019/03/26/git-operating/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="一.clone 项目clone git上的项目,如下：1git clone git@github.com:ymtonny/myBlog.git 二.管理分支1.查看分支">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-03-28T08:52:17.267Z">
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="git常用操作">
 <meta name="twitter:description" content="一.clone 项目clone git上的项目,如下：1git clone git@github.com:ymtonny/myBlog.git 二.管理分支1.查看分支">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -34,6 +34,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>

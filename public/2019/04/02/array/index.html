@@ -5,7 +5,7 @@
   
 
   
-  <title>js数组去重多一种选择 | YmTonny Blog</title>
+  <title>js数组去重多一种选择 | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="js数组去重多一种选择">
 <meta property="og:url" content="http://yoursite.com/2019/04/02/array/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。 数组去重的方法： 一、利用ES6 Set去重12345function uniq(arr)&amp;#123;  return Array.from(new Set(arr))&amp;#125;let arr = [1,1,2,2,3,3];console.log(uniq">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-04-02T08:19:15.452Z">
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="js数组去重多一种选择">
 <meta name="twitter:description" content="数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。 数组去重的方法： 一、利用ES6 Set去重12345function uniq(arr)&amp;#123;  return Array.from(new Set(arr))&amp;#125;let arr = [1,1,2,2,3,3];console.log(uniq">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -34,6 +34,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>

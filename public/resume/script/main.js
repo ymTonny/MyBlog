@@ -138,7 +138,7 @@ var canAnimateFishInformation;
 var isFishStillAnimating = false;
 var fishAnimateNumber = 0;
 var numberOfFishInEachRowArray = new Array();
-numberOfFishInEachRowArray.push(3, 2, 5, 1);
+numberOfFishInEachRowArray.push(4, 2, 5, 1);//修改技能点长度
 
 var skill2ContainerDiv = document.getElementById("skill-2-container");
 var crabArray = new Array();
@@ -147,7 +147,7 @@ var canAnimateCrabInformation;
 var isCrabStillAnimating = false;
 var crabAnimateNumber = 0;
 var numberOfCrabInEachRowArray = new Array();
-numberOfCrabInEachRowArray.push(1, 3, 4, 1);
+numberOfCrabInEachRowArray.push(1, 3, 4, 5);
 
 var skill3ContainerDiv = document.getElementById("skill-3-container");
 var turtleArray = new Array();
@@ -156,7 +156,7 @@ var canAnimateTurtleInformation;
 var isTurtleStillAnimating = false;
 var turtleAnimateNumber = 0;
 var numberOfTurtleInEachRowArray = new Array();
-numberOfTurtleInEachRowArray.push(5, 1, 4, 2);
+numberOfTurtleInEachRowArray.push(5, 3, 4, 2);
 
 var pageVerticalPosition = 0;
 var pageVerticalPositionOnTouch = 0;
@@ -830,7 +830,6 @@ function moveUpLayerHorizontal() //robby from ground into sea
 		for (var i=0; i<layerHorizontalArray.length; i++)
 		{
 			var layerHorizontalArrayTop = layerHorizontalArray[i].offsetTop - shiftUpDownLayerHorizontalIncrement;
-
 			//shift up horizontal layers
 			if (layerHorizontalArrayTop <= -shiftUpLayerHorizontalDistance)
 			{
@@ -1597,6 +1596,7 @@ function animateSeaAnimals(seaAnimalArray)
 
 	for (var i=0; i<seaAnimalLocalArray.length; i++)
 	{
+		console.log(seaAnimalArray)
 		$(seaAnimalLocalArray[i]).stop().delay(i * 100).animate({left: [seaAnimalLocalArray[i].offsetLeft - seaAnimalSwimDistance, 'easeOutCubic']}, 600, function() {disableIsSeaAnimalStillAnimating(seaAnimalLocalArray)});
 	}
 }

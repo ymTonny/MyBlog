@@ -5,7 +5,7 @@
   
 
   
-  <title>防抖与节流 | YmTonny Blog</title>
+  <title>防抖与节流 | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="防抖与节流">
 <meta property="og:url" content="http://yoursite.com/2019/03/28/vue-shake/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="什么是节流与防抖呢在开发环境中，我们经常会遇见这样的问题，一个按钮连续点击就会连续调用api，从而使之出现不必要的麻烦。那么我们要怎么解决这样的问题呢？解决方法有很多，但是这里我想说的是利用函数防抖与节流来解决这样的问题，至于为什么我要使用防抖与节流来解决这样的问题看了下面你们就知道啦。  函数防抖： 一个任务频繁触发的情况下，只有任务触发的间隔时间超过指定间隔的时候，任务才会去执行。 函数节流：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-03-28T08:51:02.670Z">
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="防抖与节流">
 <meta name="twitter:description" content="什么是节流与防抖呢在开发环境中，我们经常会遇见这样的问题，一个按钮连续点击就会连续调用api，从而使之出现不必要的麻烦。那么我们要怎么解决这样的问题呢？解决方法有很多，但是这里我想说的是利用函数防抖与节流来解决这样的问题，至于为什么我要使用防抖与节流来解决这样的问题看了下面你们就知道啦。  函数防抖： 一个任务频繁触发的情况下，只有任务触发的间隔时间超过指定间隔的时候，任务才会去执行。 函数节流：">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -34,6 +34,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>

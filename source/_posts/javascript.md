@@ -1,6 +1,6 @@
 ﻿---
 title: javascript数据属性和访问器属性
-categoreis:
+categories:
  - 技术
 tags:
  - js
@@ -37,9 +37,9 @@ tags:
 ```
 根据上面的定义，我们把configurable设为false时，我们不能通过delete进行删除属性,不能修改属性的特性，不能把属性修改为访问器属性。
 删除属性：
-![image](https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281hehvbwj30cr064mx9.jpg)
+![image](http://wx1.sinaimg.cn/large/005SNrnIgy1g281hehvbwj30cr064mx9.jpg)
 修改属性特性：
-![image](https://ws3.sinaimg.cn/mw690/005SNrnIgy1g281m3gn70j30b70353yg.jpg)
+![image](http://wx4.sinaimg.cn/large/005SNrnIgy1g281m3gn70j30b70353yg.jpg)
 当我们把configurable属性修改为false的时候就不能再改回为true了，同时修改enumerable属性也会受到限制，当尝试修改时会报错。
 ### 2.enumerable
 根据上面的定义，我们重新定义并修改name属性的enumerable为false，然后用for in遍历属性对象。
@@ -56,7 +56,7 @@ tags:
 因为属性name的enumerable修改为了false,所以当我们用for in循环遍历obj对象时，我们无法遍历到name属性，所以上面代码只会打印age属性。
 ### 3.writable和value
 value属性的值是否能被修改是根据writable确定的，当我们把writable的值设为true的时候，value可以被修改，否在反之。
-![image](https://ws4.sinaimg.cn/mw690/005SNrnIgy1g2821jk29pj30by05jdfu.jpg)
+![image](http://wx1.sinaimg.cn/large/005SNrnIgy1g2821jk29pj30by05jdfu.jpg)
 所以，当writable为false时，我们不能修改属性值，这里需要注意的是，如果configurable为false，此时我们可以将writable,但如果再设回为true就会报错。
 
 ## 访问器属性

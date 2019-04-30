@@ -5,7 +5,7 @@
   
 
   
-  <title>for循环应该这么用 | YmTonny Blog</title>
+  <title>for循环应该这么用 | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="for循环应该这么用">
 <meta property="og:url" content="http://yoursite.com/2019/04/11/for/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="从最开始学的for循环的遍历方法，再到后来连续不断出来的各种循环遍历方法，其实最大的区别就是应用的场景不同。而我们需要知道的是，什么情况下用哪一种方法合适">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-04-18T09:54:59.215Z">
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="for循环应该这么用">
 <meta name="twitter:description" content="从最开始学的for循环的遍历方法，再到后来连续不断出来的各种循环遍历方法，其实最大的区别就是应用的场景不同。而我们需要知道的是，什么情况下用哪一种方法合适">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -34,6 +34,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>

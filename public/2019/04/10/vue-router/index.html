@@ -5,7 +5,7 @@
   
 
   
-  <title>vue路由归纳 | YmTonny Blog</title>
+  <title>vue路由归纳 | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
@@ -15,7 +15,7 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue路由归纳">
 <meta property="og:url" content="http://yoursite.com/2019/04/10/vue-router/index.html">
-<meta property="og:site_name" content="YmTonny Blog">
+<meta property="og:site_name" content="YmTonny Blogs">
 <meta property="og:description" content="vue路由的原理单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置mode字段，如果不去配置这个mode字段，默认路由跳转就为hash模式。 hash模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发hashchange事件，动态的渲染出页面。 另外一种模式为history模式，即使用浏览器的hi">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2019-04-16T08:27:53.161Z">
@@ -23,7 +23,7 @@
 <meta name="twitter:title" content="vue路由归纳">
 <meta name="twitter:description" content="vue路由的原理单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置mode字段，如果不去配置这个mode字段，默认路由跳转就为hash模式。 hash模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发hashchange事件，动态的渲染出页面。 另外一种模式为history模式，即使用浏览器的hi">
   
-    <link rel="alternate" href="/atom.xml" title="YmTonny Blog" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
   
     <link rel="icon" href="/images/default-avatar.jpg">
@@ -34,6 +34,18 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
   <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
 </head>
