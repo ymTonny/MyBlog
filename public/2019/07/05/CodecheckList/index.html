@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>代码评审清单 | YmTonny Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="前言前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。一、代码静态检查工具1.1、使用eslint工具对javascript代码进行检查。eslint检查的规范继承自eslin">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="代码评审清单">
+<meta property="og:url" content="http://yoursite.com/2019/07/05/CodecheckList/index.html">
+<meta property="og:site_name" content="YmTonny Blogs">
+<meta property="og:description" content="前言前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。一、代码静态检查工具1.1、使用eslint工具对javascript代码进行检查。eslint检查的规范继承自eslin">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-09T06:23:01.680Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="代码评审清单">
+<meta name="twitter:description" content="前言前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。一、代码静态检查工具1.1、使用eslint工具对javascript代码进行检查。eslint检查的规范继承自eslin">
+  
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/default-avatar.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" title="图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+        <a class="nav-item" href="https://github.com/ymTonny" title target="_blank">仓库</a>
+      
+        <a class="nav-item" href="/resume" title>简历</a>
+      
+        <a class="nav-item" href="/Tap" title>玩一玩</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-CodecheckList" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      代码评审清单
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/07/05/CodecheckList/" class="article-date">
+  <time datetime="2019-07-05T07:49:37.751Z" itemprop="datePublished">2019-07-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h4 id="前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview-为此拟了一份清单-如果你的团队还没有CodeReview，可能这正是你需要的。"><a href="#前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview-为此拟了一份清单-如果你的团队还没有CodeReview，可能这正是你需要的。" class="headerlink" title="前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。"></a>前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。</h4><h2 id="一、代码静态检查工具"><a href="#一、代码静态检查工具" class="headerlink" title="一、代码静态检查工具"></a>一、代码静态检查工具</h2><h3 id="1-1、使用eslint工具对javascript代码进行检查。"><a href="#1-1、使用eslint工具对javascript代码进行检查。" class="headerlink" title="1.1、使用eslint工具对javascript代码进行检查。"></a>1.1、使用eslint工具对javascript代码进行检查。</h3><p><code>eslint</code>检查的规范继承自<code>eslint-config-standard</code>检验规则。<br><a id="more"></a></p>
+<h3 id="1-2、使用stylelint工具对css样式代码进行检查。"><a href="#1-2、使用stylelint工具对css样式代码进行检查。" class="headerlink" title="1.2、使用stylelint工具对css样式代码进行检查。"></a>1.2、使用stylelint工具对css样式代码进行检查。</h3><p><code>stylelint</code>检查的规范继承自<code>stylelint-config-standard</code>检验规则。</p>
+<h2 id="二、命名规范"><a href="#二、命名规范" class="headerlink" title="二、命名规范"></a>二、命名规范</h2><h3 id="2-1、JS采用Camel-Case小驼峰命名"><a href="#2-1、JS采用Camel-Case小驼峰命名" class="headerlink" title="2.1、JS采用Camel Case小驼峰命名"></a>2.1、JS采用Camel Case小驼峰命名</h3><p>推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">studentInfo</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="2-2、避免名称冗余"><a href="#2-2、避免名称冗余" class="headerlink" title="2.2、避免名称冗余"></a>2.2、避免名称冗余</h3><p>推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const Car = &#123;</span><br><span class="line">  money:123,</span><br><span class="line">  color:&quot;red&quot;,</span><br><span class="line">  name:&quot;大地&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>不推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const Car = &#123;</span><br><span class="line">  Carmoney:123,</span><br><span class="line">  Carcolor:&quot;red&quot;,</span><br><span class="line">  Carname:&quot;大地&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="2-3、CSS类名采用BEM命名规范"><a href="#2-3、CSS类名采用BEM命名规范" class="headerlink" title="2.3、CSS类名采用BEM命名规范"></a>2.3、CSS类名采用BEM命名规范</h3><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.block_element&#123;&#125;     // 代表块block元素中的子元素element</span><br><span class="line">.block--modifier&#123;&#125;  //  代表块block元素的状态</span><br></pre></td></tr></table></figure></div>
+<h3 id="2-4、命名符合语义化"><a href="#2-4、命名符合语义化" class="headerlink" title="2.4、命名符合语义化"></a>2.4、命名符合语义化</h3><p>命名需要符合语义化，如果是函数命名可以采用加上动词前缀<br>动词      含义<br>can       判断是否可以执行某个动作<br>has       判断是否含有某一个值<br>is          判断是否为某一个值<br>get        获取某一个值<br>set        设置某一个值<br>推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 是否显示</span><br><span class="line">function canShow()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">// 设置名称</span><br><span class="line">function setName()&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="三、JS推荐写法"><a href="#三、JS推荐写法" class="headerlink" title="三、JS推荐写法"></a>三、JS推荐写法</h2><h3 id="3-1、每个常量都需要命名"><a href="#3-1、每个常量都需要命名" class="headerlink" title="3.1、每个常量都需要命名"></a>3.1、每个常量都需要命名</h3><p>每个常量应该命名，不然看代码的人不知道这个常量的意思。<br>推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const COL_NUM = 10</span><br><span class="line">let row = Math.ceil(num/COL_NUM)</span><br></pre></td></tr></table></figure></div></p>
+<p>不推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">let row = Math.ceil(num/10)</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="3-2、推荐使用字面量"><a href="#3-2、推荐使用字面量" class="headerlink" title="3.2、推荐使用字面量"></a>3.2、推荐使用字面量</h3><p>创建对象和数组推荐使用字面量，因为这不仅是性能最优也有助于节省代码量。<br>推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;</span><br><span class="line">   name:&quot;tonny&quot;,</span><br><span class="line">   age:12,</span><br><span class="line">   sex:&quot;男&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>不推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let obj = &#123;&#125;</span><br><span class="line">obj.name = &quot;tonny&quot;</span><br><span class="line">obj.age = 12</span><br><span class="line">obj.sex = &quot;男&quot;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="3-3、-函数参数"><a href="#3-3、-函数参数" class="headerlink" title="3.3、 函数参数"></a>3.3、 函数参数</h3><p>函数参数越少越好，如果参数超过两个，要使用 ES6的解构语法，不用考虑参数的顺序。<br>推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function createMenu(&#123;title,name,value,label&#125;)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">createMenu(&#123;</span><br><span class="line">  title:&quot;ad&quot;,</span><br><span class="line">  name:&quot;tonny&quot;,</span><br><span class="line">  value:&quot;123&quot;,</span><br><span class="line">  label:&quot;button&quot;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div></p>
+<p>不推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function createMenu(title,name,value,label)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="3-4、使用参数默认值，代替使用条件语句进行赋值"><a href="#3-4、使用参数默认值，代替使用条件语句进行赋值" class="headerlink" title="3.4、使用参数默认值，代替使用条件语句进行赋值"></a>3.4、使用参数默认值，代替使用条件语句进行赋值</h3><p>推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function create(name=&quot;abc&quot;)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<p>不推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function create(name)&#123;</span><br><span class="line">  let newName = name || &quot;abc&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+<h3 id="3-5、推荐使用函数式编程"><a href="#3-5、推荐使用函数式编程" class="headerlink" title="3.5、推荐使用函数式编程"></a>3.5、推荐使用函数式编程</h3><p>函数式编程可以让代码的逻辑更清晰更优雅，方便测试<br>推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const menu = [</span><br><span class="line"> &#123;name:&quot;a&quot;,size:1&#125;,</span><br><span class="line"> &#123;name:&quot;b&quot;,size:2&#125;,</span><br><span class="line"> &#123;name:&quot;c&quot;,size:3&#125;</span><br><span class="line">]</span><br><span class="line">let sumMenu = menu.map(item =&gt; item.size).reduce((prevsize,nextsize)=&gt; previse+nextsize,0);</span><br></pre></td></tr></table></figure></div></p>
+<p>不推荐：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let sum = 0;</span><br><span class="line">for(let i=0;i&lt;menu.length;i++)&#123;</span><br><span class="line">  sum+=menu[i].size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div></p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/05/21/async-await/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">async-await</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'ymTonny',
+  repo: 'MyBlog',
+  oauth: {
+    client_id: '2144b8ba49571a940c51',
+    client_secret: '942f1619cc0a763cc4c1ed7ab9e1c0b1eebddb91',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="avatar-box">
+    <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
+    <h3 class="avatar-name">
+      
+        YmTonny
+      
+    </h3>
+    <p class="avatar-slogan">
+      真相有时之所以难以被接受，是因为谎言听起来美好多了。
+    </p>
+    <div class="link_g">
+      <div>友情链接</div>
+      <a href="http://glieen.cn/" target="_blank">Glieen&#39;s Blog</a>
+    </div>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/07/05/CodecheckList/">代码评审清单</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/async-await/">async-await</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/19/javascript/">javascript数据属性和访问器属性</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/17/electron-packager/">electron打包react项目</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/11/for/">for循环应该这么用</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 YmTonny &nbsp;&nbsp;
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_uv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="https://github.com/ymTonny" class="mobile-nav-link">仓库</a>
+  
+    <a href="/resume" class="mobile-nav-link">简历</a>
+  
+    <a href="/Tap" class="mobile-nav-link">玩一玩</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>    
+  </div>
+      <script type="text/javascript" src="/js/love.js"></script>
+      <script type="text/javascript" src="/assets/waifu-tips.js"></script>
+      <script type="text/javascript" src="/assets/live2d.min.js"></script>
+      <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
+      <script type="text/javascript">
+          new WOW().init();
+          const live2d_path = "/assets/";
+          $("<link>").attr({href: live2d_path + "waifu.css", rel: "stylesheet", type: "text/css"}).appendTo("head");
+          //waifu.css的绝对路径
+          $.ajax({
+              url: live2d_path + "live2d.min.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          //live2d.min.js的绝对路径
+
+          $.ajax({
+              url: live2d_path + "waifu-tips.js",
+              dataType: "script",
+              cache: true,
+              async: false
+          });
+          $(window).on("load", function() {
+              initWidget(live2d_path + "waifu-tips.json", "https://live2d.fghrsh.net/api");
+          });
+          //initWidget第一个参数为waifu-tips.json的绝对路径
+          //第二个参数为api地址（无需修改）
+      </script>
+</body>
+</html>

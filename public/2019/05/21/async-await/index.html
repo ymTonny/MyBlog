@@ -5,21 +5,23 @@
   
 
   
-  <title>YmTonny Blogs</title>
+  <title>async-await | YmTonny Blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
   
   
-  <meta name="description" content="YmTonny Blogs">
-<meta property="og:type" content="website">
-<meta property="og:title" content="YmTonny Blogs">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="简介   Asyns-Await,异步编程的最高境界，就是根本不用担心它异步。async函数就是隧道尽头的亮光，大部分人会认为它是异步操作的终极解决方案。async-await和promise的关系，两者不存在谁代替谁，因为async-await寄生于Promise.Generator的语法糖。async和await在干什么？async用于申明一个function函数是异步的，而await可以认为">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="async-await">
+<meta property="og:url" content="http://yoursite.com/2019/05/21/async-await/index.html">
 <meta property="og:site_name" content="YmTonny Blogs">
-<meta property="og:description" content="YmTonny Blogs">
+<meta property="og:description" content="简介   Asyns-Await,异步编程的最高境界，就是根本不用担心它异步。async函数就是隧道尽头的亮光，大部分人会认为它是异步操作的终极解决方案。async-await和promise的关系，两者不存在谁代替谁，因为async-await寄生于Promise.Generator的语法糖。async和await在干什么？async用于申明一个function函数是异步的，而await可以认为">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-05-21T03:38:53.542Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="YmTonny Blogs">
-<meta name="twitter:description" content="YmTonny Blogs">
+<meta name="twitter:title" content="async-await">
+<meta name="twitter:description" content="简介   Asyns-Await,异步编程的最高境界，就是根本不用担心它异步。async函数就是隧道尽头的亮光，大部分人会认为它是异步操作的终极解决方案。async-await和promise的关系，两者不存在谁代替谁，因为async-await寄生于Promise.Generator的语法糖。async和await在干什么？async用于申明一个function函数是异步的，而await可以认为">
   
     <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
   
@@ -73,62 +75,13 @@
   </div>
 </header>
       <div id="middlecontent" title class="global-width sidebar-right">
-        <section id="main">
-  
-    <article id="post-CodecheckList" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-async-await" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
   
     <header class="article-header">
       
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/07/05/CodecheckList/">代码评审清单</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/07/05/CodecheckList/" class="article-date">
-  <time datetime="2019-07-05T07:49:37.751Z" itemprop="datePublished">2019-07-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h4 id="前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview-为此拟了一份清单-如果你的团队还没有CodeReview，可能这正是你需要的。"><a href="#前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview-为此拟了一份清单-如果你的团队还没有CodeReview，可能这正是你需要的。" class="headerlink" title="前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。"></a>前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。</h4><h2 id="一、代码静态检查工具"><a href="#一、代码静态检查工具" class="headerlink" title="一、代码静态检查工具"></a>一、代码静态检查工具</h2><h3 id="1-1、使用eslint工具对javascript代码进行检查。"><a href="#1-1、使用eslint工具对javascript代码进行检查。" class="headerlink" title="1.1、使用eslint工具对javascript代码进行检查。"></a>1.1、使用eslint工具对javascript代码进行检查。</h3><p><code>eslint</code>检查的规范继承自<code>eslint-config-standard</code>检验规则。<br>
-        
-          </p><p class="article-more-link">
-            <a href="/2019/07/05/CodecheckList/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-
-  
-    <article id="post-async-await" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/21/async-await/">async-await</a>
+    <h1 class="article-title" itemprop="name">
+      async-await
     </h1>
   
 
@@ -148,129 +101,81 @@
 
   </div>
   
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
 
   <div class="article-inner">
     
     <div class="article-content article-content-doorframe" itemprop="articleBody">
       
         <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>   <code>Asyns-Await</code>,异步编程的最高境界，就是根本不用担心它异步。<code>async</code>函数就是隧道尽头的亮光，大部分人会认为它是异步操作的终极解决方案。<code>async-await</code>和<code>promise</code>的关系，两者不存在谁代替谁，因为<code>async-await</code>寄生于<code>Promise</code>.<code>Generator</code>的语法糖。<code>async</code>和<code>await</code>在干什么？<code>async</code>用于申明一个<code>function</code>函数是异步的，而<code>await</code>可以认为是<code>async await</code>的简写，等待一个异步函数执行完成。</p>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">async function demo(params)&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line">//async 函数返回的是一个Promise对象</span><br><span class="line">demo();</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2019/05/21/async-await/#more">阅读全文</a>
-          </p>
-        
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">async function demo(params)&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line">//async 函数返回的是一个Promise对象</span><br><span class="line">demo();</span><br></pre></td></tr></table></figure></div>
+<a id="more"></a>
+<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><ul>
+<li>async表示这是一个async函数，await只能用在这个函数里面。</li>
+<li>await表示这里等待promise返回结果后，再继续执行。</li>
+<li>await后面应该跟着一个promise对象（普通函数亦可，但await就无意义了）。</li>
+<li>await不能单独使用，必须搭配aync函数来使用。</li>
+<li>await等待的虽然是一个promise对象，但是不必写.then(…),直接可以得到返回值。<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">async function demo(params)&#123;</span><br><span class="line">   let result = await Promise.resolve(123);</span><br><span class="line">   console.log(result)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">demo();</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<h2 id="捕捉错误"><a href="#捕捉错误" class="headerlink" title="捕捉错误"></a>捕捉错误</h2><p>像<code>Promise</code>有<code>.then(...),.catch(...)</code>来捕捉正确与错误，而<code>async</code>这两个都不用写，那么我们就可以直接用标准的<code>try catch</code>语法捕捉错误。<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">let sleep = function (time) &#123;</span><br><span class="line">    return new Promise(function (resolve, reject) &#123;</span><br><span class="line">        setTimeout(function () &#123;</span><br><span class="line">            // 模拟出错了，返回 ‘error’</span><br><span class="line">            reject(&apos;error&apos;);</span><br><span class="line">        &#125;, time);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let start = async function () &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        console.log(&apos;start&apos;);</span><br><span class="line">        await sleep(3000); // 这里得到了一个返回错误</span><br><span class="line">        </span><br><span class="line">        // 所以以下代码不会被执行了</span><br><span class="line">        console.log(&apos;end&apos;);</span><br><span class="line">    &#125; catch (err) &#123;</span><br><span class="line">        console.log(err); // 这里捕捉到错误 `error`</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="循环多个await"><a href="#循环多个await" class="headerlink" title="循环多个await"></a>循环多个await</h2><p><code>await</code>看起来像是同步代码,所以写在for循环内，不必担心需要闭包才能解决。<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">..省略以上代码</span><br><span class="line"></span><br><span class="line">let start = async function () &#123;</span><br><span class="line">    for (let i = 1; i &lt;= 10; i++) &#123;</span><br><span class="line">        console.log(`当前是第$&#123;i&#125;次等待..`);</span><br><span class="line">        await sleep(1000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div></p>
+
       
     </div>
     
+      <footer class="article-footer">
+        完
+      </footer>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/07/05/CodecheckList/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            代码评审清单
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/19/javascript/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">javascript数据属性和访问器属性</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'ymTonny',
+  repo: 'MyBlog',
+  oauth: {
+    client_id: '2144b8ba49571a940c51',
+    client_secret: '942f1619cc0a763cc4c1ed7ab9e1c0b1eebddb91',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
   
   
 </article>
-
-
-  
-    <article id="post-javascript" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/19/javascript/">javascript数据属性和访问器属性</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/04/19/javascript/" class="article-date">
-  <time datetime="2019-04-19T09:16:39.331Z" itemprop="datePublished">2019-04-19</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在<code>javascript</code>中，我们访问对象的时候可以直接通过<code>obj.name</code>进行访问，删除时可以直接通过<code>delete obj.name</code>进行删除，那么你真的知道它为什么能直接访问或则删除么？如果你知道<code>javascript</code>中的数据属性，那就自然知道为什么能访问了；如果不知道呢，咱就接着往下看。<br>
-        
-          </p><p class="article-more-link">
-            <a href="/2019/04/19/javascript/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-
-  
-    <article id="post-electron-packager" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/17/electron-packager/">electron打包react项目</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/04/17/electron-packager/" class="article-date">
-  <time datetime="2019-04-17T08:41:35.611Z" itemprop="datePublished">2019-04-17</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
-
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>懂的小伙伴大概已经知道这是个什么了，那么不懂的小伙伴听我大致道来。也许你不甘心只写网页，也想写一个电脑上的exe程序那种；或者你有项目需求必须要写个exe程序，但是你只会前端，没关系，看了这篇文章你也就能写出一个exe程序了。<br>
-        
-          </p><p class="article-more-link">
-            <a href="/2019/04/17/electron-packager/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
-
 
 </section>
         <aside id="sidebar">

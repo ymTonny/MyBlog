@@ -75,6 +75,103 @@
       <div id="middlecontent" title class="global-width sidebar-right">
         <section id="main">
   
+    <article id="post-for" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/11/for/">for循环应该这么用</a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/11/for/" class="article-date">
+  <time datetime="2019-04-11T09:44:20.303Z" itemprop="datePublished">2019-04-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <p>从最开始学的for循环的遍历方法，再到后来连续不断出来的各种循环遍历方法，其实最大的区别就是应用的场景不同。而我们需要知道的是，什么情况下用哪一种方法合适</p>
+<hr>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/11/for/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+
+  
+    <article id="post-vue-router" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/10/vue-router/">vue路由归纳</a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/10/vue-router/" class="article-date">
+  <time datetime="2019-04-10T06:41:22.931Z" itemprop="datePublished">2019-04-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-doorframe" itemprop="articleBody">
+      
+        <h2 id="vue路由的原理"><a href="#vue路由的原理" class="headerlink" title="vue路由的原理"></a>vue路由的原理</h2><p>单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置<code>mode</code>字段，如果不去配置这个<code>mode</code>字段，默认路由跳转就为<code>hash</code>模式。</p>
+<p><code>hash</code>模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发<code>hashchange</code>事件，动态的渲染出页面。</p>
+<p>另外一种模式为<code>history</code>模式，即使用浏览器的historyAPI,<code>pushState</code>和<code>replaceState</code>。通过调用<code>pushState</code>去操作浏览器的<code>history</code>对象，改变当前链接地址，同时结合<code>window.onpopstate</code>监控浏览器的返回前进事件，同样可以实现无刷新的跳转页面。<code>replaceState</code>和<code>pushState</code>的区别就是，前者代表替换，后者代表插入。</p>
+        
+          <p class="article-more-link">
+            <a href="/2019/04/10/vue-router/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+
+  
     <article id="post-array" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
   
     <header class="article-header">
@@ -167,110 +264,11 @@
 
 
   
-    <article id="post-vue-shake" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/28/vue-shake/">防抖与节流</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/03/28/vue-shake/" class="article-date">
-  <time datetime="2019-03-28T08:50:40.166Z" itemprop="datePublished">2019-03-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
-
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h2 id="什么是节流与防抖呢"><a href="#什么是节流与防抖呢" class="headerlink" title="什么是节流与防抖呢"></a>什么是节流与防抖呢</h2><p>在开发环境中，我们经常会遇见这样的问题，一个按钮连续点击就会连续调用<code>api</code>，从而使之出现不必要的麻烦。那么我们要怎么解决这样的问题呢？解决方法有很多，但是这里我想说的是利用函数防抖与节流来解决这样的问题，至于为什么我要使用防抖与节流来解决这样的问题看了下面你们就知道啦。</p>
-<ul>
-<li>函数防抖： 一个任务频繁触发的情况下，只有任务触发的间隔时间超过指定间隔的时候，任务才会去执行。</li>
-<li>函数节流：在指定的时间间隔里只会去执行一次任务。
-        
-          <p class="article-more-link">
-            <a href="/2019/03/28/vue-shake/#more">阅读全文</a>
-          </p>
-        
-      
-    </li></ul></div>
-    
-  </div>
-  
-  
-</article>
-
-
-  
-    <article id="post-clip-path" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/27/clip-path/">玩转clip-path</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/03/27/clip-path/" class="article-date">
-  <time datetime="2019-03-27T08:30:38.201Z" itemprop="datePublished">2019-03-27</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
-
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <h1 id="一-基本概念"><a href="#一-基本概念" class="headerlink" title="一.基本概念"></a>一.基本概念</h1><p>什么是<code>clip-path</code>呢？简而言之就是实现裁剪的<code>css</code>属性,我们可以通过该属性创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的部分隐藏。通过指定路径就可以创建出自己想要的形状，这样网页中的布局就可以是多种多样的了。</p>
-<p>在<code>clip-path</code>出现之前，css还有个属性<code>clip</code>也支持裁剪，但是它只支持矩形裁剪,同时它只对<code>position:absolute</code>和<code>position:fixed</code>的元素生效。使用如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clip: rect(50px,50px,50px,50px) //标准写法</span><br><span class="line">clip: rect(50px 50px 50px 50px) //兼容浏览器写法</span><br></pre></td></tr></table></figure></p>
-<p>目前所有主流浏览器都支持<code>clip</code>,但是因为其局限性,<code>clip</code>已经被<code>clip-path</code>代替。<code>clip-path</code>为我们带来了更多的可能，让我们制作出更多有趣的图案。<br>
-        
-          </p><p class="article-more-link">
-            <a href="/2019/03/27/clip-path/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-
-  
 
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 
@@ -323,7 +321,7 @@
   <div class="widget-box wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
     </div>
   </div>
 
@@ -335,6 +333,14 @@
       <ul>
         
           <li>
+            <a href="/2019/07/05/CodecheckList/">代码评审清单</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/21/async-await/">async-await</a>
+          </li>
+        
+          <li>
             <a href="/2019/04/19/javascript/">javascript数据属性和访问器属性</a>
           </li>
         
@@ -344,14 +350,6 @@
         
           <li>
             <a href="/2019/04/11/for/">for循环应该这么用</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/10/vue-router/">vue路由归纳</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/02/array/">js数组去重多一种选择</a>
           </li>
         
       </ul>
