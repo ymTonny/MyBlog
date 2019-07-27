@@ -1,4 +1,4 @@
 # myBlogs
 my blogs
-GitHub Token: 77febe68f729709cb31cbdef358b1a0a4b1461e1
-GitHub Gist: 15827f04130c590feb02a4fcfabda7a9
+GitHub Token: b29c50d583f6146c56d4d3ca3d3c756ef0907d0f
+GitHub Gist: 7165b2347d33d6efd96b29651c962096
