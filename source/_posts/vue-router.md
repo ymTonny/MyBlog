@@ -1,5 +1,6 @@
 ﻿---
 title: vue路由归纳
+date: 2019-04-05
 categories:
 - 技术
 tags:

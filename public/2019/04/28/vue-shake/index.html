@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>防抖与节流 | YmTonny Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="什么是节流与防抖呢在开发环境中，我们经常会遇见这样的问题，一个按钮连续点击就会连续调用api，从而使之出现不必要的麻烦。那么我们要怎么解决这样的问题呢？解决方法有很多，但是这里我想说的是利用函数防抖与节流来解决这样的问题，至于为什么我要使用防抖与节流来解决这样的问题看了下面你们就知道啦。  函数防抖： 一个任务频繁触发的情况下，只有任务触发的间隔时间超过指定间隔的时候，任务才会去执行。 函数节流：">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="防抖与节流">
+<meta property="og:url" content="http://yoursite.com/2019/04/28/vue-shake/index.html">
+<meta property="og:site_name" content="YmTonny Blogs">
+<meta property="og:description" content="什么是节流与防抖呢在开发环境中，我们经常会遇见这样的问题，一个按钮连续点击就会连续调用api，从而使之出现不必要的麻烦。那么我们要怎么解决这样的问题呢？解决方法有很多，但是这里我想说的是利用函数防抖与节流来解决这样的问题，至于为什么我要使用防抖与节流来解决这样的问题看了下面你们就知道啦。  函数防抖： 一个任务频繁触发的情况下，只有任务触发的间隔时间超过指定间隔的时候，任务才会去执行。 函数节流：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-11T08:56:48.902Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="防抖与节流">
+<meta name="twitter:description" content="什么是节流与防抖呢在开发环境中，我们经常会遇见这样的问题，一个按钮连续点击就会连续调用api，从而使之出现不必要的麻烦。那么我们要怎么解决这样的问题呢？解决方法有很多，但是这里我想说的是利用函数防抖与节流来解决这样的问题，至于为什么我要使用防抖与节流来解决这样的问题看了下面你们就知道啦。  函数防抖： 一个任务频繁触发的情况下，只有任务触发的间隔时间超过指定间隔的时候，任务才会去执行。 函数节流：">
+  
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/default-avatar.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <script>
+  let antiquityStorage = window.sessionStorage.getItem('antiquitySessionStorage');
+  if (antiquityStorage == '' || antiquityStorage == null) {
+    var antiquityLoader = '<div id="loaderbox"><div class="loader"><div class="load-roll"><div class="load-top"></div><div class="load-right"></div><div class="load-bottom"></div></div></div></div>';
+    document.write(antiquityLoader);
+    document.body.style.overflow = 'hidden'
+  }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/bg.jpg)" title="图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+        <a class="nav-item" href="https://github.com/ymTonny" title target="_blank">仓库</a>
+      
+        <a class="nav-item" href="/resume" title>简历</a>
+      
+        <a class="nav-item" href="/Tap" title>玩一玩</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-vue-shake" class="article global-container article-type-post animated wow bounceInLeft" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      防抖与节流
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/28/vue-shake/" class="article-date">
+  <time datetime="2019-04-27T16:00:00.000Z" itemprop="datePublished">2019-04-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-cloud" itemprop="articleBody">
+      
+        <h2 id="什么是节流与防抖呢"><a href="#什么是节流与防抖呢" class="headerlink" title="什么是节流与防抖呢"></a>什么是节流与防抖呢</h2><p>在开发环境中，我们经常会遇见这样的问题，一个按钮连续点击就会连续调用<code>api</code>，从而使之出现不必要的麻烦。那么我们要怎么解决这样的问题呢？解决方法有很多，但是这里我想说的是利用函数防抖与节流来解决这样的问题，至于为什么我要使用防抖与节流来解决这样的问题看了下面你们就知道啦。</p>
+<ul>
+<li>函数防抖： 一个任务频繁触发的情况下，只有任务触发的间隔时间超过指定间隔的时候，任务才会去执行。</li>
+<li>函数节流：在指定的时间间隔里只会去执行一次任务。<a id="more"></a>
+<h2 id="函数节流-throttle"><a href="#函数节流-throttle" class="headerlink" title="函数节流(throttle)"></a>函数节流(throttle)</h2>在这里我以判断页面滚动到底部为例，平常普通的做法就是通过监听 <code>window</code> 的 <code>scroll</code> 事件，然后在函数体内写入判断是否滚动到底部的逻辑：<div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$(window).on(&quot;scroll&quot;,function()&#123;</span><br><span class="line">  //判断是否滚动到底部逻辑,只要浏览器滚动就会进入此函数体</span><br><span class="line">  let pageHeight = $(&quot;body&quot;).height(), //页面高度</span><br><span class="line">      scrollTop = $(window).scrollTop(), //滚动条距离顶部的距离</span><br><span class="line">      winHeight = $(window).height(),  //浏览器窗口的高度</span><br><span class="line">      thred = pageHeight - scrollTop - winHeight;</span><br><span class="line">      if(thred &gt; -100 &amp;&amp; thred &lt;=20)&#123;</span><br><span class="line">        console.log(end)</span><br><span class="line">      &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div>
+</li>
+</ul>
+<p>这样做的话有一个缺点就是耗性能，因为在滚动的时候，浏览器无时无刻都在计算着滚动条是否滚动到底部的逻辑，然而在实际场景中我们并不需要这样做，实际上工作中我们可能是这样：在滚动的过程中，隔一段时间再去计算滚动到底部的逻辑。而函数节流所做的工作就是每隔一段时间就去执行一次原本无时无刻执行的函数。所以在滚动中用它是不错的选择：<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function Throttling(fn,time = 1000)&#123;</span><br><span class="line">  let timer = null;  // 保存此标记判读是否执行函数</span><br><span class="line">  return function()&#123;</span><br><span class="line">    if(!timer) &#123;</span><br><span class="line">        timer = setTimeout(()=&gt;&#123;</span><br><span class="line">          fn.apply(this,arguments);</span><br><span class="line">         timer = null;// 这里设置为null，是为了实现滚动经过400ms过后再次执行函数</span><br><span class="line">        &#125;,time)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//使用方法</span><br><span class="line">$(windwo).on(&quot;scroll&quot;,Throttling(</span><br><span class="line"> function()&#123;</span><br><span class="line">  ...</span><br><span class="line"> &#125;</span><br><span class="line">),400)</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="函数防抖-debounce"><a href="#函数防抖-debounce" class="headerlink" title="函数防抖(debounce)"></a>函数防抖(debounce)</h2><p>在这里我以注册用户为例,大多数网站的验证用户是否被注册都是通过 <code>input</code> 框中输入的时候去验证是否被注册，而不是在 <code>input</code> 失去焦点的时候去验证，大概是为了提高用户体验而这样做的吧。<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;.username&quot;).on(&quot;input&quot;,function()&#123;</span><br><span class="line"> $.ajax(&#123;</span><br><span class="line">   ...</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div></p>
+<p>显而易见这样的做法是不好的，当用户在 <code>input</code> 框中输入每一个字符时都会去调用后台接口验证用户是否被注册，这样不仅对服务器的压力增加，同时体验反而也没有原本的失去焦点效果好。理想的做法就是，当用户输入第一个字符过后的一段时间内如果还有字符输入的话，就暂时不去请求后台<code>api</code>验证用户是否被注册,函数防抖就是为了解决这样的问题。<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function debounce(fn,time = 1000)&#123;</span><br><span class="line">  let timer;</span><br><span class="line">  return function()&#123;</span><br><span class="line">     clearTimeout(timer); // 当键盘连续输入时候,不执行函数</span><br><span class="line">     timer = setTimeout(()=&gt;&#123;</span><br><span class="line">       fn.apply(this,arguments);//传入this,是为了让fn函数中的this指向.apply中的第一个参数</span><br><span class="line">     &#125;,time)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">//使用方法</span><br><span class="line">$(&quot;.username&quot;).on(&quot;input&quot;,debounce(function()&#123;</span><br><span class="line">  $.ajax(&#123;</span><br><span class="line">    ...</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure></div></p>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/05/05/vue-interview/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            关于vuex
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/05/vue-router/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">vue路由归纳</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'ymTonny',
+  repo: 'MyBlog',
+  oauth: {
+    client_id: '2144b8ba49571a940c51',
+    client_secret: '942f1619cc0a763cc4c1ed7ab9e1c0b1eebddb91',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+  <div class="avatar-box">
+    <div class="avatar-user">
+      <div class="avatar-top">
+        <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
+        <h3 class="avatar-name">
+          
+            YmTonny
+          
+        </h3>
+      </div>
+      <div class="avatar-bottom">
+        <p>友情链接</p>
+        <a href="https://Glieen.cn" target="_blank">Glieen`s Blog</a>
+      </div>
+    </div>
+    <p class="avatar-slogan">
+      真相有时之所以难以被接受，是因为谎言听起来美好多了。
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box  animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/11/array/">js数组去重多一种选择</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/async-await/">async-await</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/23/clip-path/">玩转clip-path</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/02/git-operating/">git常用操作</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/interview/">前端面试题 --vue</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 YmTonny &nbsp;&nbsp;
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+<script>
+ $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="https://github.com/ymTonny" class="mobile-nav-link">仓库</a>
+  
+    <a href="/resume" class="mobile-nav-link">简历</a>
+  
+    <a href="/Tap" class="mobile-nav-link">玩一玩</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>
+    <script type="text/javascript" src="/js/love.js"></script>
+  </div>
+</body>
+</html>

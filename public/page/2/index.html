@@ -31,18 +31,13 @@
   
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(()=>{
-     let imglist = $("img")
-     for(let i=0;i<imglist.length;i++){
-       let src=imglist[i].getAttribute("src");
-       if(src.indexOf("https")!=-1){
-        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
-        console.clear()
-       }
-     }
-    })
+  <script>
+  let antiquityStorage = window.sessionStorage.getItem('antiquitySessionStorage');
+  if (antiquityStorage == '' || antiquityStorage == null) {
+    var antiquityLoader = '<div id="loaderbox"><div class="loader"><div class="load-roll"><div class="load-top"></div><div class="load-right"></div><div class="load-bottom"></div></div></div></div>';
+    document.write(antiquityLoader);
+    document.body.style.overflow = 'hidden'
+  }
   </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
@@ -51,7 +46,7 @@
 <body>
   <div id="fullpage" class="mobile-nav-right">
     
-      <div id="wrapper" title="图片来自网络">
+      <div id="wrapper" style="background-image: url(/images/bg.jpg)" title="图片来自网络">
     
     
       <header id="header">
@@ -75,73 +70,25 @@
       <div id="middlecontent" title class="global-width sidebar-right">
         <section id="main">
   
-    <article id="post-for" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+    <article id="post-interview" class="article global-container article-type-post animated wow bounceInLeft" itemscope itemprop="blogPost">
   
     <header class="article-header">
       
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/11/for/">for循环应该这么用</a>
+      <a class="article-title" href="/2019/06/20/interview/">前端面试题 --vue</a>
     </h1>
   
 
     </header>
   
   <div class="article-meta">
-    <a href="/2019/04/11/for/" class="article-date">
-  <time datetime="2019-04-11T09:44:20.303Z" itemprop="datePublished">2019-04-11</time>
+    <a href="/2019/06/20/interview/" class="article-date">
+  <time datetime="2019-06-19T16:00:00.000Z" itemprop="datePublished">2019-06-20</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-  </div>
-  
-
-  <div class="article-inner">
-    
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
-      
-        <p>从最开始学的for循环的遍历方法，再到后来连续不断出来的各种循环遍历方法，其实最大的区别就是应用的场景不同。而我们需要知道的是，什么情况下用哪一种方法合适</p>
-<hr>
-        
-          <p class="article-more-link">
-            <a href="/2019/04/11/for/#more">阅读全文</a>
-          </p>
-        
-      
-    </div>
-    
-  </div>
-  
-  
-</article>
-
-
-  
-    <article id="post-vue-router" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
-  
-    <header class="article-header">
-      
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/10/vue-router/">vue路由归纳</a>
-    </h1>
-  
-
-    </header>
-  
-  <div class="article-meta">
-    <a href="/2019/04/10/vue-router/" class="article-date">
-  <time datetime="2019-04-10T06:41:22.931Z" itemprop="datePublished">2019-04-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
+    <a class="article-category-link" href="/categories/面试/">面试</a>
   </div>
 
     
@@ -152,14 +99,12 @@
 
   <div class="article-inner">
     
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
+    <div class="article-content article-content-cloud" itemprop="articleBody">
       
-        <h2 id="vue路由的原理"><a href="#vue路由的原理" class="headerlink" title="vue路由的原理"></a>vue路由的原理</h2><p>单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置<code>mode</code>字段，如果不去配置这个<code>mode</code>字段，默认路由跳转就为<code>hash</code>模式。</p>
-<p><code>hash</code>模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发<code>hashchange</code>事件，动态的渲染出页面。</p>
-<p>另外一种模式为<code>history</code>模式，即使用浏览器的historyAPI,<code>pushState</code>和<code>replaceState</code>。通过调用<code>pushState</code>去操作浏览器的<code>history</code>对象，改变当前链接地址，同时结合<code>window.onpopstate</code>监控浏览器的返回前进事件，同样可以实现无刷新的跳转页面。<code>replaceState</code>和<code>pushState</code>的区别就是，前者代表替换，后者代表插入。</p>
+        <h3 id="1-说一下Vue的双向绑定数据的原理"><a href="#1-说一下Vue的双向绑定数据的原理" class="headerlink" title="1. 说一下Vue的双向绑定数据的原理"></a>1. 说一下Vue的双向绑定数据的原理</h3><p><code>vue</code> 实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过 <code>Object.defineProperty()</code> 来劫持各个属性的 <code>setter</code>，<code>getter</code>，在数据变动时发布消息给订阅者，触发相应监听回调</p>
         
           <p class="article-more-link">
-            <a href="/2019/04/10/vue-router/#more">阅读全文</a>
+            <a href="/2019/06/20/interview/#more">阅读全文</a>
           </p>
         
       
@@ -170,27 +115,26 @@
   
 </article>
 
-
   
-    <article id="post-array" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+    <article id="post-javascript" class="article global-container article-type-post animated wow bounceInLeft" itemscope itemprop="blogPost">
   
     <header class="article-header">
       
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/02/array/">js数组去重多一种选择</a>
+      <a class="article-title" href="/2019/06/19/javascript/">javascript数据属性和访问器属性</a>
     </h1>
   
 
     </header>
   
   <div class="article-meta">
-    <a href="/2019/04/02/array/" class="article-date">
-  <time datetime="2019-04-02T08:16:26.222Z" itemprop="datePublished">2019-04-02</time>
+    <a href="/2019/06/19/javascript/" class="article-date">
+  <time datetime="2019-06-18T16:00:00.000Z" itemprop="datePublished">2019-06-19</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/面试/">面试</a>
+    <a class="article-category-link" href="/categories/技术/">技术</a>
   </div>
 
     
@@ -201,14 +145,12 @@
 
   <div class="article-inner">
     
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
+    <div class="article-content article-content-cloud" itemprop="articleBody">
       
-        <p>数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。</p>
-<p>数组去重的方法：</p>
-<h2 id="一、利用ES6-Set去重"><a href="#一、利用ES6-Set去重" class="headerlink" title="一、利用ES6 Set去重"></a>一、利用ES6 Set去重</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line">  return Array.from(new Set(arr))</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,1,2,2,3,3];</span><br><span class="line">console.log(uniq(arr));</span><br></pre></td></tr></table></figure>
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在<code>javascript</code>中，我们访问对象的时候可以直接通过<code>obj.name</code>进行访问，删除时可以直接通过<code>delete obj.name</code>进行删除，那么你真的知道它为什么能直接访问或则删除么？如果你知道<code>javascript</code>中的数据属性，那就自然知道为什么能访问了；如果不知道呢，咱就接着往下看。<br>
         
-          <p class="article-more-link">
-            <a href="/2019/04/02/array/#more">阅读全文</a>
+          </p><p class="article-more-link">
+            <a href="/2019/06/19/javascript/#more">阅读全文</a>
           </p>
         
       
@@ -219,23 +161,68 @@
   
 </article>
 
-
   
-    <article id="post-reflux" class="article global-container article-type-post wow bounceInLeft" data-wow-duration="2s" itemscope itemprop="blogPost">
+    <article id="post-electron-packager" class="article global-container article-type-post animated wow bounceInLeft" itemscope itemprop="blogPost">
   
     <header class="article-header">
       
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/01/reflux/">什么是回流与重绘</a>
+      <a class="article-title" href="/2019/06/13/electron-packager/">electron打包react项目</a>
     </h1>
   
 
     </header>
   
   <div class="article-meta">
-    <a href="/2019/04/01/reflux/" class="article-date">
-  <time datetime="2019-04-01T07:35:45.207Z" itemprop="datePublished">2019-04-01</time>
+    <a href="/2019/06/13/electron-packager/" class="article-date">
+  <time datetime="2019-06-12T16:00:00.000Z" itemprop="datePublished">2019-06-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
+
+  </div>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-cloud" itemprop="articleBody">
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>懂的小伙伴大概已经知道这是个什么了，那么不懂的小伙伴听我大致道来。也许你不甘心只写网页，也想写一个电脑上的exe程序那种；或者你有项目需求必须要写个exe程序，但是你只会前端，没关系，看了这篇文章你也就能写出一个exe程序了。<br>
+        
+          </p><p class="article-more-link">
+            <a href="/2019/06/13/electron-packager/#more">阅读全文</a>
+          </p>
+        
+      
+    </div>
+    
+  </div>
+  
+  
+</article>
+
+  
+    <article id="post-reflux" class="article global-container article-type-post animated wow bounceInLeft" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/24/reflux/">什么是回流与重绘</a>
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/05/24/reflux/" class="article-date">
+  <time datetime="2019-05-23T16:00:00.000Z" itemprop="datePublished">2019-05-24</time>
 </a>
     
     
@@ -246,12 +233,12 @@
 
   <div class="article-inner">
     
-    <div class="article-content article-content-doorframe" itemprop="articleBody">
+    <div class="article-content article-content-cloud" itemprop="articleBody">
       
         <p>要想知道什么是回流与重绘，首先我们得清楚浏览器的渲染过程。你知道是渲染过程是怎样的么？下面和我一起了解一下吧。<br>
         
           </p><p class="article-more-link">
-            <a href="/2019/04/01/reflux/#more">阅读全文</a>
+            <a href="/2019/05/24/reflux/#more">阅读全文</a>
           </p>
         
       
@@ -261,7 +248,6 @@
   
   
 </article>
-
 
   
 
@@ -275,28 +261,32 @@
 </section>
         <aside id="sidebar">
   
-    <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
   <div class="avatar-box">
-    <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
-    <h3 class="avatar-name">
-      
-        YmTonny
-      
-    </h3>
+    <div class="avatar-user">
+      <div class="avatar-top">
+        <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
+        <h3 class="avatar-name">
+          
+            YmTonny
+          
+        </h3>
+      </div>
+      <div class="avatar-bottom">
+        <p>友情链接</p>
+        <a href="https://Glieen.cn" target="_blank">Glieen`s Blog</a>
+      </div>
+    </div>
     <p class="avatar-slogan">
       真相有时之所以难以被接受，是因为谎言听起来美好多了。
     </p>
-    <div class="link_g">
-      <div>友情链接</div>
-      <a href="http://glieen.cn/" target="_blank">Glieen&#39;s Blog</a>
-    </div>
   </div>
 </div>
 
 
   
     
-  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
@@ -306,7 +296,7 @@
 
   
     
-  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="widget-box  animated wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -316,40 +306,47 @@
 
   
     
-  
-    
-  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a>
     </div>
   </div>
 
   
     
-  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2019/07/05/CodecheckList/">代码评审清单</a>
+            <a href="/2019/08/11/array/">js数组去重多一种选择</a>
           </li>
         
           <li>
-            <a href="/2019/05/21/async-await/">async-await</a>
+            <a href="/2019/08/02/async-await/">async-await</a>
           </li>
         
           <li>
-            <a href="/2019/04/19/javascript/">javascript数据属性和访问器属性</a>
+            <a href="/2019/07/23/clip-path/">玩转clip-path</a>
           </li>
         
           <li>
-            <a href="/2019/04/17/electron-packager/">electron打包react项目</a>
+            <a href="/2019/07/02/git-operating/">git常用操作</a>
           </li>
         
           <li>
-            <a href="/2019/04/11/for/">for循环应该这么用</a>
+            <a href="/2019/06/20/interview/">前端面试题 --vue</a>
           </li>
         
       </ul>
@@ -364,12 +361,29 @@
     &copy; 2019 YmTonny &nbsp;&nbsp;
     <br>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_uv"></span>个访客</span>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
   </div>
 </footer>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-<script src="/js/jquery-2.0.3.min.js"></script>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+<script>
+ $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+</script>
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   <script src="/fancybox/jquery.fancybox.pack.js"></script>
@@ -394,36 +408,8 @@
     <a href="/Tap" class="mobile-nav-link">玩一玩</a>
   
   <div class="mobile-nav-img  mobile-nav-bottom"></div>
-</nav>    
+</nav>
+    <script type="text/javascript" src="/js/love.js"></script>
   </div>
-      <script type="text/javascript" src="/js/love.js"></script>
-      <script type="text/javascript" src="/assets/waifu-tips.js"></script>
-      <script type="text/javascript" src="/assets/live2d.min.js"></script>
-      <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
-      <script type="text/javascript">
-          new WOW().init();
-          const live2d_path = "/assets/";
-          $("<link>").attr({href: live2d_path + "waifu.css", rel: "stylesheet", type: "text/css"}).appendTo("head");
-          //waifu.css的绝对路径
-          $.ajax({
-              url: live2d_path + "live2d.min.js",
-              dataType: "script",
-              cache: true,
-              async: false
-          });
-          //live2d.min.js的绝对路径
-
-          $.ajax({
-              url: live2d_path + "waifu-tips.js",
-              dataType: "script",
-              cache: true,
-              async: false
-          });
-          $(window).on("load", function() {
-              initWidget(live2d_path + "waifu-tips.json", "https://live2d.fghrsh.net/api");
-          });
-          //initWidget第一个参数为waifu-tips.json的绝对路径
-          //第二个参数为api地址（无需修改）
-      </script>
 </body>
 </html>

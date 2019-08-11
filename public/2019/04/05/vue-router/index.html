@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>vue路由归纳 | YmTonny Blogs</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  
+  
+  <meta name="description" content="vue路由的原理单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置mode字段，如果不去配置这个mode字段，默认路由跳转就为hash模式。 hash模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发hashchange事件，动态的渲染出页面。 另外一种模式为history模式，即使用浏览器的hi">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue路由归纳">
+<meta property="og:url" content="http://yoursite.com/2019/04/05/vue-router/index.html">
+<meta property="og:site_name" content="YmTonny Blogs">
+<meta property="og:description" content="vue路由的原理单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置mode字段，如果不去配置这个mode字段，默认路由跳转就为hash模式。 hash模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发hashchange事件，动态的渲染出页面。 另外一种模式为history模式，即使用浏览器的hi">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-11T08:56:45.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue路由归纳">
+<meta name="twitter:description" content="vue路由的原理单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置mode字段，如果不去配置这个mode字段，默认路由跳转就为hash模式。 hash模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发hashchange事件，动态的渲染出页面。 另外一种模式为history模式，即使用浏览器的hi">
+  
+    <link rel="alternate" href="/atom.xml" title="YmTonny Blogs" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/default-avatar.jpg">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/highlight.css">
+  <script>
+  let antiquityStorage = window.sessionStorage.getItem('antiquitySessionStorage');
+  if (antiquityStorage == '' || antiquityStorage == null) {
+    var antiquityLoader = '<div id="loaderbox"><div class="loader"><div class="load-roll"><div class="load-top"></div><div class="load-right"></div><div class="load-bottom"></div></div></div></div>';
+    document.write(antiquityLoader);
+    document.body.style.overflow = 'hidden'
+  }
+  </script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
+  <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
+</head>
+</html>
+<body>
+  <div id="fullpage" class="mobile-nav-right">
+    
+      <div id="wrapper" style="background-image: url(/images/bg.jpg)" title="图片来自网络">
+    
+    
+      <header id="header">
+  <div id="nav-toggle" class="nav-toggle"></div>
+  <div class="head-box global-width">
+    <nav class="nav-box nav-right">
+      
+        <a class="nav-item" href="/" title>首页</a>
+      
+        <a class="nav-item" href="/archives" title>归档</a>
+      
+        <a class="nav-item" href="https://github.com/ymTonny" title target="_blank">仓库</a>
+      
+        <a class="nav-item" href="/resume" title>简历</a>
+      
+        <a class="nav-item" href="/Tap" title>玩一玩</a>
+      
+    </nav>
+  </div>
+</header>
+      <div id="middlecontent" title class="global-width sidebar-right">
+        <section id="main"><article id="post-vue-router" class="article global-container article-type-post animated wow bounceInLeft" itemscope itemprop="blogPost">
+  
+    <header class="article-header">
+      
+  
+    <h1 class="article-title" itemprop="name">
+      vue路由归纳
+    </h1>
+  
+
+    </header>
+  
+  <div class="article-meta">
+    <a href="/2019/04/05/vue-router/" class="article-date">
+  <time datetime="2019-04-04T16:00:00.000Z" itemprop="datePublished">2019-04-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+    
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+  </div>
+  
+    <span id="busuanzi_container_page_pv">
+      本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+    </span>
+  
+
+  <div class="article-inner">
+    
+    <div class="article-content article-content-cloud" itemprop="articleBody">
+      
+        <h2 id="vue路由的原理"><a href="#vue路由的原理" class="headerlink" title="vue路由的原理"></a>vue路由的原理</h2><p>单页面的一大优势就是，无刷新跳转页面，用户体验好，加载速度快。vue路由的跳转它是无刷新的，共有两种模式，可以通过路由配置文件中去配置<code>mode</code>字段，如果不去配置这个<code>mode</code>字段，默认路由跳转就为<code>hash</code>模式。</p>
+<p><code>hash</code>模式，通过在链接后面添加”#”号+路由名字，匹配这个字段的变化去触发<code>hashchange</code>事件，动态的渲染出页面。</p>
+<p>另外一种模式为<code>history</code>模式，即使用浏览器的historyAPI,<code>pushState</code>和<code>replaceState</code>。通过调用<code>pushState</code>去操作浏览器的<code>history</code>对象，改变当前链接地址，同时结合<code>window.onpopstate</code>监控浏览器的返回前进事件，同样可以实现无刷新的跳转页面。<code>replaceState</code>和<code>pushState</code>的区别就是，前者代表替换，后者代表插入。</p>
+<a id="more"></a>
+<p><code>history</code>相对于<code>hash</code>，就是没有”#”号，看着十分清爽。但是用hash模式的反而较多，为什么呢？因为<code>history</code>模式还需要后端的配置，否则刷新页面就会返回404。</p>
+<h2 id="vue路由两种传参"><a href="#vue路由两种传参" class="headerlink" title="vue路由两种传参"></a>vue路由两种传参</h2><p>页面传参就两种，<code>params</code>和<code>query</code>,<code>params</code>是以<code>/params</code>方式展示，<code>query</code>是以<code>/?query=</code>方式展示。写法大致都是相同，不过<code>query</code>是用<code>path</code>来引入，而<code>params</code>是用<code>name</code>来引入。注意：接收参数的时候是用<code>route</code>而不是<code>router</code>。<code>query</code>像是ajax中的get,而<code>params</code>更像是post,刷新页面时<code>params</code>参数会丢失,而<code>query</code>参数不会丢失。<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//query</span><br><span class="line">this.$router.push(&#123;</span><br><span class="line">  path:&quot;/abc&quot;,</span><br><span class="line">  query:&#123;id:id&#125;</span><br><span class="line">&#125;);</span><br><span class="line">//params</span><br><span class="line">this.$router.push(&#123;</span><br><span class="line">   name:&quot;abc&quot;</span><br><span class="line">   params:&#123;id:id&#125;</span><br><span class="line">&#125;);</span><br><span class="line">//接收参数</span><br><span class="line">this.$route.query.name</span><br><span class="line">this.$route.params.name</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="vue路由跳转"><a href="#vue路由跳转" class="headerlink" title="vue路由跳转"></a>vue路由跳转</h2><p>vue 路由的跳转分成两种，一种是声明式，使用<code>&lt;router-link&gt;</code>声明跳转，<code>to</code>属性定义跳转的参数。另一种是编程式，使用 <code>router.go()</code>、<code>router.push()</code>、<code>router.replace()</code>方法进行跳转，<code>go</code>方法就是与浏览器的history api 的方法相同，可以进行返回上一页等操作。<br><div class="highlight-box" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" contenteditable="true" data-rel="PLAIN"><figure class="iseeu highlight /plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 字符串</span><br><span class="line">router.push(&apos;home&apos;)</span><br><span class="line"></span><br><span class="line">// 对象</span><br><span class="line">this.$router.push(&#123;path: &apos;home&apos;&#125;)</span><br><span class="line"></span><br><span class="line">//命名的路由</span><br><span class="line">this.$router.push(&#123;name: &apos;user&apos;, params: &#123;userId: 123&#125;&#125;)</span><br><span class="line"></span><br><span class="line">// 带查询参数，变成/register?plan=private</span><br><span class="line">this.$router.push(&#123;path: &apos;register&apos;, query: &#123;plan: &quot;private&quot;&#125;&#125;);</span><br><span class="line"></span><br><span class="line">//声明式</span><br><span class="line">&lt;router-link :to=&quot;&#123;name:&apos;abc&apos;,params:&#123;id:id&#125;&#125;&quot;&gt;&lt;/route-link&gt;</span><br></pre></td></tr></table></figure></div></p>
+<h2 id="vue路由守卫"><a href="#vue路由守卫" class="headerlink" title="vue路由守卫"></a>vue路由守卫</h2><p>vue路由守卫分3种，一种是全局路由守卫，通常在实例化路由之后设置，做通用路由的设置，它所有的路由跳转全部都会执行的操作；一种是单独的路由独享守卫，在单个路由定义的时候设置，所有跳转到这个路由的都会执行，一种是组件内的路由守卫，只在组件内生效。</p>
+<p> 全局路由守卫：</p>
+<ul>
+<li><code>router.beforeEach(to,from,next)</code></li>
+<li><code>router.afterEach(to,from,next)</code></li>
+</ul>
+<p>路由独享守卫：</p>
+<ul>
+<li><code>beforeEnter(to,from,next)</code></li>
+</ul>
+<p>组件内守卫：</p>
+<ul>
+<li><code>beforeRouteEnter(to,from,next)</code></li>
+<li><code>beforeRouteUpdate(to,from,next)</code>  //动态参数路径改变时，组件实例被复用的时候调用</li>
+<li><code>beforeRouteLeave(to,from,next)</code>   //导航离开组件所在路由时被调用</li>
+</ul>
+
+      
+    </div>
+    
+      <footer class="article-footer">
+        完
+      </footer>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  <div class="article-nav-block">
+    
+      <a href="/2019/04/28/vue-shake/" id="article-nav-newer" class="article-nav-link-wrap">
+        <strong class="article-nav-caption"></strong>
+        <div class="article-nav-title">
+          
+            防抖与节流
+          
+        </div>
+      </a>
+    
+  </div>
+  <div class="article-nav-block">
+    
+      <a href="/2019/03/05/for/" id="article-nav-older" class="article-nav-link-wrap">
+        <div class="article-nav-title">for循环应该这么用</div>
+        <strong class="article-nav-caption"></strong>
+      </a>
+    
+  </div>
+</nav>
+
+    
+<div id="gitmentContainer"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="/js/gitment.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'ymTonny',
+  repo: 'MyBlog',
+  oauth: {
+    client_id: '2144b8ba49571a940c51',
+    client_secret: '942f1619cc0a763cc4c1ed7ab9e1c0b1eebddb91',
+  },
+})
+gitment.render('gitmentContainer')
+</script>
+
+  
+  
+</article>
+</section>
+        <aside id="sidebar">
+  
+    <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+  <div class="avatar-box">
+    <div class="avatar-user">
+      <div class="avatar-top">
+        <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
+        <h3 class="avatar-name">
+          
+            YmTonny
+          
+        </h3>
+      </div>
+      <div class="avatar-bottom">
+        <p>友情链接</p>
+        <a href="https://Glieen.cn" target="_blank">Glieen`s Blog</a>
+      </div>
+    </div>
+    <p class="avatar-slogan">
+      真相有时之所以难以被接受，是因为谎言听起来美好多了。
+    </p>
+  </div>
+</div>
+
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box  animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/08/11/array/">js数组去重多一种选择</a>
+          </li>
+        
+          <li>
+            <a href="/2019/08/02/async-await/">async-await</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/23/clip-path/">玩转clip-path</a>
+          </li>
+        
+          <li>
+            <a href="/2019/07/02/git-operating/">git常用操作</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/20/interview/">前端面试题 --vue</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+      </div>
+      <footer id="footer">
+  <div class="foot-box global-width">
+    &copy; 2019 YmTonny &nbsp;&nbsp;
+    <br>
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
+  </div>
+</footer>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+<script>
+ $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+</script>
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+    </div>
+    <nav id="mobile-nav" class="mobile-nav-box">
+  <div class="mobile-nav-img mobile-nav-top"></div>
+  
+    <a href="/" class="mobile-nav-link">首页</a>
+  
+    <a href="/archives" class="mobile-nav-link">归档</a>
+  
+    <a href="https://github.com/ymTonny" class="mobile-nav-link">仓库</a>
+  
+    <a href="/resume" class="mobile-nav-link">简历</a>
+  
+    <a href="/Tap" class="mobile-nav-link">玩一玩</a>
+  
+  <div class="mobile-nav-img  mobile-nav-bottom"></div>
+</nav>
+    <script type="text/javascript" src="/js/love.js"></script>
+  </div>
+</body>
+</html>

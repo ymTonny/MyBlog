@@ -1,5 +1,6 @@
 ﻿---
 title: for循环应该这么用
+date: 2019-03-05
 categories:
  - 技术
 tags:

@@ -31,18 +31,13 @@
   
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/highlight.css">
-  <script src="https://cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script>
-  <script type="text/javascript">
-    $(document).ready(()=>{
-     let imglist = $("img")
-     for(let i=0;i<imglist.length;i++){
-       let src=imglist[i].getAttribute("src");
-       if(src.indexOf("https")!=-1){
-        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
-        console.clear()
-       }
-     }
-    })
+  <script>
+  let antiquityStorage = window.sessionStorage.getItem('antiquitySessionStorage');
+  if (antiquityStorage == '' || antiquityStorage == null) {
+    var antiquityLoader = '<div id="loaderbox"><div class="loader"><div class="load-roll"><div class="load-top"></div><div class="load-right"></div><div class="load-bottom"></div></div></div></div>';
+    document.write(antiquityLoader);
+    document.body.style.overflow = 'hidden'
+  }
   </script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
   <link href="https://cdn.bootcss.com/animate.css/3.7.0/animate.min.css" rel="stylesheet">
@@ -51,7 +46,7 @@
 <body>
   <div id="fullpage" class="mobile-nav-right">
     
-      <div id="wrapper" title="图片来自网络">
+      <div id="wrapper" style="background-image: url(/images/bg.jpg)" title="图片来自网络">
     
     
       <header id="header">
@@ -80,26 +75,26 @@
     
       
       
-      <section class="global-container archives-wrap wow fadeInUp" data-wow-duration="2s">
+      <section class="global-container archives-wrap animated wow fadeInUp" data-wow-duration="2s">
         <div class="archive-year-wrap">
           <a href="/archives/2019" class="archive-year">2019</a>
         </div>
         <div class="archives">
     
-    <article class="archive-article archive-type-post">
+    <article class="archive-article archive-type-post animated  wow bounceInLeft">
   <div class="archive-article-inner">
     <header class="archive-article-header">
       
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/04/02/array/">js数组去重多一种选择</a>
+      <a class="archive-article-title" href="/2019/08/11/array/">js数组去重多一种选择</a>
     </h1>
   
       
     </header>
     <div class="article-meta archive-article-meta">
-      <a href="/2019/04/02/array/" class="article-date">
-  <time datetime="2019-04-02T08:16:26.222Z" itemprop="datePublished">2019-04-02</time>
+      <a href="/2019/08/11/array/" class="article-date">
+  <time datetime="2019-08-10T16:00:00.000Z" itemprop="datePublished">2019-08-11</time>
 </a>
       
   <div class="article-category">
@@ -115,20 +110,20 @@
   
     
     
-    <article class="archive-article archive-type-post">
+    <article class="archive-article archive-type-post animated  wow bounceInLeft">
   <div class="archive-article-inner">
     <header class="archive-article-header">
       
   
     <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/03/26/interview/">前端面试题 --vue</a>
+      <a class="archive-article-title" href="/2019/06/20/interview/">前端面试题 --vue</a>
     </h1>
   
       
     </header>
     <div class="article-meta archive-article-meta">
-      <a href="/2019/03/26/interview/" class="article-date">
-  <time datetime="2019-03-26T03:22:58.868Z" itemprop="datePublished">2019-03-26</time>
+      <a href="/2019/06/20/interview/" class="article-date">
+  <time datetime="2019-06-19T16:00:00.000Z" itemprop="datePublished">2019-06-20</time>
 </a>
       
   <div class="article-category">
@@ -150,28 +145,32 @@
 </section>
         <aside id="sidebar">
   
-    <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+    <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
   <div class="avatar-box">
-    <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
-    <h3 class="avatar-name">
-      
-        YmTonny
-      
-    </h3>
+    <div class="avatar-user">
+      <div class="avatar-top">
+        <img class="avatar" src="/images/default-avatar.jpg" title="图片来自网络">
+        <h3 class="avatar-name">
+          
+            YmTonny
+          
+        </h3>
+      </div>
+      <div class="avatar-bottom">
+        <p>友情链接</p>
+        <a href="https://Glieen.cn" target="_blank">Glieen`s Blog</a>
+      </div>
+    </div>
     <p class="avatar-slogan">
       真相有时之所以难以被接受，是因为谎言听起来美好多了。
     </p>
-    <div class="link_g">
-      <div>友情链接</div>
-      <a href="http://glieen.cn/" target="_blank">Glieen&#39;s Blog</a>
-    </div>
   </div>
 </div>
 
 
   
     
-  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">分类</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/面试/">面试</a></li></ul>
@@ -181,7 +180,7 @@
 
   
     
-  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="widget-box  animated wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">标签</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/browser/">browser</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/css/">css</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/js/">js</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/react/">react</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a></li></ul>
@@ -191,40 +190,47 @@
 
   
     
-  
-    
-  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li></ul>
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/browser/" style="font-size: 10px;">browser</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/js/" style="font-size: 20px;">js</a> <a href="/tags/react/" style="font-size: 10px;">react</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a>
     </div>
   </div>
 
   
     
-  <div class="widget-box wow fadeInUp" data-wow-duration="2s">
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-box animated wow fadeInUp" data-wow-duration="2s">
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2019/07/05/CodecheckList/">代码评审清单</a>
+            <a href="/2019/08/11/array/">js数组去重多一种选择</a>
           </li>
         
           <li>
-            <a href="/2019/05/21/async-await/">async-await</a>
+            <a href="/2019/08/02/async-await/">async-await</a>
           </li>
         
           <li>
-            <a href="/2019/04/19/javascript/">javascript数据属性和访问器属性</a>
+            <a href="/2019/07/23/clip-path/">玩转clip-path</a>
           </li>
         
           <li>
-            <a href="/2019/04/17/electron-packager/">electron打包react项目</a>
+            <a href="/2019/07/02/git-operating/">git常用操作</a>
           </li>
         
           <li>
-            <a href="/2019/04/11/for/">for循环应该这么用</a>
+            <a href="/2019/06/20/interview/">前端面试题 --vue</a>
           </li>
         
       </ul>
@@ -239,12 +245,29 @@
     &copy; 2019 YmTonny &nbsp;&nbsp;
     <br>
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_uv"></span>个访客</span>
+    <span id="busuanzi_container_site_pv">阁下是第<span id="busuanzi_value_site_pv"></span>个访客</span>
   </div>
 </footer>
-      <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-<script src="/js/jquery-2.0.3.min.js"></script>
+      <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+<script>
+if (!window.jQuery) {
+var script = document.createElement('script');
+script.src = "/js/jquery-2.0.3.min.js";
+document.body.write(script);
+}
+</script>
+<script>
+ $(document).ready(()=>{
+     let imglist = $("img")
+     for(let i=0;i<imglist.length;i++){
+       let src=imglist[i].getAttribute("src");
+       if(src.indexOf("https")!=-1){
+        imglist[i].setAttribute("src",`https://images.weserv.nl/?url=${src}`)
+        console.clear()
+       }
+     }
+    })
+</script>
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   <script src="/fancybox/jquery.fancybox.pack.js"></script>
@@ -269,36 +292,8 @@
     <a href="/Tap" class="mobile-nav-link">玩一玩</a>
   
   <div class="mobile-nav-img  mobile-nav-bottom"></div>
-</nav>    
+</nav>
+    <script type="text/javascript" src="/js/love.js"></script>
   </div>
-      <script type="text/javascript" src="/js/love.js"></script>
-      <script type="text/javascript" src="/assets/waifu-tips.js"></script>
-      <script type="text/javascript" src="/assets/live2d.min.js"></script>
-      <script src="https://cdn.bootcss.com/wow/1.1.2/wow.min.js"></script>
-      <script type="text/javascript">
-          new WOW().init();
-          const live2d_path = "/assets/";
-          $("<link>").attr({href: live2d_path + "waifu.css", rel: "stylesheet", type: "text/css"}).appendTo("head");
-          //waifu.css的绝对路径
-          $.ajax({
-              url: live2d_path + "live2d.min.js",
-              dataType: "script",
-              cache: true,
-              async: false
-          });
-          //live2d.min.js的绝对路径
-
-          $.ajax({
-              url: live2d_path + "waifu-tips.js",
-              dataType: "script",
-              cache: true,
-              async: false
-          });
-          $(window).on("load", function() {
-              initWidget(live2d_path + "waifu-tips.json", "https://live2d.fghrsh.net/api");
-          });
-          //initWidget第一个参数为waifu-tips.json的绝对路径
-          //第二个参数为api地址（无需修改）
-      </script>
 </body>
 </html>

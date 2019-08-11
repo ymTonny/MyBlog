@@ -1,5 +1,6 @@
 ﻿---
 title: javascript数据属性和访问器属性
+date: 2019-06-19
 categories:
  - 技术
 tags:

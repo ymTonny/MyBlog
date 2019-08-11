@@ -1,5 +1,6 @@
 ﻿---
 title: 前端面试题 --vue
+date: 2019-06-20
 categories:
  - 面试
 tags:

@@ -1,5 +1,6 @@
 ﻿---
 title: git常用操作
+date: 2019-07-02
 categories:
  - 技术
 tags:

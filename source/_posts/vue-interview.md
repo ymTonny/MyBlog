@@ -1,5 +1,6 @@
 ﻿---
 title: 关于vuex
+date: 2019-05-05
 categories: 
 - 技术
 tags:
