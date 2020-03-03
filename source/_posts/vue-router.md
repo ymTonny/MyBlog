@@ -55,9 +55,9 @@ this.$router.push({path: 'register', query: {plan: "private"}});
 ```
 ## vue路由守卫
 vue路由守卫分3种，一种是全局路由守卫，通常在实例化路由之后设置，做通用路由的设置，它所有的路由跳转全部都会执行的操作；一种是单独的路由独享守卫，在单个路由定义的时候设置，所有跳转到这个路由的都会执行，一种是组件内的路由守卫，只在组件内生效。
- 
+
  全局路由守卫：
- 
+
  - `router.beforeEach(to,from,next)`
  - `router.afterEach(to,from,next)`
 

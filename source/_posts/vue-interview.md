@@ -66,7 +66,7 @@ export default store
     },
     computed: {
     },
-    methods: {  
+    methods: {
       ...mapActions(['updateMonitorInfo']),
       goNextPage (row, routerName) {
         let monitorInfo = {
@@ -85,8 +85,8 @@ export default store
 ```brash
 <!-- monitor.vue  兄弟组件接收方-->
 <template>
-  <span>{{monitorInfo.name}}</span>
-  <span>{{monitorInfo.description}}</span>
+  <span>{monitorInfo.name}</span>
+  <span>{monitorInfo.description}</span>
 </template>
 
 <script>
