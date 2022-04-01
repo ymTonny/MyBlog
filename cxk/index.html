@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh_CN">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+
+	<meta http-equiv="X-UA-Compatible" content="IE=11">
+	<meta name="description" content="这是一款 HTML5 开发的 CXK 打篮球小游戏，无聊的时候玩玩吧！">
+	<meta name="keywords">
+	<link rel="stylesheet" href="./css/bootstrap.min.css"
+		crossorigin="anonymous">
+	<link rel="stylesheet" href="./css/style.css">
+	<title>CXK 打篮球</title>
+
+	<script src="./js/hm.js"></script>
+	<script src="./js/jquery.min.js" type="text/javascript"></script>
+	<script src="./js/showdown.min.js" type="text/javascript"></script>
+	<script src="./js/bootstrap.min.js" crossorigin="anonymous" type="text/javascript"></script>
+	<script type="text/javascript">
+		// 百度统计代码
+		var _hmt = _hmt || [];
+		(function () {
+			var hm = document.createElement("script");
+			hm.src = "https://hm.baidu.com/hm.js?5adedb455da362ba577abe2fd8e1095d";
+			var s = document.getElementsByTagName("script")[0];
+			s.parentNode.insertBefore(hm, s);
+		})();
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h2>CXK 打篮球</h2>
+				<hr>
+				<center>
+					<p>
+					</p>
+					<div class="input-group">
+						<span class="input-group-addon">难度</span>
+						<select class="form-control" id="ballspeedset">
+							<option value="2">简单难度</option>
+							<option value="3" selected="">普通难度</option>
+							<option value="5">困难模式</option>
+							<option value="7">极限模式</option>
+							<option value="9">非人类</option>
+						</select>
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-primary closus"
+							        onclick="window.start()">CXK! 做好准备</button>
+							<button type="button" class="btn btn-danger game" style="display:none"
+								onclick="window.startGame()">开始游戏</button>
+							<button type="button" class="btn btn-warning gameout" style="display:none"
+								onclick="window.pauseGame()">暂停游戏</button>
+							<button type="button" class="btn btn-success gamenext" style="display:none"
+								onclick="window.nextGame()">下个关卡</button>
+						</div>
+					</div>
+					<p></p>
+				</center>
+				<center id="cdiv" style="width: 1140px; height: 641.82px;">
+					<p><canvas id="canvas" style="width: 1136px; height: 637.316px;" width="1136" height="637"></canvas></p>
+				</center>
+				<hr>
+				<h3>游戏说明</h3>
+				<p>使用方向键控制 CXK 左右移动，使用回车让 CXK 发球，按 P 暂停游戏，通关后按 N 进入下一关</p>
+				<p>移动端可以点击屏幕左右控制 CXK 移动。</p>
+				<hr>
+
+			</div>
+		</div>
+	</div>
+
+
+	<img src="./images/ball.png" style="width: 0px;height: 0px;">
+	<img src="./images/ballshadow.png" style="width: 0px;height: 0px;">
+	<img src="./images/paddle_1.png" style="width: 0px;height: 0px;">
+	<img src="./images/paddle_2.png" style="width: 0px;height: 0px;">
+	<img src="./images/paddle2_1.png" style="width: 0px;height: 0px;">
+	<img src="./images/paddle2_2.png" style="width: 0px;height: 0px;">
+	<img src="./images/paddle3_1.png" style="width: 0px;height: 0px;">
+	<img src="./images/paddle3_2.png" style="width: 0px;height: 0px;">
+
+
+	<script src="./js/common.js" type="text/javascript"></script>
+	<script src="./js/scene.js" type="text/javascript"></script>
+	<script src="./js/game.js" type="text/javascript"></script>
+	<script src="./js/main.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var clientWidth = document.body.clientWidth;
+		var cxk_body = 1;
+		var move_way = 1;
+		canvas.width = canvas.clientWidth;
+		canvas.style.width = canvas.clientWidth + "px";
+		cdiv.style.width = cdiv.clientWidth + "px";
+		canvas.height = canvas.clientWidth / 1000 * 563;
+		canvas.style.height = canvas.clientWidth / 1000 * 563 + "px";
+		cdiv.style.height = cdiv.clientWidth / 1000 * 563 + "px";
+		if (canvas.width < 936) {
+			canvas.width = 936;
+			canvas.height = 936 / 1000 * 563;
+			canvas.setAttribute("style", "");
+			canvas.style.zoom = (cdiv.clientWidth / 936);
+		} else {
+
+		}
+		window.start = function(){
+			window.startGame();
+			$(".closus").css({display:"none"});
+			$(".game").css({display:"inline"});
+			$(".gameout").css({display:"inline"});
+			$(".gamenext").css({display:"inline"});
+		}
+		window.startGame = function () {
+			// $("#audio").attr("src", "media/jntm.m4a");
+			// audio.play();
+			console.log("1")
+			window.cacheBallSpeed = parseInt($("#ballspeedset").val());
+			$("#ballspeedset").attr("disabled", "disabled");
+			_main.start();
+			setInterval(function () {
+				if (cxk_body == 1) {
+					_main.paddle.image.src = "images/paddle2_" + move_way + ".png";
+					cxk_body = 2;
+				} else if (cxk_body == 2) {
+					_main.paddle.image.src = "images/paddle3_" + move_way + ".png";
+					cxk_body = 3;
+				} else {
+					_main.paddle.image.src = "images/paddle_" + move_way + ".png";
+					cxk_body = 1;
+				}
+			}, 200);
+			_main.ballshadow.y = 545;
+			setInterval(function () {
+				if (_main.ball.y < 530) {
+					_main.ballshadow.x = _main.ball.x;
+					_main.ballshadow.y = 545;
+				} else {
+					_main.ballshadow.x = _main.ball.x;
+					_main.ballshadow.y = _main.ball.y + 20;
+				}
+			}, 10);
+		}
+	</script>
+</body>
+
+</html>
