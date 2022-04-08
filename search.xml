@@ -1,6 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>玩转clip-path</title>
+    <url>/2019/07/23/clip-path/</url>
+    <content><![CDATA[<h1 id="一-基本概念"><a href="#一-基本概念" class="headerlink" title="一.基本概念"></a>一.基本概念</h1><p>什么是<code>clip-path</code>呢？简而言之就是实现裁剪的<code>css</code>属性,我们可以通过该属性创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的部分隐藏。通过指定路径就可以创建出自己想要的形状，这样网页中的布局就可以是多种多样的了。</p>
+<p>在<code>clip-path</code>出现之前，css还有个属性<code>clip</code>也支持裁剪，但是它只支持矩形裁剪,同时它只对<code>position:absolute</code>和<code>position:fixed</code>的元素生效。使用如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">clip: rect(50px,50px,50px,50px) //标准写法</span><br><span class="line">clip: rect(50px 50px 50px 50px) //兼容浏览器写法</span><br></pre></td></tr></table></figure></p>
+<p>目前所有主流浏览器都支持<code>clip</code>,但是因为其局限性,<code>clip</code>已经被<code>clip-path</code>代替。<code>clip-path</code>为我们带来了更多的可能，让我们制作出更多有趣的图案。<br><a id="more"></a></p>
+<h1 id="二-用法实例"><a href="#二-用法实例" class="headerlink" title="二.用法实例"></a>二.用法实例</h1><h2 id="1-基本图形：inset"><a href="#1-基本图形：inset" class="headerlink" title="1.基本图形：inset"></a>1.基本图形：inset</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">inset()//定义一个矩形,注意:此处矩形不是 rect 而是 inset.</span><br><span class="line">//语法</span><br><span class="line">inset()可以传入5个参数，分别对应top,right,bottom,left的裁剪位置,和round radius（可选项 圆角）。</span><br><span class="line"></span><br><span class="line">//示例</span><br><span class="line">clip-path:inset(15% 20% 15% 20%)</span><br></pre></td></tr></table></figure>
+ <div style="width:200px;height:200px;margin:auto"><img src="https://s2.ax1x.com/2019/03/27/Aa7B0s.png" alt="avatart"></div>
+
+<h2 id="2-基本图形：circle"><a href="#2-基本图形：circle" class="headerlink" title="2.基本图形：circle"></a>2.基本图形：circle</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">circle()//定义一个圆形</span><br><span class="line">//语法</span><br><span class="line">circle()//可以传入2个参数，用at分开,分别对应圆的半径,圆心位置。圆心默认为元素中心点。</span><br><span class="line">//示例</span><br><span class="line">clip-path:circle(50% at 50% 50%)</span><br></pre></td></tr></table></figure>
+ <div style="width:200px;height:200px;margin:auto"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hef0awp6j308r08gq6d.jpg" alt="avatart"></div>
+
+<h2 id="3-基本图形：ellipse"><a href="#3-基本图形：ellipse" class="headerlink" title="3.基本图形：ellipse"></a>3.基本图形：ellipse</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ellipse()//定义一个椭圆</span><br><span class="line">//语法</span><br><span class="line">ellipse(x y at positon)//x为椭圆的x轴半径,y为椭圆的y轴半径,position为椭圆中心位置。</span><br><span class="line">//示例</span><br><span class="line">clip-path:ellipse(25% 40% at 50% 50%)</span><br></pre></td></tr></table></figure>
+<p> <div style="width:200px;height:200px;margin:auto"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hekwf3c2j308i089myl.jpg" alt="avatart"></div></p>
+<h2 id="4-基本图形：polygon"><a href="#4-基本图形：polygon" class="headerlink" title="4.基本图形：polygon"></a>4.基本图形：polygon</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">plygon()//定义一个多边形</span><br><span class="line">//语法</span><br><span class="line">polygon(fill-rule,[x y])//fill-rule(可选)表示填充规则用来确定该多边形内部,值有nonzero 和evenodd，默认为evenodd。后面的每一对表示连接点的坐标。</span><br><span class="line">//示例</span><br><span class="line">clip-path: polygon(50% 0%, 0 100%, 100% 100%);</span><br><span class="line">clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);</span><br></pre></td></tr></table></figure>
+<p> <div style="display:flex;justify-content:space-around;"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hez6l3rej309208sdi4.jpg" alt="avatart"><br> <img src="https://ws4.sinaimg.cn/mw690/005SNrnIgy1g1hf2dedn8j308x08q0vd.jpg" alt="avatart"><br> </div></p>
+<h2 id="5-其他属性"><a href="#5-其他属性" class="headerlink" title="5.其他属性"></a>5.其他属性</h2><p>除了<code>inset</code>，<code>circle</code>，<code>ellipse</code>，<code>polygon</code>属性外，<code>clip-path</code>还具有<code>url</code>，<code>geometry-box</code>等属性值，具体可以参考<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path" target="_blank">MDN</a></p>
+<h1 id="三-兼容性"><a href="#三-兼容性" class="headerlink" title="三.兼容性"></a>三.兼容性</h1><p><img src="https://wx4.sinaimg.cn/large/005SNrnIgy1g1hfchdbflj30z5073gm1.jpg" alt="avatart"></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>css</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>async-await</title>
+    <url>/2019/08/02/async-await/</url>
+    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>   <code>Asyns-Await</code>,异步编程的最高境界，就是根本不用担心它异步。<code>async</code>函数就是隧道尽头的亮光，大部分人会认为它是异步操作的终极解决方案。<code>async-await</code>和<code>promise</code>的关系，两者不存在谁代替谁，因为<code>async-await</code>寄生于<code>Promise</code>.<code>Generator</code>的语法糖。<code>async</code>和<code>await</code>在干什么？<code>async</code>用于申明一个<code>function</code>函数是异步的，而<code>await</code>可以认为是<code>async await</code>的简写，等待一个异步函数执行完成。</p>
+<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">async function demo(params)&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line">//async 函数返回的是一个Promise对象</span><br><span class="line">demo();</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><ul>
+<li>async表示这是一个async函数，await只能用在这个函数里面。</li>
+<li>await表示这里等待promise返回结果后，再继续执行。</li>
+<li>await后面应该跟着一个promise对象（普通函数亦可，但await就无意义了）。</li>
+<li>await不能单独使用，必须搭配aync函数来使用。</li>
+<li>await等待的虽然是一个promise对象，但是不必写.then(…),直接可以得到返回值。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">async function demo(params)&#123;</span><br><span class="line">   let result = await Promise.resolve(123);</span><br><span class="line">   console.log(result)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">demo();</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="捕捉错误"><a href="#捕捉错误" class="headerlink" title="捕捉错误"></a>捕捉错误</h2><p>像<code>Promise</code>有<code>.then(...),.catch(...)</code>来捕捉正确与错误，而<code>async</code>这两个都不用写，那么我们就可以直接用标准的<code>try catch</code>语法捕捉错误。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sleep = function (time) &#123;</span><br><span class="line">    return new Promise(function (resolve, reject) &#123;</span><br><span class="line">        setTimeout(function () &#123;</span><br><span class="line">            // 模拟出错了，返回 ‘error’</span><br><span class="line">            reject(&apos;error&apos;);</span><br><span class="line">        &#125;, time);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let start = async function () &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        console.log(&apos;start&apos;);</span><br><span class="line">        await sleep(3000); // 这里得到了一个返回错误</span><br><span class="line">        </span><br><span class="line">        // 所以以下代码不会被执行了</span><br><span class="line">        console.log(&apos;end&apos;);</span><br><span class="line">    &#125; catch (err) &#123;</span><br><span class="line">        console.log(err); // 这里捕捉到错误 `error`</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="循环多个await"><a href="#循环多个await" class="headerlink" title="循环多个await"></a>循环多个await</h2><p><code>await</code>看起来像是同步代码,所以写在for循环内，不必担心需要闭包才能解决。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">..省略以上代码</span><br><span class="line"></span><br><span class="line">let start = async function () &#123;</span><br><span class="line">    for (let i = 1; i &lt;= 10; i++) &#123;</span><br><span class="line">        console.log(`当前是第$&#123;i&#125;次等待..`);</span><br><span class="line">        await sleep(1000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>代码评审清单</title>
     <url>/2018/12/12/CodecheckList/</url>
     <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h4 id="前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview-为此拟了一份清单-如果你的团队还没有CodeReview，可能这正是你需要的。"><a href="#前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview-为此拟了一份清单-如果你的团队还没有CodeReview，可能这正是你需要的。" class="headerlink" title="前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。"></a>前端团队根据情况有时候会有评审代码的要求，但是由于每个开发人员的技术水平不同，代码风格不同，所关注的技术点也不同，为了保证代码的质量以及团队的代码风格统一，因此产生了团队中的CodeReview,为此拟了一份清单,如果你的团队还没有CodeReview，可能这正是你需要的。</h4><h2 id="一、代码静态检查工具"><a href="#一、代码静态检查工具" class="headerlink" title="一、代码静态检查工具"></a>一、代码静态检查工具</h2><h3 id="1-1、使用eslint工具对javascript代码进行检查。"><a href="#1-1、使用eslint工具对javascript代码进行检查。" class="headerlink" title="1.1、使用eslint工具对javascript代码进行检查。"></a>1.1、使用eslint工具对javascript代码进行检查。</h3><p><code>eslint</code>检查的规范继承自<code>eslint-config-standard</code>检验规则。<br><a id="more"></a></p>
@@ -55,78 +105,23 @@
       </tags>
   </entry>
   <entry>
-    <title>async-await</title>
-    <url>/2019/08/02/async-await/</url>
-    <content><![CDATA[<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>   <code>Asyns-Await</code>,异步编程的最高境界，就是根本不用担心它异步。<code>async</code>函数就是隧道尽头的亮光，大部分人会认为它是异步操作的终极解决方案。<code>async-await</code>和<code>promise</code>的关系，两者不存在谁代替谁，因为<code>async-await</code>寄生于<code>Promise</code>.<code>Generator</code>的语法糖。<code>async</code>和<code>await</code>在干什么？<code>async</code>用于申明一个<code>function</code>函数是异步的，而<code>await</code>可以认为是<code>async await</code>的简写，等待一个异步函数执行完成。</p>
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">async function demo(params)&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br><span class="line">//async 函数返回的是一个Promise对象</span><br><span class="line">demo();</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><ul>
-<li>async表示这是一个async函数，await只能用在这个函数里面。</li>
-<li>await表示这里等待promise返回结果后，再继续执行。</li>
-<li>await后面应该跟着一个promise对象（普通函数亦可，但await就无意义了）。</li>
-<li>await不能单独使用，必须搭配aync函数来使用。</li>
-<li>await等待的虽然是一个promise对象，但是不必写.then(…),直接可以得到返回值。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">async function demo(params)&#123;</span><br><span class="line">   let result = await Promise.resolve(123);</span><br><span class="line">   console.log(result)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">demo();</span><br></pre></td></tr></table></figure>
+    <title>electron打包react项目</title>
+    <url>/2019/06/13/electron-packager/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>懂的小伙伴大概已经知道这是个什么了，那么不懂的小伙伴听我大致道来。也许你不甘心只写网页，也想写一个电脑上的exe程序那种；或者你有项目需求必须要写个exe程序，但是你只会前端，没关系，看了这篇文章你也就能写出一个exe程序了。<br><a id="more"></a></p>
+<h2 id="一、安装electron"><a href="#一、安装electron" class="headerlink" title="一、安装electron"></a>一、安装electron</h2><ul>
+<li>为了方便以后使用，建议进行全局安装，这样任何文件夹下面就都能使用<code>electron</code>了。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//安装命令</span><br><span class="line">npm install electron  --g</span><br><span class="line">//npm如果太慢的话，我们就改用国内镜像，国内镜像安装如下:</span><br><span class="line">npm install cnpm -g  --registry=https://registry.npm.taobao.org</span><br><span class="line">cnpm install electron --save</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<h2 id="捕捉错误"><a href="#捕捉错误" class="headerlink" title="捕捉错误"></a>捕捉错误</h2><p>像<code>Promise</code>有<code>.then(...),.catch(...)</code>来捕捉正确与错误，而<code>async</code>这两个都不用写，那么我们就可以直接用标准的<code>try catch</code>语法捕捉错误。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let sleep = function (time) &#123;</span><br><span class="line">    return new Promise(function (resolve, reject) &#123;</span><br><span class="line">        setTimeout(function () &#123;</span><br><span class="line">            // 模拟出错了，返回 ‘error’</span><br><span class="line">            reject(&apos;error&apos;);</span><br><span class="line">        &#125;, time);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">let start = async function () &#123;</span><br><span class="line">    try &#123;</span><br><span class="line">        console.log(&apos;start&apos;);</span><br><span class="line">        await sleep(3000); // 这里得到了一个返回错误</span><br><span class="line">        </span><br><span class="line">        // 所以以下代码不会被执行了</span><br><span class="line">        console.log(&apos;end&apos;);</span><br><span class="line">    &#125; catch (err) &#123;</span><br><span class="line">        console.log(err); // 这里捕捉到错误 `error`</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="循环多个await"><a href="#循环多个await" class="headerlink" title="循环多个await"></a>循环多个await</h2><p><code>await</code>看起来像是同步代码,所以写在for循环内，不必担心需要闭包才能解决。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">..省略以上代码</span><br><span class="line"></span><br><span class="line">let start = async function () &#123;</span><br><span class="line">    for (let i = 1; i &lt;= 10; i++) &#123;</span><br><span class="line">        console.log(`当前是第$&#123;i&#125;次等待..`);</span><br><span class="line">        await sleep(1000);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="二、react使用electron"><a href="#二、react使用electron" class="headerlink" title="二、react使用electron"></a>二、react使用electron</h2><h3 id="添加electron包"><a href="#添加electron包" class="headerlink" title="添加electron包"></a>添加electron包</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install electron --save</span><br><span class="line">//安装打包工具</span><br><span class="line">npm install electron-packager --save-dev</span><br></pre></td></tr></table></figure>
+<h3 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h3><h4 id="配置main-js"><a href="#配置main-js" class="headerlink" title="配置main.js"></a>配置main.js</h4><p>在项目根目录(不是src目录)下新建一个main.js，写入如下配置：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//引入electron并创建一个BrowserWindow</span><br><span class="line">const &#123;app,BrowserWindow&#125; = require(&quot;electron&quot;);</span><br><span class="line">const path = require(&quot;path&quot;);</span><br><span class="line">const url = require(&quot;path&quot;);</span><br><span class="line">//保持window对象的全局引用，避免Javascript对象被垃圾回收时，窗口被自动关闭</span><br><span class="line">let win;</span><br><span class="line"></span><br><span class="line">function createWindow()&#123;</span><br><span class="line"> //创建浏览器窗口，宽高随意</span><br><span class="line">  win = new BrowserWindow(&#123;width:800,height:600&#125;);</span><br><span class="line"> </span><br><span class="line"> //加载应用----  适用桌面应用</span><br><span class="line"> /*win.loadURL(url.format(&#123;</span><br><span class="line">   pathname:path.join(_dirname+&quot;./build/index.html&quot;),</span><br><span class="line">   protocol:&quot;file:&quot;</span><br><span class="line">   slashes:true</span><br><span class="line"> &#125;))*/</span><br><span class="line"> // 加载应用---- 适用react</span><br><span class="line"> win.loadURL(&quot;http://localhost:3000/&quot;);</span><br><span class="line"> //打开开发者工具,默认不打开</span><br><span class="line"> win.webContents.openDevTools();</span><br><span class="line"> </span><br><span class="line"> //关闭window时触发</span><br><span class="line"> win.on(&quot;closed&quot;,function()&#123;</span><br><span class="line">   win = null</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;</span><br><span class="line">//当electron初始化完成后并开始创建浏览器窗口时运行</span><br><span class="line">app.on(&quot;ready&quot;,createWindow);</span><br><span class="line"></span><br><span class="line">//所有窗口关闭时，退出应用</span><br><span class="line">app.on(&quot;window-all-closed&quot;,function(&#123;</span><br><span class="line">// macOS中除非用户按下 `Cmd + Q` 显式退出,否则应用与菜单栏始终处于活动状态.</span><br><span class="line">  if (process.platform !== &apos;darwin&apos;) &#123;</span><br><span class="line">    app.quit()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line">app.on(&apos;activate&apos;, function () &#123;</span><br><span class="line">   // macOS中点击Dock图标时没有已打开的其余应用窗口时,则通常在应用中重建一个窗口</span><br><span class="line">  if (win === null) &#123;</span><br><span class="line">    createWindow()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<h4 id="配置package-json"><a href="#配置package-json" class="headerlink" title="配置package.json"></a>配置package.json</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;platform&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;This is a food and beverage management system&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;main.js&quot;, //配置electron启动文件</span><br><span class="line">  &quot;homepage&quot;: &quot;.&quot;, //配置electron打包后静态static不能访问</span><br><span class="line">  &quot;DEV&quot;:false,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;babel-node devServer.js --progress --colors&quot;,</span><br><span class="line">    &quot;dist&quot;: &quot;webpack --config webpack.config.pro.js --progress --colors &quot;,</span><br><span class="line">    &quot;build&quot;: &quot;webpack --progress&quot;,</span><br><span class="line">    &quot;electron-start&quot;: &quot;electron .&quot;, //配置运行桌面应用指令</span><br><span class="line">    //配置打包为桌面应用指令</span><br><span class="line">    &quot;packager&quot;: &quot;electron-packager ./ react-electron --win --out ~/ --electron-version 1.7.10&quot;,</span><br><span class="line">    &quot;dev&quot;: &quot;babel-node devServer.js --progress --colors ./node_modules/.bin/electron ./main&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<h3 id="开始打包"><a href="#开始打包" class="headerlink" title="开始打包"></a>开始打包</h3><p>在项目根目录运行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm run packager</span><br></pre></td></tr></table></figure></p>
 ]]></content>
       <categories>
         <category>技术</category>
       </categories>
       <tags>
-        <tag>js</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>玩转clip-path</title>
-    <url>/2019/07/23/clip-path/</url>
-    <content><![CDATA[<h1 id="一-基本概念"><a href="#一-基本概念" class="headerlink" title="一.基本概念"></a>一.基本概念</h1><p>什么是<code>clip-path</code>呢？简而言之就是实现裁剪的<code>css</code>属性,我们可以通过该属性创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的部分隐藏。通过指定路径就可以创建出自己想要的形状，这样网页中的布局就可以是多种多样的了。</p>
-<p>在<code>clip-path</code>出现之前，css还有个属性<code>clip</code>也支持裁剪，但是它只支持矩形裁剪,同时它只对<code>position:absolute</code>和<code>position:fixed</code>的元素生效。使用如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">clip: rect(50px,50px,50px,50px) //标准写法</span><br><span class="line">clip: rect(50px 50px 50px 50px) //兼容浏览器写法</span><br></pre></td></tr></table></figure></p>
-<p>目前所有主流浏览器都支持<code>clip</code>,但是因为其局限性,<code>clip</code>已经被<code>clip-path</code>代替。<code>clip-path</code>为我们带来了更多的可能，让我们制作出更多有趣的图案。<br><a id="more"></a></p>
-<h1 id="二-用法实例"><a href="#二-用法实例" class="headerlink" title="二.用法实例"></a>二.用法实例</h1><h2 id="1-基本图形：inset"><a href="#1-基本图形：inset" class="headerlink" title="1.基本图形：inset"></a>1.基本图形：inset</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">inset()//定义一个矩形,注意:此处矩形不是 rect 而是 inset.</span><br><span class="line">//语法</span><br><span class="line">inset()可以传入5个参数，分别对应top,right,bottom,left的裁剪位置,和round radius（可选项 圆角）。</span><br><span class="line"></span><br><span class="line">//示例</span><br><span class="line">clip-path:inset(15% 20% 15% 20%)</span><br></pre></td></tr></table></figure>
- <div style="width:200px;height:200px;margin:auto"><img src="https://s2.ax1x.com/2019/03/27/Aa7B0s.png" alt="avatart"></div>
-
-<h2 id="2-基本图形：circle"><a href="#2-基本图形：circle" class="headerlink" title="2.基本图形：circle"></a>2.基本图形：circle</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">circle()//定义一个圆形</span><br><span class="line">//语法</span><br><span class="line">circle()//可以传入2个参数，用at分开,分别对应圆的半径,圆心位置。圆心默认为元素中心点。</span><br><span class="line">//示例</span><br><span class="line">clip-path:circle(50% at 50% 50%)</span><br></pre></td></tr></table></figure>
- <div style="width:200px;height:200px;margin:auto"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hef0awp6j308r08gq6d.jpg" alt="avatart"></div>
-
-<h2 id="3-基本图形：ellipse"><a href="#3-基本图形：ellipse" class="headerlink" title="3.基本图形：ellipse"></a>3.基本图形：ellipse</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ellipse()//定义一个椭圆</span><br><span class="line">//语法</span><br><span class="line">ellipse(x y at positon)//x为椭圆的x轴半径,y为椭圆的y轴半径,position为椭圆中心位置。</span><br><span class="line">//示例</span><br><span class="line">clip-path:ellipse(25% 40% at 50% 50%)</span><br></pre></td></tr></table></figure>
-<p> <div style="width:200px;height:200px;margin:auto"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hekwf3c2j308i089myl.jpg" alt="avatart"></div></p>
-<h2 id="4-基本图形：polygon"><a href="#4-基本图形：polygon" class="headerlink" title="4.基本图形：polygon"></a>4.基本图形：polygon</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">plygon()//定义一个多边形</span><br><span class="line">//语法</span><br><span class="line">polygon(fill-rule,[x y])//fill-rule(可选)表示填充规则用来确定该多边形内部,值有nonzero 和evenodd，默认为evenodd。后面的每一对表示连接点的坐标。</span><br><span class="line">//示例</span><br><span class="line">clip-path: polygon(50% 0%, 0 100%, 100% 100%);</span><br><span class="line">clip-path: polygon(20% 0%, 0% 20%, 30% 50%, 0% 80%, 20% 100%, 50% 70%, 80% 100%, 100% 80%, 70% 50%, 100% 20%, 80% 0%, 50% 30%);</span><br></pre></td></tr></table></figure>
-<p> <div style="display:flex;justify-content:space-around;"><img src="https://ws2.sinaimg.cn/mw690/005SNrnIgy1g1hez6l3rej309208sdi4.jpg" alt="avatart"><br> <img src="https://ws4.sinaimg.cn/mw690/005SNrnIgy1g1hf2dedn8j308x08q0vd.jpg" alt="avatart"><br> </div></p>
-<h2 id="5-其他属性"><a href="#5-其他属性" class="headerlink" title="5.其他属性"></a>5.其他属性</h2><p>除了<code>inset</code>，<code>circle</code>，<code>ellipse</code>，<code>polygon</code>属性外，<code>clip-path</code>还具有<code>url</code>，<code>geometry-box</code>等属性值，具体可以参考<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/clip-path" target="_blank">MDN</a></p>
-<h1 id="三-兼容性"><a href="#三-兼容性" class="headerlink" title="三.兼容性"></a>三.兼容性</h1><p><img src="https://wx4.sinaimg.cn/large/005SNrnIgy1g1hfchdbflj30z5073gm1.jpg" alt="avatart"></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>css</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>for循环应该这么用</title>
-    <url>/2019/03/05/for/</url>
-    <content><![CDATA[<p>从最开始学的for循环的遍历方法，再到后来连续不断出来的各种循环遍历方法，其实最大的区别就是应用的场景不同。而我们需要知道的是，什么情况下用哪一种方法合适</p>
-<hr>
-<a id="more"></a>
-<p>下面我就以例子介绍每种方法再什么情况下用最合适：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr = [</span><br><span class="line"> &#123;id:&quot;1&quot;,money:10&#125;,</span><br><span class="line"> &#123;id:&quot;2&quot;,money:30&#125;,</span><br><span class="line"> &#123;id:&quot;3&quot;,money:40&#125;,</span><br><span class="line"> &#123;id:&quot;4&quot;,money:50&#125;,</span><br><span class="line"> &#123;id:&quot;5&quot;,money:60&#125;,</span><br><span class="line"> &#123;id:&quot;6&quot;,money:80&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
-<h2 id="1-给每一组数据的money都增大一点"><a href="#1-给每一组数据的money都增大一点" class="headerlink" title="1.给每一组数据的money都增大一点"></a>1.给每一组数据的<code>money</code>都增大一点</h2><p>这个时候可用到<code>forEach</code>方法:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">arr.forEach(item =&gt; &#123; item.money += 10 &#125;));</span><br></pre></td></tr></table></figure></p>
-<p><code>map</code>方法它说它也可以:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">arr.map(item =&gt; &#123; item.money += 10 &#125;);</span><br></pre></td></tr></table></figure></p>
-<p><code>map</code>补充说，我还可以给你把money统计成一个新的数组给你；<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let money = arr.map(item =&gt; &#123; return item.money += 10 &#125;);</span><br><span class="line">//[20,40,50,60,70,90]</span><br></pre></td></tr></table></figure></p>
-<p>###<code>forEach</code>和<code>map</code>最大的区别就在于<code>forEach</code>没有返回值。</p>
-<h2 id="2-只要这组数据中money大于50的数据（筛选）"><a href="#2-只要这组数据中money大于50的数据（筛选）" class="headerlink" title="2.只要这组数据中money大于50的数据（筛选）"></a>2.只要这组数据中money大于50的数据（筛选）</h2><p>从题目看就知道，筛选这种事一般都是<code>filter</code>来做的:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let filones = arr.filter(item =&gt; &#123; return item.money&gt;=50 &#125;);</span><br><span class="line">//[&#123;id:&quot;4&quot;,money:50&#125;,&#123;id:&quot;5&quot;,money:60&#125;,&#123;id:&quot;6&quot;,money:80&#125;]</span><br></pre></td></tr></table></figure></p>
-<h2 id="3-这组数据中有money大于50的么-（有符合）"><a href="#3-这组数据中有money大于50的么-（有符合）" class="headerlink" title="3.这组数据中有money大于50的么 （有符合）"></a>3.这组数据中有money大于50的么 （有符合）</h2><p>这题意思就是，这组数据只要有money大于50的就符合，这个时候<code>some</code>就很有用了：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let flag = arr.some(item =&gt; &#123; return item.money&gt;50 &#125;);</span><br><span class="line">//true</span><br></pre></td></tr></table></figure></p>
-<p><code>some</code>它会去遍历查找满足条件的，当第一条就符合的时候，就会立即返回告诉你有符合的了，后面的就不用检查了。</p>
-<h2 id="4-这组数据中money全是大于50的么？"><a href="#4-这组数据中money全是大于50的么？" class="headerlink" title="4.这组数据中money全是大于50的么？"></a>4.这组数据中money全是大于50的么？</h2><p>这个时候every就想知道这组数据中难道每条都大于50？<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let flag = arr.every(item =&gt; &#123;return item.money&gt;50 &#125;)</span><br><span class="line">//false</span><br></pre></td></tr></table></figure></p>
-<p>当每条数据都要去检查的时候，像这样会非常耗费性能;我们可以考虑反向检查，通过<code>some</code>检查是否有小于50的数据，再取反。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let flag = !arr.some(item =&gt; &#123;return item.money&lt;50 &#125;);</span><br><span class="line">//false</span><br></pre></td></tr></table></figure></p>
-<h2 id="5-这组数据money总和是多少呢"><a href="#5-这组数据money总和是多少呢" class="headerlink" title="5.这组数据money总和是多少呢"></a>5.这组数据money总和是多少呢</h2><p>我们可以先通过用<code>map</code>将<code>money</code>取出来，再用<code>reduce</code>计算其总和。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let moneys = arr.map(item =&gt; &#123;return item.money &#125;);</span><br><span class="line">let sum = moneys.reduce((sum,moneys)=&gt;&#123; return moneys+sum&#125;,0)</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>js</tag>
+        <tag>react</tag>
       </tags>
   </entry>
   <entry>
@@ -151,26 +146,6 @@
       </categories>
       <tags>
         <tag>git</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>electron打包react项目</title>
-    <url>/2019/06/13/electron-packager/</url>
-    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>懂的小伙伴大概已经知道这是个什么了，那么不懂的小伙伴听我大致道来。也许你不甘心只写网页，也想写一个电脑上的exe程序那种；或者你有项目需求必须要写个exe程序，但是你只会前端，没关系，看了这篇文章你也就能写出一个exe程序了。<br><a id="more"></a></p>
-<h2 id="一、安装electron"><a href="#一、安装electron" class="headerlink" title="一、安装electron"></a>一、安装electron</h2><ul>
-<li>为了方便以后使用，建议进行全局安装，这样任何文件夹下面就都能使用<code>electron</code>了。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//安装命令</span><br><span class="line">npm install electron  --g</span><br><span class="line">//npm如果太慢的话，我们就改用国内镜像，国内镜像安装如下:</span><br><span class="line">npm install cnpm -g  --registry=https://registry.npm.taobao.org</span><br><span class="line">cnpm install electron --save</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="二、react使用electron"><a href="#二、react使用electron" class="headerlink" title="二、react使用electron"></a>二、react使用electron</h2><h3 id="添加electron包"><a href="#添加electron包" class="headerlink" title="添加electron包"></a>添加electron包</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install electron --save</span><br><span class="line">//安装打包工具</span><br><span class="line">npm install electron-packager --save-dev</span><br></pre></td></tr></table></figure>
-<h3 id="相关配置"><a href="#相关配置" class="headerlink" title="相关配置"></a>相关配置</h3><h4 id="配置main-js"><a href="#配置main-js" class="headerlink" title="配置main.js"></a>配置main.js</h4><p>在项目根目录(不是src目录)下新建一个main.js，写入如下配置：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">//引入electron并创建一个BrowserWindow</span><br><span class="line">const &#123;app,BrowserWindow&#125; = require(&quot;electron&quot;);</span><br><span class="line">const path = require(&quot;path&quot;);</span><br><span class="line">const url = require(&quot;path&quot;);</span><br><span class="line">//保持window对象的全局引用，避免Javascript对象被垃圾回收时，窗口被自动关闭</span><br><span class="line">let win;</span><br><span class="line"></span><br><span class="line">function createWindow()&#123;</span><br><span class="line"> //创建浏览器窗口，宽高随意</span><br><span class="line">  win = new BrowserWindow(&#123;width:800,height:600&#125;);</span><br><span class="line"> </span><br><span class="line"> //加载应用----  适用桌面应用</span><br><span class="line"> /*win.loadURL(url.format(&#123;</span><br><span class="line">   pathname:path.join(_dirname+&quot;./build/index.html&quot;),</span><br><span class="line">   protocol:&quot;file:&quot;</span><br><span class="line">   slashes:true</span><br><span class="line"> &#125;))*/</span><br><span class="line"> // 加载应用---- 适用react</span><br><span class="line"> win.loadURL(&quot;http://localhost:3000/&quot;);</span><br><span class="line"> //打开开发者工具,默认不打开</span><br><span class="line"> win.webContents.openDevTools();</span><br><span class="line"> </span><br><span class="line"> //关闭window时触发</span><br><span class="line"> win.on(&quot;closed&quot;,function()&#123;</span><br><span class="line">   win = null</span><br><span class="line"> &#125;)</span><br><span class="line">&#125;</span><br><span class="line">//当electron初始化完成后并开始创建浏览器窗口时运行</span><br><span class="line">app.on(&quot;ready&quot;,createWindow);</span><br><span class="line"></span><br><span class="line">//所有窗口关闭时，退出应用</span><br><span class="line">app.on(&quot;window-all-closed&quot;,function(&#123;</span><br><span class="line">// macOS中除非用户按下 `Cmd + Q` 显式退出,否则应用与菜单栏始终处于活动状态.</span><br><span class="line">  if (process.platform !== &apos;darwin&apos;) &#123;</span><br><span class="line">    app.quit()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;))</span><br><span class="line"></span><br><span class="line">app.on(&apos;activate&apos;, function () &#123;</span><br><span class="line">   // macOS中点击Dock图标时没有已打开的其余应用窗口时,则通常在应用中重建一个窗口</span><br><span class="line">  if (win === null) &#123;</span><br><span class="line">    createWindow()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h4 id="配置package-json"><a href="#配置package-json" class="headerlink" title="配置package.json"></a>配置package.json</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;: &quot;platform&quot;,</span><br><span class="line">  &quot;version&quot;: &quot;1.0.0&quot;,</span><br><span class="line">  &quot;description&quot;: &quot;This is a food and beverage management system&quot;,</span><br><span class="line">  &quot;main&quot;: &quot;main.js&quot;, //配置electron启动文件</span><br><span class="line">  &quot;homepage&quot;: &quot;.&quot;, //配置electron打包后静态static不能访问</span><br><span class="line">  &quot;DEV&quot;:false,</span><br><span class="line">  &quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;,</span><br><span class="line">    &quot;start&quot;: &quot;babel-node devServer.js --progress --colors&quot;,</span><br><span class="line">    &quot;dist&quot;: &quot;webpack --config webpack.config.pro.js --progress --colors &quot;,</span><br><span class="line">    &quot;build&quot;: &quot;webpack --progress&quot;,</span><br><span class="line">    &quot;electron-start&quot;: &quot;electron .&quot;, //配置运行桌面应用指令</span><br><span class="line">    //配置打包为桌面应用指令</span><br><span class="line">    &quot;packager&quot;: &quot;electron-packager ./ react-electron --win --out ~/ --electron-version 1.7.10&quot;,</span><br><span class="line">    &quot;dev&quot;: &quot;babel-node devServer.js --progress --colors ./node_modules/.bin/electron ./main&quot;</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
-<h3 id="开始打包"><a href="#开始打包" class="headerlink" title="开始打包"></a>开始打包</h3><p>在项目根目录运行<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm run packager</span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <categories>
-        <category>技术</category>
-      </categories>
-      <tags>
-        <tag>react</tag>
       </tags>
   </entry>
   <entry>
@@ -236,42 +211,33 @@
       </tags>
   </entry>
   <entry>
-    <title>什么是回流与重绘</title>
-    <url>/2019/05/24/reflux/</url>
-    <content><![CDATA[<p>要想知道什么是回流与重绘，首先我们得清楚浏览器的渲染过程。你知道是渲染过程是怎样的么？下面和我一起了解一下吧。<br><a id="more"></a></p>
-<h1 id="浏览器的渲染过程"><a href="#浏览器的渲染过程" class="headerlink" title="浏览器的渲染过程"></a>浏览器的渲染过程</h1><ol>
-<li>首先，解析<code>html</code>生成<code>DOM</code>树，解析<code>css</code>生成<code>CSSOM</code>树。</li>
-<li>将<code>DOM</code>树和<code>CSSOM</code>树相结合生成渲染树(<code>Render Tree</code>)。</li>
-<li>根据生成的渲染树，进行回流得到节点的位置、大小等信息。</li>
-<li>根据渲染树以及回流得到的几何信息，得到节点的绝对像素。</li>
-<li>将像素发给<code>GPU</code>，展示在页面上。</li>
-</ol>
-<p>渲染过程看起来虽然很简单，但是具体做了什么可能还不是太清楚吧，下面我们一一了解下。</p>
-<h1 id="生成渲染树"><a href="#生成渲染树" class="headerlink" title="生成渲染树"></a>生成渲染树</h1><p>为了生成渲染树，浏览器主要做了以下工作：</p>
-<ol>
-<li>从<code>DOM</code>树的根节点开始遍历每个可见的节点。</li>
-<li>对于每一个可见的节点，找到<code>CSSOM</code>树中的对应规则，并应用它们。</li>
-<li>根据每一个可见的节点以及它们所对应的样式，组合生成渲染树。</li>
-</ol>
-<h4 id="注意：渲染树只包含可见节点。"><a href="#注意：渲染树只包含可见节点。" class="headerlink" title="注意：渲染树只包含可见节点。"></a>注意：渲染树只包含可见节点。</h4><p>不可见的节点包括：</p>
-<ul>
-<li>不会渲染输出的节点。如<code>script</code>、<code>meta</code>、<code>link</code>等标签。</li>
-<li>通过css属性进行隐藏的节点，如<code>display:none</code>。（用<code>visibility</code>和<code>opacity</code>隐藏的节点还是会渲染到渲染树上。）</li>
-</ul>
-<h1 id="回流"><a href="#回流" class="headerlink" title="回流"></a>回流</h1><p>前面我们已经通过构造渲染树，将可见的节点以及它所对应的样式相结合起来，但是我们还需要计算每个节点在设备视图里所在的具体位置及大小。这个计算的过程我们就称为回流。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span><br><span class="line">    &lt;title&gt;Critial Path: Hello world!&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div style=&quot;width: 50%&quot;&gt;</span><br><span class="line">      &lt;div style=&quot;width: 50%&quot;&gt;Hello world!&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
-<p>以上代码中，我们可以看到第一个<code>div</code>将显示的尺寸设为了设备视窗的50%,第二个<code>div</code>设为了父节点宽度的50%，在回流的阶段我们就需要根据视窗的具体宽度，将其设为具体的像素值。</p>
-<h1 id="重绘"><a href="#重绘" class="headerlink" title="重绘"></a>重绘</h1><p>我们通过构造渲染树和回流的阶段，知道了哪些节点是可见的，以及可见节点的样式和具体位置和大小信息，那么我们就可以将渲染树中的每一个节点都转换为屏幕上的实际像素，这个阶段就叫做重绘。</p>
-<h1 id="何时发生回流和重绘"><a href="#何时发生回流和重绘" class="headerlink" title="何时发生回流和重绘"></a>何时发生回流和重绘</h1><p>通过前面我们知道，回流主要是计算节点在设备上显示的具体位置及大小，那么当页面发生变化的时候就会触发回流。如：</p>
-<ul>
-<li>添加或删除可见的<code>DOM</code>元素。</li>
-<li>元素的位置发生变化。</li>
-<li>元素的尺寸发生变化（包括边框、边距、大小等）。</li>
-<li>元素的文本内容发生变化。</li>
-<li>浏览器的窗口大小发生改变（因为回流是根据视窗的大小来计算节点的具体位置的）。<h4 id="注意：回流一定会触发重绘，而重绘不一定会触发回流。"><a href="#注意：回流一定会触发重绘，而重绘不一定会触发回流。" class="headerlink" title="注意：回流一定会触发重绘，而重绘不一定会触发回流。"></a>注意：回流一定会触发重绘，而重绘不一定会触发回流。</h4></li>
-</ul>
+    <title>windows使用node多版本</title>
+    <url>/2022/04/03/nvm/</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开发过程中可能会出现，多个项目每个使用的node版本不一致情况，然而鱼与熊掌不可兼得，只能安装一个node版本。如果要多版本我们可以使用nvm工具<br><a id="more"></a></p>
+<h2 id="1-安装nvm"><a href="#1-安装nvm" class="headerlink" title="1.安装nvm"></a>1.安装nvm</h2><p>下载地址：<a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank">点我</a></p>
+<h2 id="2-配置代理"><a href="#2-配置代理" class="headerlink" title="2. 配置代理"></a>2. 配置代理</h2><p>打开安装目录下的<code>setting.txt</code>加入以下到末尾<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">node_mirror: http://npmmirror.com/mirrors/node/</span><br><span class="line">npm_mirror: http://npmmirror.com/mirrors/npm/</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-安装node"><a href="#3-安装node" class="headerlink" title="3.安装node"></a>3.安装node</h2><p>nvm常用命令<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nvm list available // 目前可用的node安装版本列表</span><br><span class="line">nvm list  // 列出目前所安装node版本列表</span><br><span class="line">nvm use 版本号  // 设置当前系统使用node的版本号,切换后可通过node -V查看是否切换成功</span><br><span class="line">nvm install 版本号  // 安装对应node版本到系统</span><br><span class="line">nvm uninstall 版本号 //  卸载对应node版本环境</span><br></pre></td></tr></table></figure></p>
 ]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
       <tags>
-        <tag>browser</tag>
+        <tag>工具</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>js编程题</title>
+    <url>/2022/04/08/program/</url>
+    <content><![CDATA[<p>日常js编程开发, 不定期编写<br><a id="more"></a></p>
+<h2 id="链表相加"><a href="#链表相加" class="headerlink" title="链表相加"></a>链表相加</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">class ListNode &#123;</span><br><span class="line">  constructor(val, next) &#123;</span><br><span class="line">    this.val = val ?? &quot;&quot;;</span><br><span class="line">    this.next = next ?? &quot;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function generatorListNode(arr) &#123;</span><br><span class="line">  const head = new ListNode(arr[0]);</span><br><span class="line">  let cur = head;</span><br><span class="line">  for (let i = 1, len = arr.length; i &lt; len; i++) &#123;</span><br><span class="line">    cur.next = new ListNode(arr[i]);</span><br><span class="line">    cur = cur.next;</span><br><span class="line">  &#125;</span><br><span class="line">  return head;</span><br><span class="line">&#125;</span><br><span class="line">const s1 = generatorListNode([1, 15, 3]),</span><br><span class="line">  s2 = generatorListNode([2, 15, 4]);</span><br><span class="line">function sum(s1, s2) &#123;</span><br><span class="line">  // head固定指针，tail移动指针</span><br><span class="line">  let head = null,</span><br><span class="line">    tail = null;</span><br><span class="line">  // 进位值</span><br><span class="line">  let county = 0;</span><br><span class="line">  while (s1 || s2) &#123;</span><br><span class="line">    const n1 = s1 ? s1.val : null;</span><br><span class="line">    const n2 = s2 ? s2.val : null;</span><br><span class="line">    const sum = n1 + n2 + county;</span><br><span class="line">    if (!head) &#123;</span><br><span class="line">      head = tail = new ListNode(sum % 10);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      tail.next = new ListNode(sum % 10);</span><br><span class="line">      tail = tail.next;</span><br><span class="line">    &#125;</span><br><span class="line">    county = Math.floor(sum / 10);</span><br><span class="line">    if (s1) s1 = s1.next;</span><br><span class="line">    if (s2) s2 = s2.next;</span><br><span class="line">  &#125;</span><br><span class="line">  if (county &gt; 0) &#123;</span><br><span class="line">    tail.next = new ListNode(county);</span><br><span class="line">  &#125;</span><br><span class="line">  return head;</span><br><span class="line">&#125;</span><br><span class="line">console.log(sum(s1, s2));</span><br></pre></td></tr></table></figure>
+<h2 id="无重复字串最大长度"><a href="#无重复字串最大长度" class="headerlink" title="无重复字串最大长度"></a>无重复字串最大长度</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">function noRepeatLen(str) &#123;</span><br><span class="line">  const list = new Set();</span><br><span class="line">  let left = -1,</span><br><span class="line">    ans = 0;</span><br><span class="line">  for (let i = 0; i &lt; str.length; i++) &#123;</span><br><span class="line">    if (i != 0) &#123;</span><br><span class="line">      list.delete(str.charAt(i - 1));</span><br><span class="line">    &#125;</span><br><span class="line">    while (!list.has(str.charAt(left + 1)) &amp;&amp; left + 1 &lt; str.length) &#123;</span><br><span class="line">      list.add(str.charAt(left + 1));</span><br><span class="line">      left++;</span><br><span class="line">    &#125;</span><br><span class="line">    ans = Math.max(ans, left - i + 1);</span><br><span class="line">  &#125;</span><br><span class="line">  return ans;</span><br><span class="line">&#125;</span><br><span class="line">console.log(noRepeatLen(&quot;abcabcbb&quot;));</span><br></pre></td></tr></table></figure>
+<h2 id="获取数组中任意两个元素相加等于提供的数的下标"><a href="#获取数组中任意两个元素相加等于提供的数的下标" class="headerlink" title="获取数组中任意两个元素相加等于提供的数的下标"></a>获取数组中任意两个元素相加等于提供的数的下标</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const arr = [1, 2, 3, 4,6],</span><br><span class="line">  sum = 9;</span><br><span class="line">const list = new Map();</span><br><span class="line">for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  const target = sum - arr[i];</span><br><span class="line">  if (!list.has(target)) &#123;</span><br><span class="line">    list.set(arr[i], i);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    console.log([i, list.get(target)])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最长回文子串"><a href="#最长回文子串" class="headerlink" title="最长回文子串"></a>最长回文子串</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const str = &quot;sabcbas&quot;;</span><br><span class="line">function getResult(s) &#123;</span><br><span class="line">  if (!s || s.length === 1) return s;</span><br><span class="line">  const len = s.length;</span><br><span class="line">  let res = s[0];</span><br><span class="line">  for (let i = 0; i &lt; len; i++) &#123;</span><br><span class="line">    let j = 1;</span><br><span class="line">    let tempStr1 = &quot;&quot;,</span><br><span class="line">      tempStr2 = &quot;&quot;;</span><br><span class="line">    if (s[i] === s[i + 1] &amp;&amp; s[i + 1]) &#123;</span><br><span class="line">      const doubleStr = `$&#123;s[i]&#125;$&#123;s[i + 1]&#125;`;</span><br><span class="line">      res = res.length &gt; doubleStr.length ? res : doubleStr;</span><br><span class="line">    &#125;</span><br><span class="line">    tempStr1 = s[i];</span><br><span class="line">    while (s[i + j] === s[i - j] &amp;&amp; s[i + j] &amp;&amp; s[i - j]) &#123;</span><br><span class="line">      tempStr1 = s[i - j] + tempStr1 + s[i + j];</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">    j = 1;</span><br><span class="line">    while (s[i - j] === s[i + j + 1] &amp;&amp; s[i - j] &amp;&amp; s[i + j - 1]) &#123;</span><br><span class="line">      tempStr2 = s[i - j] + tempStr2 + s[i + j - 1];</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">    const temp = tempStr1.length &gt; tempStr2.length ? tempStr1 : tempStr2;</span><br><span class="line">    res = temp.length &gt; res.length ? temp : res;</span><br><span class="line">  &#125;</span><br><span class="line">  return res;</span><br><span class="line">&#125;</span><br><span class="line">console.log(getResult(str))</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>算法</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -286,6 +252,31 @@
       </categories>
       <tags>
         <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>for循环应该这么用</title>
+    <url>/2019/03/05/for/</url>
+    <content><![CDATA[<p>从最开始学的for循环的遍历方法，再到后来连续不断出来的各种循环遍历方法，其实最大的区别就是应用的场景不同。而我们需要知道的是，什么情况下用哪一种方法合适</p>
+<hr>
+<a id="more"></a>
+<p>下面我就以例子介绍每种方法再什么情况下用最合适：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let arr = [</span><br><span class="line"> &#123;id:&quot;1&quot;,money:10&#125;,</span><br><span class="line"> &#123;id:&quot;2&quot;,money:30&#125;,</span><br><span class="line"> &#123;id:&quot;3&quot;,money:40&#125;,</span><br><span class="line"> &#123;id:&quot;4&quot;,money:50&#125;,</span><br><span class="line"> &#123;id:&quot;5&quot;,money:60&#125;,</span><br><span class="line"> &#123;id:&quot;6&quot;,money:80&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<h2 id="1-给每一组数据的money都增大一点"><a href="#1-给每一组数据的money都增大一点" class="headerlink" title="1.给每一组数据的money都增大一点"></a>1.给每一组数据的<code>money</code>都增大一点</h2><p>这个时候可用到<code>forEach</code>方法:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">arr.forEach(item =&gt; &#123; item.money += 10 &#125;));</span><br></pre></td></tr></table></figure></p>
+<p><code>map</code>方法它说它也可以:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">arr.map(item =&gt; &#123; item.money += 10 &#125;);</span><br></pre></td></tr></table></figure></p>
+<p><code>map</code>补充说，我还可以给你把money统计成一个新的数组给你；<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let money = arr.map(item =&gt; &#123; return item.money += 10 &#125;);</span><br><span class="line">//[20,40,50,60,70,90]</span><br></pre></td></tr></table></figure></p>
+<p>###<code>forEach</code>和<code>map</code>最大的区别就在于<code>forEach</code>没有返回值。</p>
+<h2 id="2-只要这组数据中money大于50的数据（筛选）"><a href="#2-只要这组数据中money大于50的数据（筛选）" class="headerlink" title="2.只要这组数据中money大于50的数据（筛选）"></a>2.只要这组数据中money大于50的数据（筛选）</h2><p>从题目看就知道，筛选这种事一般都是<code>filter</code>来做的:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let filones = arr.filter(item =&gt; &#123; return item.money&gt;=50 &#125;);</span><br><span class="line">//[&#123;id:&quot;4&quot;,money:50&#125;,&#123;id:&quot;5&quot;,money:60&#125;,&#123;id:&quot;6&quot;,money:80&#125;]</span><br></pre></td></tr></table></figure></p>
+<h2 id="3-这组数据中有money大于50的么-（有符合）"><a href="#3-这组数据中有money大于50的么-（有符合）" class="headerlink" title="3.这组数据中有money大于50的么 （有符合）"></a>3.这组数据中有money大于50的么 （有符合）</h2><p>这题意思就是，这组数据只要有money大于50的就符合，这个时候<code>some</code>就很有用了：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let flag = arr.some(item =&gt; &#123; return item.money&gt;50 &#125;);</span><br><span class="line">//true</span><br></pre></td></tr></table></figure></p>
+<p><code>some</code>它会去遍历查找满足条件的，当第一条就符合的时候，就会立即返回告诉你有符合的了，后面的就不用检查了。</p>
+<h2 id="4-这组数据中money全是大于50的么？"><a href="#4-这组数据中money全是大于50的么？" class="headerlink" title="4.这组数据中money全是大于50的么？"></a>4.这组数据中money全是大于50的么？</h2><p>这个时候every就想知道这组数据中难道每条都大于50？<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let flag = arr.every(item =&gt; &#123;return item.money&gt;50 &#125;)</span><br><span class="line">//false</span><br></pre></td></tr></table></figure></p>
+<p>当每条数据都要去检查的时候，像这样会非常耗费性能;我们可以考虑反向检查，通过<code>some</code>检查是否有小于50的数据，再取反。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let flag = !arr.some(item =&gt; &#123;return item.money&lt;50 &#125;);</span><br><span class="line">//false</span><br></pre></td></tr></table></figure></p>
+<h2 id="5-这组数据money总和是多少呢"><a href="#5-这组数据money总和是多少呢" class="headerlink" title="5.这组数据money总和是多少呢"></a>5.这组数据money总和是多少呢</h2><p>我们可以先通过用<code>map</code>将<code>money</code>取出来，再用<code>reduce</code>计算其总和。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">let moneys = arr.map(item =&gt; &#123;return item.money &#125;);</span><br><span class="line">let sum = moneys.reduce((sum,moneys)=&gt;&#123; return moneys+sum&#125;,0)</span><br></pre></td></tr></table></figure></p>
+]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>js</tag>
       </tags>
   </entry>
   <entry>
@@ -378,6 +369,45 @@
       </categories>
       <tags>
         <tag>vue</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>什么是回流与重绘</title>
+    <url>/2019/05/24/reflux/</url>
+    <content><![CDATA[<p>要想知道什么是回流与重绘，首先我们得清楚浏览器的渲染过程。你知道是渲染过程是怎样的么？下面和我一起了解一下吧。<br><a id="more"></a></p>
+<h1 id="浏览器的渲染过程"><a href="#浏览器的渲染过程" class="headerlink" title="浏览器的渲染过程"></a>浏览器的渲染过程</h1><ol>
+<li>首先，解析<code>html</code>生成<code>DOM</code>树，解析<code>css</code>生成<code>CSSOM</code>树。</li>
+<li>将<code>DOM</code>树和<code>CSSOM</code>树相结合生成渲染树(<code>Render Tree</code>)。</li>
+<li>根据生成的渲染树，进行回流得到节点的位置、大小等信息。</li>
+<li>根据渲染树以及回流得到的几何信息，得到节点的绝对像素。</li>
+<li>将像素发给<code>GPU</code>，展示在页面上。</li>
+</ol>
+<p>渲染过程看起来虽然很简单，但是具体做了什么可能还不是太清楚吧，下面我们一一了解下。</p>
+<h1 id="生成渲染树"><a href="#生成渲染树" class="headerlink" title="生成渲染树"></a>生成渲染树</h1><p>为了生成渲染树，浏览器主要做了以下工作：</p>
+<ol>
+<li>从<code>DOM</code>树的根节点开始遍历每个可见的节点。</li>
+<li>对于每一个可见的节点，找到<code>CSSOM</code>树中的对应规则，并应用它们。</li>
+<li>根据每一个可见的节点以及它们所对应的样式，组合生成渲染树。</li>
+</ol>
+<h4 id="注意：渲染树只包含可见节点。"><a href="#注意：渲染树只包含可见节点。" class="headerlink" title="注意：渲染树只包含可见节点。"></a>注意：渲染树只包含可见节点。</h4><p>不可见的节点包括：</p>
+<ul>
+<li>不会渲染输出的节点。如<code>script</code>、<code>meta</code>、<code>link</code>等标签。</li>
+<li>通过css属性进行隐藏的节点，如<code>display:none</code>。（用<code>visibility</code>和<code>opacity</code>隐藏的节点还是会渲染到渲染树上。）</li>
+</ul>
+<h1 id="回流"><a href="#回流" class="headerlink" title="回流"></a>回流</h1><p>前面我们已经通过构造渲染树，将可见的节点以及它所对应的样式相结合起来，但是我们还需要计算每个节点在设备视图里所在的具体位置及大小。这个计算的过程我们就称为回流。<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span><br><span class="line">    &lt;title&gt;Critial Path: Hello world!&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">    &lt;div style=&quot;width: 50%&quot;&gt;</span><br><span class="line">      &lt;div style=&quot;width: 50%&quot;&gt;Hello world!&lt;/div&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure></p>
+<p>以上代码中，我们可以看到第一个<code>div</code>将显示的尺寸设为了设备视窗的50%,第二个<code>div</code>设为了父节点宽度的50%，在回流的阶段我们就需要根据视窗的具体宽度，将其设为具体的像素值。</p>
+<h1 id="重绘"><a href="#重绘" class="headerlink" title="重绘"></a>重绘</h1><p>我们通过构造渲染树和回流的阶段，知道了哪些节点是可见的，以及可见节点的样式和具体位置和大小信息，那么我们就可以将渲染树中的每一个节点都转换为屏幕上的实际像素，这个阶段就叫做重绘。</p>
+<h1 id="何时发生回流和重绘"><a href="#何时发生回流和重绘" class="headerlink" title="何时发生回流和重绘"></a>何时发生回流和重绘</h1><p>通过前面我们知道，回流主要是计算节点在设备上显示的具体位置及大小，那么当页面发生变化的时候就会触发回流。如：</p>
+<ul>
+<li>添加或删除可见的<code>DOM</code>元素。</li>
+<li>元素的位置发生变化。</li>
+<li>元素的尺寸发生变化（包括边框、边距、大小等）。</li>
+<li>元素的文本内容发生变化。</li>
+<li>浏览器的窗口大小发生改变（因为回流是根据视窗的大小来计算节点的具体位置的）。<h4 id="注意：回流一定会触发重绘，而重绘不一定会触发回流。"><a href="#注意：回流一定会触发重绘，而重绘不一定会触发回流。" class="headerlink" title="注意：回流一定会触发重绘，而重绘不一定会触发回流。"></a>注意：回流一定会触发重绘，而重绘不一定会触发回流。</h4></li>
+</ul>
+]]></content>
+      <tags>
+        <tag>browser</tag>
       </tags>
   </entry>
 </search>
