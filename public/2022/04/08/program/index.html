@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <title>
-    vueCli+vant+tsx使用问题 |  YmTonny Blogs
+    js编程题 |  YmTonny Blogs
   </title>
   <meta name="generator" content="hexo-theme-yilia-plus">
   
@@ -29,7 +29,7 @@
   <div id="app">
     <main class="content">
       <section class="outer">
-  <article id="post-vue-vant-ts" class="article article-type-post" itemscope
+  <article id="post-program" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
   <div class="article-inner">
@@ -37,7 +37,7 @@
     <header class="article-header">
        
 <h1 class="article-title sea-center" style="border-left:0" itemprop="name">
-  vueCli+vant+tsx使用问题
+  js编程题
 </h1>
   
 
@@ -46,12 +46,12 @@
 
     
     <div class="article-meta">
-      <a href="/2022/03/31/vue-vant-ts/" class="article-date">
-  <time datetime="2022-03-30T16:00:00.000Z" itemprop="datePublished">2022-03-31</time>
+      <a href="/2022/04/08/program/" class="article-date">
+  <time datetime="2022-04-07T16:00:00.000Z" itemprop="datePublished">2022-04-08</time>
 </a>
       
   <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
+    <a class="article-category-link" href="/categories/算法/">算法</a>
   </div>
 
       
@@ -61,7 +61,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">560字</span>
+            <span class="post-count">512字</span>
         </span>
     </span>
 
@@ -70,7 +70,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-book-open-line"></i>
             <span class="post-meta-item-text"> 阅读时长≈</span>
-            <span class="post-count">2分钟</span>
+            <span class="post-count">3分钟</span>
         </span>
     </span>
 </div>
@@ -97,33 +97,11 @@
       
 
       
-      <p>在vueCli+ts中按需引用vant没有样式？生产环境打包无vant样式？build失败？那是因为你没有配置这些<br><a id="more"></a></p>
-<h2 id="一、按需引用vant无样式"><a href="#一、按需引用vant无样式" class="headerlink" title="一、按需引用vant无样式"></a>一、按需引用vant无样式</h2><p>如果你通过以下配置后依然无样式，可在<code>vue.config.js</code>中配置css下面的<code>requireModuleExtension: true</code>属性,再重启服务查看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">babel.config.js</span><br><span class="line">plugins: [</span><br><span class="line">  &quot;import&quot;,</span><br><span class="line">    &#123;</span><br><span class="line">      &quot;libraryName&quot;: &quot;vant&quot;,</span><br><span class="line">      &quot;style&quot;: true</span><br><span class="line">    &#125;,</span><br><span class="line">  &quot;vant&quot;</span><br><span class="line">]</span><br><span class="line">vue.config.js</span><br><span class="line">&#123;</span><br><span class="line">  loader: &quot;ts-loader&quot;,</span><br><span class="line">  options: &#123;</span><br><span class="line">    getCustomTransformers: () =&gt; (&#123;</span><br><span class="line">      before: [</span><br><span class="line">        require(&quot;ts-import-plugin&quot;)(&#123;</span><br><span class="line">          libraryName: &quot;vant&quot;,</span><br><span class="line">          libraryDirectory: &quot;es&quot;,</span><br><span class="line">          style: true</span><br><span class="line">        &#125;)</span><br><span class="line">      ]</span><br><span class="line">    &#125;),</span><br><span class="line">    compilerOptions: &#123;</span><br><span class="line">      module: &quot;es2015&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="二、生产环境打包无按需引入vant样式"><a href="#二、生产环境打包无按需引入vant样式" class="headerlink" title="二、生产环境打包无按需引入vant样式"></a>二、生产环境打包无按需引入vant样式</h2><p>配置<code>vue.config.js</code>中的<code>parallel: false</code>属性,该属性为是否使用thread-loader来解析babel或typescript,当配置为true时, 会将你的<code>loader</code>放在一个<code>work池</code>中，<code>work池</code>中的<code>loader</code>会受到一些限制，如：</p>
-<ul>
-<li>这些<code>loader</code>不能产生新文件</li>
-<li>无法获取<code>webpack</code>的选项配置<h2 id="三、配置了ts-loader后，项目打包失败"><a href="#三、配置了ts-loader后，项目打包失败" class="headerlink" title="三、配置了ts-loader后，项目打包失败"></a>三、配置了ts-loader后，项目打包失败</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  loader: &quot;ts-loader&quot;,</span><br><span class="line">  options: &#123;</span><br><span class="line">    happyPackMode: true, // 配置此属性</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="四、如何使用vue-config-ts"><a href="#四、如何使用vue-config-ts" class="headerlink" title="四、如何使用vue.config.ts"></a>四、如何使用vue.config.ts</h2><p>通过查阅vue-cli-service源码后，发现启动时会有一个获取全局变量<code>VUE_CLI_SERVICE_CONFIG_PATH</code>,来确定使用的文件，如无配置将使用<code>vue.config.js</code>,因此可使用如下配置</p>
-<ol>
-<li>安装<code>cross-env ts-node</code></li>
-<li>配置<code>tsconfig.json</code></li>
-<li>修改<code>script命令</code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">tsconfig.json // 让ts-node支持编译js</span><br><span class="line">&#123;</span><br><span class="line">  &quot;ts-node&quot;: &#123;</span><br><span class="line">    &quot;transpileOnly&quot;: true,</span><br><span class="line">    &quot;compilerOptions&quot;: &#123;</span><br><span class="line">      &quot;module&quot;: &quot;commonjs&quot;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">package.json</span><br><span class="line">&#123;</span><br><span class="line">  &quot;script&quot;: &#123;</span><br><span class="line">    &quot;service&quot;: &quot;cross-env VUE_CLI_SERVICE_CONFIG_PATH=./vue.config.ts ts-node ./node_modules/@vue/cli-service/bin/vue-cli-service.js&quot;,</span><br><span class="line">    &quot;serve&quot;: &quot;npm run service serve&quot; // 等同于vue-cli-service serve 如需携带参数可通过 -- --mode dev</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="五、node低版本运行服务，ts-node启动失败"><a href="#五、node低版本运行服务，ts-node启动失败" class="headerlink" title="五、node低版本运行服务，ts-node启动失败"></a>五、node低版本运行服务，ts-node启动失败</h2><p>报错 <code>catch { Unknown Error token</code>, 原因是因为低版本node无法支持识别 <code>catch{}</code>不带括号,解决方案</p>
-<ol>
-<li>升级<code>node</code>版本</li>
-<li>无法升级node时，可通过打补丁<ul>
-<li>安装<code>patch-package</code>,使用<code>yarn</code>命令时还需安装<code>postinstall-postinstall</code>,<code>npm</code>无需安装</li>
-<li>修改<code>node_modules</code>中包的源码</li>
-<li><code>package.json</code>中增加一条命令<code>&quot;postinstall&quot;: &quot;patch-package&quot;</code></li>
-<li>运行<code>npm run patch-package ts-node</code>生成补丁包，后续重新安装包就都不会影响到。</li>
-</ul>
-</li>
-</ol>
-
+      <p>日常js编程开发, 不定期编写<br><a id="more"></a></p>
+<h2 id="链表相加"><a href="#链表相加" class="headerlink" title="链表相加"></a>链表相加</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">class ListNode &#123;</span><br><span class="line">  constructor(val, next) &#123;</span><br><span class="line">    this.val = val ?? &quot;&quot;;</span><br><span class="line">    this.next = next ?? &quot;&quot;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function generatorListNode(arr) &#123;</span><br><span class="line">  const head = new ListNode(arr[0]);</span><br><span class="line">  let cur = head;</span><br><span class="line">  for (let i = 1, len = arr.length; i &lt; len; i++) &#123;</span><br><span class="line">    cur.next = new ListNode(arr[i]);</span><br><span class="line">    cur = cur.next;</span><br><span class="line">  &#125;</span><br><span class="line">  return head;</span><br><span class="line">&#125;</span><br><span class="line">const s1 = generatorListNode([1, 15, 3]),</span><br><span class="line">  s2 = generatorListNode([2, 15, 4]);</span><br><span class="line">function sum(s1, s2) &#123;</span><br><span class="line">  // head固定指针，tail移动指针</span><br><span class="line">  let head = null,</span><br><span class="line">    tail = null;</span><br><span class="line">  // 进位值</span><br><span class="line">  let county = 0;</span><br><span class="line">  while (s1 || s2) &#123;</span><br><span class="line">    const n1 = s1 ? s1.val : null;</span><br><span class="line">    const n2 = s2 ? s2.val : null;</span><br><span class="line">    const sum = n1 + n2 + county;</span><br><span class="line">    if (!head) &#123;</span><br><span class="line">      head = tail = new ListNode(sum % 10);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">      tail.next = new ListNode(sum % 10);</span><br><span class="line">      tail = tail.next;</span><br><span class="line">    &#125;</span><br><span class="line">    county = Math.floor(sum / 10);</span><br><span class="line">    if (s1) s1 = s1.next;</span><br><span class="line">    if (s2) s2 = s2.next;</span><br><span class="line">  &#125;</span><br><span class="line">  if (county &gt; 0) &#123;</span><br><span class="line">    tail.next = new ListNode(county);</span><br><span class="line">  &#125;</span><br><span class="line">  return head;</span><br><span class="line">&#125;</span><br><span class="line">console.log(sum(s1, s2));</span><br></pre></td></tr></table></figure>
+<h2 id="无重复字串最大长度"><a href="#无重复字串最大长度" class="headerlink" title="无重复字串最大长度"></a>无重复字串最大长度</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">function noRepeatLen(str) &#123;</span><br><span class="line">  const list = new Set();</span><br><span class="line">  let left = -1,</span><br><span class="line">    ans = 0;</span><br><span class="line">  for (let i = 0; i &lt; str.length; i++) &#123;</span><br><span class="line">    if (i != 0) &#123;</span><br><span class="line">      list.delete(str.charAt(i - 1));</span><br><span class="line">    &#125;</span><br><span class="line">    while (!list.has(str.charAt(left + 1)) &amp;&amp; left + 1 &lt; str.length) &#123;</span><br><span class="line">      list.add(str.charAt(left + 1));</span><br><span class="line">      left++;</span><br><span class="line">    &#125;</span><br><span class="line">    ans = Math.max(ans, left - i + 1);</span><br><span class="line">  &#125;</span><br><span class="line">  return ans;</span><br><span class="line">&#125;</span><br><span class="line">console.log(noRepeatLen(&quot;abcabcbb&quot;));</span><br></pre></td></tr></table></figure>
+<h2 id="获取数组中任意两个元素相加等于提供的数的下标"><a href="#获取数组中任意两个元素相加等于提供的数的下标" class="headerlink" title="获取数组中任意两个元素相加等于提供的数的下标"></a>获取数组中任意两个元素相加等于提供的数的下标</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">const arr = [1, 2, 3, 4,6],</span><br><span class="line">  sum = 9;</span><br><span class="line">const list = new Map();</span><br><span class="line">for (let i = 0; i &lt; arr.length; i++) &#123;</span><br><span class="line">  const target = sum - arr[i];</span><br><span class="line">  if (!list.has(target)) &#123;</span><br><span class="line">    list.set(arr[i], i);</span><br><span class="line">  &#125; else &#123;</span><br><span class="line">    console.log([i, list.get(target)])</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="最长回文子串"><a href="#最长回文子串" class="headerlink" title="最长回文子串"></a>最长回文子串</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">const str = &quot;sabcbas&quot;;</span><br><span class="line">function getResult(s) &#123;</span><br><span class="line">  if (!s || s.length === 1) return s;</span><br><span class="line">  const len = s.length;</span><br><span class="line">  let res = s[0];</span><br><span class="line">  for (let i = 0; i &lt; len; i++) &#123;</span><br><span class="line">    let j = 1;</span><br><span class="line">    let tempStr1 = &quot;&quot;,</span><br><span class="line">      tempStr2 = &quot;&quot;;</span><br><span class="line">    if (s[i] === s[i + 1] &amp;&amp; s[i + 1]) &#123;</span><br><span class="line">      const doubleStr = `$&#123;s[i]&#125;$&#123;s[i + 1]&#125;`;</span><br><span class="line">      res = res.length &gt; doubleStr.length ? res : doubleStr;</span><br><span class="line">    &#125;</span><br><span class="line">    tempStr1 = s[i];</span><br><span class="line">    while (s[i + j] === s[i - j] &amp;&amp; s[i + j] &amp;&amp; s[i - j]) &#123;</span><br><span class="line">      tempStr1 = s[i - j] + tempStr1 + s[i + j];</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">    j = 1;</span><br><span class="line">    while (s[i - j] === s[i + j + 1] &amp;&amp; s[i - j] &amp;&amp; s[i + j - 1]) &#123;</span><br><span class="line">      tempStr2 = s[i - j] + tempStr2 + s[i + j - 1];</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">    const temp = tempStr1.length &gt; tempStr2.length ? tempStr1 : tempStr2;</span><br><span class="line">    res = temp.length &gt; res.length ? temp : res;</span><br><span class="line">  &#125;</span><br><span class="line">  return res;</span><br><span class="line">&#125;</span><br><span class="line">console.log(getResult(str))</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       
@@ -181,14 +159,14 @@
     <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://ymtonny.cn/2022/03/31/vue-vant-ts/" alt="微信分享二维码">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://ymtonny.cn/2022/04/08/program/" alt="微信分享二维码">
     </div>
 </div>
 
 <div id="share-mask"></div>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
 
 
     </footer>
@@ -199,19 +177,10 @@
   
   <nav class="article-nav">
     
+    
       <a href="/2022/04/03/nvm/" class="article-nav-link">
-        <strong class="article-nav-caption">上一篇</strong>
-        <div class="article-nav-title">
-          
-            windows使用node多版本
-          
-        </div>
-      </a>
-    
-    
-      <a href="/2019/08/11/array/" class="article-nav-link">
         <strong class="article-nav-caption">下一篇</strong>
-        <div class="article-nav-title">js数组去重多一种选择</div>
+        <div class="article-nav-title">windows使用node多版本</div>
       </a>
     
   </nav>
