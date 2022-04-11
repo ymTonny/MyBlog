@@ -121,3 +121,22 @@ function getResult(s) {
 }
 console.log(getResult(str))
 ```
+## 广度优先tree展平
+```
+const tree = [{"id":1,"pid":"-1","children":[{"id":2,"pid":"1","children":[]},{"id":3,"pid":"1","children":[]}]}];
+function treeToList(tree) {
+  let queen = [];
+  let result = [];
+  queen = queen.concat(tree);
+  while(queen.length) {
+    let first = queen.shift();
+    if (first.children) {
+      queen = queen.concat(first.children);
+      delete first['children'];
+    }
+    result.push(first);
+  }
+  return result;
+}
+console.log(treeToList(tree))
+```
