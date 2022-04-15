@@ -131,7 +131,7 @@ function treeToList(tree) {
   while(queen.length) {
     let first = queen.shift();
     if (first.children) {
-      queen = queen.concat(first.children);
+      queen = queen.concat(first.children);  //深度优先使用unshift
       delete first['children'];
     }
     result.push(first);
@@ -139,4 +139,100 @@ function treeToList(tree) {
   return result;
 }
 console.log(treeToList(tree))
+```
+## 树节点路径查找
+```
+const tree = [
+  {
+    id: 1,
+    pid: "-1",
+    name: "1",
+    children: [
+      {
+        id: "101",
+        pid: "1",
+        name: "1-1",
+        children: [{ id: "1001", pid: "1", name: "1-1-1" }],
+      },
+      {
+        id: "102",
+        pid: "1",
+        name: "1-2",
+        children: [{ id: "1002", pid: "2", name: "1-2-2" }],
+      },
+    ],
+  },
+  {
+    id: 2,
+    pid: "-1",
+    name: "2",
+    children: [
+      {
+        id: "201",
+        pid: "1",
+        name: "2-1",
+        children: [{ id: "2001", pid: "1", name: "2-1-1" }],
+      },
+      {
+        id: "202",
+        pid: "1",
+        name: "2-2",
+        children: [{ id: "2002", pid: "2", name: "2-2-2" }],
+      },
+    ],
+  },
+];
+function findTreePath(tree, func, path = []) {
+  if(!tree.length) return [];
+  for (const data of tree) {
+    path.push(data.id);
+    if (func(data)) return path;
+    if (data.children) {
+      const findChildren = findTreePath(data.children, func, path);
+      if (findChildren.length) return findChildren;
+    }
+    path.pop();
+  }
+  retur [];
+}
+findTreePath(tree, node=>node.id==='');
+//========多路径查找
+function findTreePath(tree, func, path = [], result = []) {
+  if(!tree.path) return [];
+  for(const data of tree) {
+    path.push(data.id);
+    if(func(data)) result.push([...path]);
+    if (data.children) findTreePath(data.children, func, path, result);
+    path.pop();
+  }
+  return result;
+}
+findTreePath(tree, node=>node.id==='' || node.name==='test')
+```
+## 列表转树
+```
+function listTotree(tree) {
+  const mapArr = tree.reduce((map, node) => (map[node.id] = node, node.children = [], map), {});
+  const result = tree.filter(item=>{
+    if(item.pid) mapArr[item.pid].children.push(item);
+    return !item.pid
+  })
+}
+// 一次循环
+function listTotree(tree) {
+  const map = {};
+  const result = [];
+  for(const data of tree) {
+    map[data.id] = data;
+    map[data.id].children = [];
+    const parentRoot = map[data.pid];
+    if (!parentRoot) {
+      result.push(data)
+    } else {
+      !parentRoot.children && (parentRoot.children = []);
+      parentRoot.children.push(data)
+    }
+  }
+  return result;
+}
 ```
