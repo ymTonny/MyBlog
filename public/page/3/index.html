@@ -68,6 +68,79 @@
     
     
     
+    <article id="post-interview" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/06/20/interview/"
+    >前端面试题 --vue</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/06/20/interview/" class="article-date">
+  <time datetime="2019-06-19T16:00:00.000Z" itemprop="datePublished">2019-06-20</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试/">面试</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h3 id="1-说一下Vue的双向绑定数据的原理"><a href="#1-说一下Vue的双向绑定数据的原理" class="headerlink" title="1. 说一下Vue的双向绑定数据的原理"></a>1. 说一下Vue的双向绑定数据的原理</h3><p><code>vue</code> 实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过 <code>Object.defineProperty()</code> 来劫持各个属性的 <code>setter</code>，<code>getter</code>，在数据变动时发布消息给订阅者，触发相应监听回调</p>
+      
+      <a class="article-more-link" href="/2019/06/20/interview/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+  
+
+</article>
+    
     <article id="post-javascript" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -283,86 +356,13 @@
 
 </article>
     
-    <article id="post-vue-interview" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/05/05/vue-interview/"
-    >关于vuex</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/05/05/vue-interview/" class="article-date">
-  <time datetime="2019-05-04T16:00:00.000Z" itemprop="datePublished">2019-05-05</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="vuex数据流"><a href="#vuex数据流" class="headerlink" title="vuex数据流"></a>vuex数据流</h2><p>说实话，看了官方文档我并不清楚vuex到底是个什么东西，通过例子，我知道如何使用后，我才慢慢理解一点。我的理解就是：为什么会存在组件不能通信？简单粗暴的回答就是，变量的作用域导致的，vue的每一个组件都有自己的生命周期，都是独立存在的个体。vuex就是在根组件创建一个叫state的全局变量，让不同组件共享这个变量，并且定义了一系列方法和规范，也就是action、mutation等等，去统一触发这个全局变量也就是state。<br>
-      
-      <a class="article-more-link" href="/2019/05/05/vue-interview/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/2/">上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">下一页</a>
   </nav>
   
 </section>

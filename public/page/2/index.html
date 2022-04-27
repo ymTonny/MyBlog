@@ -68,6 +68,81 @@
     
     
     
+    <article id="post-array" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/08/11/array/"
+    >js数组去重多一种选择</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/08/11/array/" class="article-date">
+  <time datetime="2019-08-10T16:00:00.000Z" itemprop="datePublished">2019-08-11</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/面试/">面试</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <p>数组去重，一般在面试的时候都会被问到，要求现场写去重代码，那么你知道有多少去重的方法呢？如果你能答出多种的话，面试官一定会对你刮目相看的。</p>
+<p>数组去重的方法：</p>
+<h2 id="一、利用ES6-Set去重"><a href="#一、利用ES6-Set去重" class="headerlink" title="一、利用ES6 Set去重"></a>一、利用ES6 Set去重</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function uniq(arr)&#123;</span><br><span class="line">  return Array.from(new Set(arr))</span><br><span class="line">&#125;</span><br><span class="line">let arr = [1,1,2,2,3,3];</span><br><span class="line">console.log(uniq(arr));</span><br></pre></td></tr></table></figure>
+      
+      <a class="article-more-link" href="/2019/08/11/array/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+  
+
+</article>
+    
     <article id="post-async-await" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -291,86 +366,13 @@
 
 </article>
     
-    <article id="post-interview" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/06/20/interview/"
-    >前端面试题 --vue</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/06/20/interview/" class="article-date">
-  <time datetime="2019-06-19T16:00:00.000Z" itemprop="datePublished">2019-06-20</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/面试/">面试</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h3 id="1-说一下Vue的双向绑定数据的原理"><a href="#1-说一下Vue的双向绑定数据的原理" class="headerlink" title="1. 说一下Vue的双向绑定数据的原理"></a>1. 说一下Vue的双向绑定数据的原理</h3><p><code>vue</code> 实现数据双向绑定主要是：采用数据劫持结合发布者-订阅者模式的方式，通过 <code>Object.defineProperty()</code> 来劫持各个属性的 <code>setter</code>，<code>getter</code>，在数据变动时发布消息给订阅者，触发相应监听回调</p>
-      
-      <a class="article-more-link" href="/2019/06/20/interview/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-  
-
-</article>
-    
   </article>
   
 
   
   <nav class="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
+    <a class="extend prev" rel="prev" href="/">上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">下一页</a>
   </nav>
   
 </section>
