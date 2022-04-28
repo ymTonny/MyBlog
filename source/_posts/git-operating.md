@@ -6,12 +6,16 @@ categories:
 tags:
  - git
 ---
-# 一.clone 项目
+# 一.ssh key生成
+```
+ssh-keygen -t rsa -C "email"
+```
+# 二.clone 项目
 clone git上的项目,如下：
 ``` branch
  git clone git@github.com:ymtonny/myBlog.git
 ```
-# 二.管理分支
+# 三.管理分支
 ## 1.查看分支
 <!--more-->
 ### 1.1.查看本地分支
@@ -62,3 +66,24 @@ clone git上的项目,如下：
    git push origin :[branch name]
 ```
 分支名前冒号代表删除。
+## 8.一次删除本地存在的远程没有的分支
+```
+git remote show origin
+git remote prune
+```
+## 9.本地文件夹关联远程仓库
+```
+git remote add origin [仓库git链接]
+//推送代码
+git push -u origin master //-u 使其与远程关联 简化后期推送操作
+```
+## 10.撤销add, commit, 修改commit信息
+```
+//撤销add
+git reset
+//撤销commit
+git reset HEAD^ //同时撤销add,保留工作区修改内容
+git reset --soft HEAD^ //不撤销add, 保留修改内容
+git reset --hard HEAD^ //同时撤销add,删除修改的内容
+git commit -amend // 修改commit信息
+```

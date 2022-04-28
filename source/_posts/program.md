@@ -236,3 +236,14 @@ function listTotree(tree) {
   return result;
 }
 ```
+## 洗牌算法
+```
+function fisheYete(arr) {
+  const list = arr.slice(0);
+  for(let i=list.length - 1;i>0;i--) {
+    const randIdx = Math.floor(Math.random()*(i+1));
+    [list[i], list[randIdx]] = [list[randIdx], list[i]]
+  }
+  return list;
+}
+```
