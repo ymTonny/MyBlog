@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        html,body {
+            height:100%;
+        }
+        #game{
+            width: 100%;
+            height: 100%;
+            background: url("images/readyBg.jpg") no-repeat center top;
+            background-size: 100% 100%;
+            position: relative;
+            overflow: hidden;
+        }
+        #sm{
+            width: 320px;
+            height: 300px;
+            position: absolute;
+            top:14%;
+            left:6%;
+            background: url("images/sm.png") no-repeat center top;
+            background-size: 100% 100%;
+        }
+        .start{
+            width: 252px;
+            height:66px;
+            background: url("images/start.gif") no-repeat center top;
+            background-size: 100% 100%;
+            position: absolute;
+            bottom: 5%;
+            left:26%;
+        }
+        .start:hover{
+            cursor: pointer;
+            background: url("images/startOver.gif") no-repeat center top;
+        }
+        #home{
+            width: 100%;
+            height: 100%;
+            background:url("images/bg.jpg") no-repeat center top;
+            background-size: 100% 100%;
+            position: absolute;
+            z-index: -1;
+            top:0;
+            overflow: hidden;
+        }
+        #home img{
+            position: absolute;
+        }
+        #fs{
+            width:150px;
+            height: 70px;
+            background: url("images/RunnerGame.gif") no-repeat center top;
+            background-size: 100% 100%;
+            position: absolute;
+            top:0;
+            right: 0;
+            text-align: center;
+            line-height: 110px;
+        }
+        #gameover{
+            width: 300px;
+            height: 320px;
+            background: url("images/tipBg.png") no-repeat center top;
+            background-size: 100% 100%;
+            position: absolute;
+            margin: 10% 35% 0;
+            text-align: center;
+            display: none;
+            z-index: 1;
+
+        }
+        #gameover p:nth-of-type(1){
+            margin-top:30%;
+        }
+        .queren{
+            width: 100px;
+            height: 50px;
+            background: url("images/tipYC.gif") no-repeat center top;
+            background-size: 100% 100%;
+            position: absolute;
+            right: 50px;
+            bottom: 40px;
+        }
+        #overfs{
+            color: brown;
+            font-size: 2rem;
+            font-weight: bolder;
+            margin-top: 10px;
+        }
+        .queren:hover{
+            cursor: pointer;
+        }
+        .time{
+            width: 200px;
+            height:100px;
+            position: absolute;
+            top:50px;
+            left:45%;
+        }
+        #home .time img{
+            position: static;
+        }
+        #home .jinyan{
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            top:1%;
+            left:0;
+        }
+        #home .jinyan .ping{
+            margin-top: 1%;
+            position: absolute;
+            width: 60px;
+            height: 50px;
+        }
+        .jinyan span{
+            position: absolute;
+            right:-100%;
+            top:20%;
+            font-size: 2rem;
+            font-weight: bolder;
+            color: #EA5455;
+        }
+        .nengliang{
+            position: absolute;
+            top:15%;
+            left:1%;
+        }
+        .zjjy{
+            width: 8px;
+            height: 100px;
+            background: none;
+            position: relative;
+            top:100px;
+            left:1.9%;
+            display: flex;
+            align-items: flex-end;
+        }
+        .zjjy span{
+            display:block;
+            height: 10px;
+            width: 10px;
+            background: #09f;
+        }
+        .dazhao{
+            position: absolute;
+            top:0%;
+            left:6%;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<!--主界面-->
+    <div id="game">
+        <div id="sm">
+        </div>
+        <div class="start" id="btn">
+        </div>
+    </div>
+<!--开始游戏-->
+    <div id="home">
+       <div id="fs">
+           <span>0 分</span>
+       </div>
+        <div id="gameover">
+            <p>游戏结束！</p>
+            <p>您的分数为：</p>
+            <p id="overfs"></p>
+            <div class="queren" id="queren"></div>
+        </div>
+        <!--时间-->
+        <div class="time" id="time">
+            <img src="images/0.gif" id="time1">
+            <img src="images/1.gif" id="time2">
+            <img src="images/d.png" id="time3">
+            <img src="images/3.gif" id="time4">
+            <img src="images/0.gif" id="time5">
+        </div>
+        <!--血量-->
+        <div class="jinyan">
+            <img src="images/taoxin.png" class="ping">
+            <span id="myxue">x5</span>
+        </div>
+        <!--经验条-->
+        <div class="nengliang">
+            <img src="images/exp0.png" id="NLtiao">
+        </div>
+        <!--增长经验条-->
+
+          <div class="zjjy" id="zjjy">
+              <span id="zjspan"></span>
+          </div>
+         <!--大招-->
+        <div class="dazhao" id="dazhao">
+            <img src="images/skill.gif">
+        </div>
+
+    </div>
+    <audio src="music/game_music.mp3" loop="loop" id="audio"></audio>
+    <audio src="music/bullet.mp3" id="gj"></audio>
+    <audio src="music/enemy3_down.mp3" id="djbz"></audio>
+    <audio src="music/game_over.mp3" id="over"></audio>
+    <audio src="music/enemy5_down.mp3" id="kaishi"></audio>
+<script type="text/javascript" src="js/game.js"></script>
+</body>
+</html>
