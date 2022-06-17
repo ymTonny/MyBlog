@@ -87,3 +87,11 @@ git reset --soft HEAD^ //不撤销add, 保留修改内容
 git reset --hard HEAD^ //同时撤销add,删除修改的内容
 git commit -amend // 修改commit信息
 ```
+## 11.克隆远程部分文件夹
+```
+git init 初始化
+git remote add origin git@github.com:ymtonny/myBlog.git // 增加远端地址
+git config core.sparsecheckout true // 设置Sparse Checkout 为true
+echo "demo/demo" >> .git/info/sparse-checkout 将要拷贝的文件夹相对路径写入配置文件
+git pull origin master // 拉取代码， 这个时候只有demo/demo文件夹内容
+```

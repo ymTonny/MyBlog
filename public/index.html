@@ -68,6 +68,79 @@
     
     
     
+    <article id="post-browse-observer" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2022/06/17/browse-observer/"
+    >浏览器的观察器API</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/06/17/browse-observer/" class="article-date">
+  <time datetime="2022-06-16T16:00:00.000Z" itemprop="datePublished">2022-06-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一次偶然机会做到图片懒加载，常规操作就是监听<code>scroll</code>事件，获取img元素相对于视口的顶点的位置<code>el.getBoundingClientRect().top</code>,只要这个值小于视口的高度<code>window.innerHeight</code>就说明进入了可视区域,这个时候就可以加载图片了。但是<code>scroll</code>事件计算量太大密集影响性能，经查阅资料发现浏览器的API,<code>IntersectionObserver</code>交叉观察器,可自动观察目标元素与根元素交叉区域变化，以此判断元素可见，利用这个岂不是就能实现懒加载。后来又遇到设置异步组件dom高度，并且要有<code>transition</code>动画效果，看了同事的方式始终觉得不太好，外部会操作到组件内部的方法才能设置高度,后来我调研查阅资料，知道了<code>MutationObserver</code>API。郁闷，，，索性了解下浏览器的观察器吧。<br>
+      
+      <a class="article-more-link" href="/2022/06/17/browse-observer/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+  
+
+</article>
+    
     <article id="post-typescript" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -274,79 +347,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-  
-
-</article>
-    
-    <article id="post-nvm" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2022/04/03/nvm/"
-    >windows使用node多版本</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2022/04/03/nvm/" class="article-date">
-  <time datetime="2022-04-02T16:00:00.000Z" itemprop="datePublished">2022-04-03</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>开发过程中可能会出现，多个项目每个使用的node版本不一致情况，然而鱼与熊掌不可兼得，只能安装一个node版本。如果要多版本我们可以使用nvm工具<br>
-      
-      <a class="article-more-link" href="/2022/04/03/nvm/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
 
 
     </footer>
