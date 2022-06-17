@@ -68,6 +68,81 @@
     
     
     
+    <article id="post-clip-path" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h2 itemprop="name">
+  <a class="article-title" href="/2019/07/23/clip-path/"
+    >玩转clip-path</a
+  >
+</h2>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2019/07/23/clip-path/" class="article-date">
+  <time datetime="2019-07-22T16:00:00.000Z" itemprop="datePublished">2019-07-23</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+      
+      
+      
+    </div>
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h1 id="一-基本概念"><a href="#一-基本概念" class="headerlink" title="一.基本概念"></a>一.基本概念</h1><p>什么是<code>clip-path</code>呢？简而言之就是实现裁剪的<code>css</code>属性,我们可以通过该属性创建一个只有元素的部分区域可以显示的剪切区域。区域内的部分显示，区域外的部分隐藏。通过指定路径就可以创建出自己想要的形状，这样网页中的布局就可以是多种多样的了。</p>
+<p>在<code>clip-path</code>出现之前，css还有个属性<code>clip</code>也支持裁剪，但是它只支持矩形裁剪,同时它只对<code>position:absolute</code>和<code>position:fixed</code>的元素生效。使用如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">clip: rect(50px,50px,50px,50px) //标准写法</span><br><span class="line">clip: rect(50px 50px 50px 50px) //兼容浏览器写法</span><br></pre></td></tr></table></figure></p>
+<p>目前所有主流浏览器都支持<code>clip</code>,但是因为其局限性,<code>clip</code>已经被<code>clip-path</code>代替。<code>clip-path</code>为我们带来了更多的可能，让我们制作出更多有趣的图案。<br>
+      
+      <a class="article-more-link" href="/2019/07/23/clip-path/">阅读更多...</a>
+      
+      
+      <!-- reward -->
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css/">css</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+
+  
+
+  
+
+</article>
+    
     <article id="post-git-operating" class="article article-type-post" itemscope
   itemprop="blogPost" data-scroll-reveal>
 
@@ -275,79 +350,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
-
-
-    </footer>
-
-  </div>
-
-  
-
-  
-
-  
-
-</article>
-    
-    <article id="post-electron-packager" class="article article-type-post" itemscope
-  itemprop="blogPost" data-scroll-reveal>
-
-  <div class="article-inner">
-    
-    <header class="article-header">
-       
-<h2 itemprop="name">
-  <a class="article-title" href="/2019/06/13/electron-packager/"
-    >electron打包react项目</a
-  >
-</h2>
-  
-
-    </header>
-    
-
-    
-    <div class="article-meta">
-      <a href="/2019/06/13/electron-packager/" class="article-date">
-  <time datetime="2019-06-12T16:00:00.000Z" itemprop="datePublished">2019-06-13</time>
-</a>
-      
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-      
-      
-      
-    </div>
-    
-
-    
-
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-
-
-      
-
-      
-      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>懂的小伙伴大概已经知道这是个什么了，那么不懂的小伙伴听我大致道来。也许你不甘心只写网页，也想写一个电脑上的exe程序那种；或者你有项目需求必须要写个exe程序，但是你只会前端，没关系，看了这篇文章你也就能写出一个exe程序了。<br>
-      
-      <a class="article-more-link" href="/2019/06/13/electron-packager/">阅读更多...</a>
-      
-      
-      <!-- reward -->
-      
-    </div>
-    
-    
-      <!-- copyright -->
-      
-    <footer class="article-footer">
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
 
 
     </footer>

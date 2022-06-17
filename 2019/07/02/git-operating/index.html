@@ -61,7 +61,7 @@
         <span class="post-meta-item-icon">
             <i class="ri-quill-pen-line"></i>
             <span class="post-meta-item-text"> 字数统计:</span>
-            <span class="post-count">354字</span>
+            <span class="post-count">445字</span>
         </span>
     </span>
 
@@ -114,7 +114,7 @@
 <h2 id="8-一次删除本地存在的远程没有的分支"><a href="#8-一次删除本地存在的远程没有的分支" class="headerlink" title="8.一次删除本地存在的远程没有的分支"></a>8.一次删除本地存在的远程没有的分支</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote show origin</span><br><span class="line">git remote prune</span><br></pre></td></tr></table></figure>
 <h2 id="9-本地文件夹关联远程仓库"><a href="#9-本地文件夹关联远程仓库" class="headerlink" title="9.本地文件夹关联远程仓库"></a>9.本地文件夹关联远程仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git remote add origin [仓库git链接]</span><br><span class="line">//推送代码</span><br><span class="line">git push -u origin master //-u 使其与远程关联 简化后期推送操作</span><br></pre></td></tr></table></figure>
 <h2 id="10-撤销add-commit-修改commit信息"><a href="#10-撤销add-commit-修改commit信息" class="headerlink" title="10.撤销add, commit, 修改commit信息"></a>10.撤销add, commit, 修改commit信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//撤销add</span><br><span class="line">git reset</span><br><span class="line">//撤销commit</span><br><span class="line">git reset HEAD^ //同时撤销add,保留工作区修改内容</span><br><span class="line">git reset --soft HEAD^ //不撤销add, 保留修改内容</span><br><span class="line">git reset --hard HEAD^ //同时撤销add,删除修改的内容</span><br><span class="line">git commit -amend // 修改commit信息</span><br></pre></td></tr></table></figure>
-
+<h2 id="11-克隆远程部分文件夹"><a href="#11-克隆远程部分文件夹" class="headerlink" title="11.克隆远程部分文件夹"></a>11.克隆远程部分文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init 初始化</span><br><span class="line">git remote add origin git@github.com:ymtonny/myBlog.git // 增加远端地址</span><br><span class="line">git config core.sparsecheckout true // 设置Sparse Checkout 为true</span><br><span class="line">echo &quot;demo/demo&quot; &gt;&gt; .git/info/sparse-checkout 将要拷贝的文件夹相对路径写入配置文件</span><br><span class="line">git pull origin master // 拉取代码， 这个时候只有demo/demo文件夹内容</span><br></pre></td></tr></table></figure>
       
       <!-- reward -->
       

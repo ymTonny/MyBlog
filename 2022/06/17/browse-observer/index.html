@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="ymtonny" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+    浏览器的观察器API |  YmTonny Blogs
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="https://i.loli.net/2020/03/03/dM8UGxB2Ef6mZIQ.jpg" />
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/js/pace.min.js"></script>
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="post-browse-observer" class="article article-type-post" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+    <header class="article-header">
+       
+<h1 class="article-title sea-center" style="border-left:0" itemprop="name">
+  浏览器的观察器API
+</h1>
+  
+
+    </header>
+    
+
+    
+    <div class="article-meta">
+      <a href="/2022/06/17/browse-observer/" class="article-date">
+  <time datetime="2022-06-16T16:00:00.000Z" itemprop="datePublished">2022-06-17</time>
+</a>
+      
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/技术/">技术</a>
+  </div>
+
+      
+      
+<div class="word_count">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="ri-quill-pen-line"></i>
+            <span class="post-meta-item-text"> 字数统计:</span>
+            <span class="post-count">1.8k字</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="ri-book-open-line"></i>
+            <span class="post-meta-item-text"> 阅读时长≈</span>
+            <span class="post-count">7分钟</span>
+        </span>
+    </span>
+</div>
+
+      
+    </div>
+    
+
+    
+    
+    <div class="tocbot"></div>
+
+
+
+
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>一次偶然机会做到图片懒加载，常规操作就是监听<code>scroll</code>事件，获取img元素相对于视口的顶点的位置<code>el.getBoundingClientRect().top</code>,只要这个值小于视口的高度<code>window.innerHeight</code>就说明进入了可视区域,这个时候就可以加载图片了。但是<code>scroll</code>事件计算量太大密集影响性能，经查阅资料发现浏览器的API,<code>IntersectionObserver</code>交叉观察器,可自动观察目标元素与根元素交叉区域变化，以此判断元素可见，利用这个岂不是就能实现懒加载。后来又遇到设置异步组件dom高度，并且要有<code>transition</code>动画效果，看了同事的方式始终觉得不太好，外部会操作到组件内部的方法才能设置高度,后来我调研查阅资料，知道了<code>MutationObserver</code>API。郁闷，，，索性了解下浏览器的观察器吧。<br><a id="more"></a></p>
+<h2 id="一-什么是浏览器观察器"><a href="#一-什么是浏览器观察器" class="headerlink" title="一.什么是浏览器观察器"></a>一.什么是浏览器观察器</h2><p>针对一些不是由用户直接触发的事件，如DOM大小改变，子节点变动，DOM从可见到不可见等，浏览器提供一系列特定的api去监听变化，这些就是浏览器的观察器。</p>
+<h2 id="二-浏览器的观察器有哪些"><a href="#二-浏览器的观察器有哪些" class="headerlink" title="二.浏览器的观察器有哪些"></a>二.浏览器的观察器有哪些</h2><p>一共5种: <code>IntersectionObserver</code>(交叉观察器)、<code>MutationObserver</code>(变化观察器)、<code>ResizeObserver</code>(大小观察器)、<code>PerformanceObserver</code>(性能观察器)、<code>ReportingObserver</code>(报告观察器)。</p>
+<h3 id="2-1-IntersectionObserver交叉观察器"><a href="#2-1-IntersectionObserver交叉观察器" class="headerlink" title="2.1 IntersectionObserver交叉观察器"></a>2.1 IntersectionObserver交叉观察器</h3><p>该观察器自动观察目标元素与根元素交叉区域的变化。默认根元素为文档视口，交叉区域的变化决定了用户在当前视口能否看见元素，因此被用做’元素可见性’观察。如:图片懒加载、曝光量等。</p>
+<h4 id="2-1-1-基础用法"><a href="#2-1-1-基础用法" class="headerlink" title="2.1.1 基础用法"></a>2.1.1 基础用法</h4><p>通过<code>new IntersectionObserver(callback, options)</code>创建一个实例observer，并按照options配置,指定root、根元素的外边距、执行callback的交叉比例的阈值threshold。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">let options = &#123;</span><br><span class="line">  root: document.getElementById(&quot;#parentBox&quot;), //指定根元素，必须是目标元素的父级；默认文档根视口</span><br><span class="line">  rootMargin: &quot;0 0 0 0 &quot;, // 根元素的外边距，用于扩展或缩小矩形的大小，从而影响交叉区域的大小</span><br><span class="line">  threshold: [0] // 执行callback的条件，当为数组时，每次达到该值都会触发callback,要使目标元素完全进入也触发可设置[0,1]</span><br><span class="line">&#125;</span><br><span class="line">let callback = (entries, observer) =&gt; &#123;</span><br><span class="line">  // entries为数组，每条数据都是一个entry对象，代表被观察的元素的对象</span><br><span class="line">  entries.forEach(entry =&gt; &#123;</span><br><span class="line">    // entry.time: 可见性发生变化的时间，一个时间戳</span><br><span class="line">    // entry.target: 目标元素DOM</span><br><span class="line">    // entry.intersectionRatio: 可见区域的比例</span><br><span class="line">    // entry.intersectionRect: 交叉可见区域的矩形块信息</span><br><span class="line">    // entry.isIntersecting: true从不可见到可见 false从可见到不可见</span><br><span class="line">    // entry.rootBounds: 根元素的位置信息</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line">// 实例化观察器</span><br><span class="line">let observer = new IntersectionObserver(callback, options);</span><br></pre></td></tr></table></figure></p>
+<p>observer.observe(targetNode)指定目标元素targetNode1, targetNode2开始观察<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">observe参数为一个dom节点,要观察多个dom时，需多次调用observe</span><br><span class="line">observer.observe(targetNod1) // 开始观察</span><br><span class="line">observer.disconnect() // 关闭观察器</span><br><span class="line">observer.unobserve(target) // 停止观察特定目标元素</span><br><span class="line">observer.takeRecords() // 返回所有观察目标对象数组</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-2-MutationObserver变化观察器"><a href="#2-2-MutationObserver变化观察器" class="headerlink" title="2.2 MutationObserver变化观察器"></a>2.2 MutationObserver变化观察器</h3><p>该观察器观察目标元素的属性和子节点的变化。目标元素DOM发生变化就会触发回调函数，不过是异步触发，dom变动并不会马上触发，它会等当前所有dom操作都结束才会触发。</p>
+<h4 id="2-2-1-基础用法"><a href="#2-2-1-基础用法" class="headerlink" title="2.2.1 基础用法"></a>2.2.1 基础用法</h4><p>通过<code>new MutationObserver(callback)</code>创建一个实例observer，定义callback(mutaionList,observer)回调函数,mutationList包含目标元素dom变化相关对象的数组，每个成员都是一个<code>MutationRecord</code>对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let callback = (mutationList, observer) =&gt; &#123;</span><br><span class="line">  mutationList.forEach(mutation =&gt; &#123;</span><br><span class="line">    // mutation.target 发生变动的DOM节点</span><br><span class="line">    // mutation.previousSibling 前一个同级节点没有返回null</span><br><span class="line">    // mutation.nextSibling 下一个同级节点没有返回Null</span><br><span class="line">    // mutation.type // 目标元素变化类型 &apos;childList&apos; | &apos;attributes&apos; | &apos;characterData&apos;</span><br><span class="line">    // childList 子节点发生变化时候 (mutation.addedNodes 新增的dom节点) (mutation.removedNodes 删除的dom节点)</span><br><span class="line">    // attributes 观察的dom节点的属性发生变化时 (mutation.attributeName 发生变化的属性name) (mutation.oldValue 该属性变化之前的值)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">let observer = new MutationObserver(callback);</span><br></pre></td></tr></table></figure></p>
+<p><code>observer.observe(target, options)</code>通过配置options指定要观察的特定的变动，并开始观察目标dom，其中options里的<code>childList</code>、<code>attributes</code>、<code>characterData</code>三个必须有一个为true,若均未指定将会报错.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let options = &#123;</span><br><span class="line">  childList: true, // 默认值为false,是否观察子节点添加和删除</span><br><span class="line">  attributes: true, // 默认值为false,是否观察目标节点属性改变</span><br><span class="line">  charactorData: false, // 无默认值， 是否观察文本节点变化</span><br><span class="line">  subtree: true, // 是否观察后代节点,默认false</span><br><span class="line">  attributeOldValue: true, // 观察属性变动时，是否记录变动前的值</span><br><span class="line">  charactorDataOldValue: true, // 观察文本节点变动时，是否记录变动前的值</span><br><span class="line">  attributeFilter: [] // 数组,表示要观察的特定属性</span><br><span class="line">&#125;</span><br><span class="line">observer.observe(document.getElementById(&quot;#someElement&quot;), options) // 开始观察元素</span><br><span class="line">observer.disconnect() // 停止观察</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-3-ResizeObserver大小观察器-实验中"><a href="#2-3-ResizeObserver大小观察器-实验中" class="headerlink" title="2.3 ResizeObserver大小观察器(实验中)"></a>2.3 ResizeObserver大小观察器(实验中)</h3><p>该观察器可以监听到目标元素的内容区域的边界框改变，内容区域需要减去内边距padding。每次元素内容或边框大小改变都会通知到观察者</p>
+<h4 id="2-3-1基础用法"><a href="#2-3-1基础用法" class="headerlink" title="2.3.1基础用法"></a>2.3.1基础用法</h4><p>通过<code>new ResizeObserver(callback)</code>创建一个实例observer, 定义callback(entries, observer)回调函数，entries包含目标元素大小变化的相关信息的数组，每个成员都是一个<code>ResizeObserverEntry</code>对象。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">let callback = (entries, observer) =&gt; &#123;</span><br><span class="line">  entries.forEach(entry=&gt; &#123;</span><br><span class="line">    // entry.target 目标元素</span><br><span class="line">    // entry.borderBoxSize 目标元素新边框大小的对象</span><br><span class="line">    // entry.contentBoxSize 新内容框大小的对象</span><br><span class="line">    // entry.contentRect 新大小的对象</span><br><span class="line">    // entry.devicePixelContentBoxSize 以设备像素为单位的新内容框大小的对象</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">let observer = new ResizeObserver(callback);</span><br><span class="line">observer.observe(document.getElementById(&quot;#someElement&quot;)) // 开始观察对应元素</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-4-PerformanceObserver性能观察器"><a href="#2-4-PerformanceObserver性能观察器" class="headerlink" title="2.4 PerformanceObserver性能观察器"></a>2.4 PerformanceObserver性能观察器</h3><p>该观察器用于记录performance的数据行为,一旦记录了就会触发回调.</p>
+<h4 id="2-4-1基础用法"><a href="#2-4-1基础用法" class="headerlink" title="2.4.1基础用法"></a>2.4.1基础用法</h4><p>通过<code>new PerformanceObserver(callback)</code>创建一个实例observer，定义callback(list, observer)回调函数，list.getEntries()为包含options中指定的相关performance数据的对象的数组，每一个成员都是一个<code>PerformanceObserverEntry</code>对象.<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">let callback = (list, observer) =&gt; &#123;</span><br><span class="line">  list.getEntries().forEach(entry=&gt;&#123;</span><br><span class="line">    // entry 按startTime排序的performance上报的对象</span><br><span class="line">    // entry.name 资源名称，是资源的绝对路径的名称</span><br><span class="line">    // entry.entryType 资源类型，类型不同数组的对象结构也不同</span><br><span class="line">    // entry.startTime 开始时间</span><br><span class="line">    // entry.duration 加载时间</span><br><span class="line">    // entry.entryType == &apos;paint&apos; &amp;&amp; entry.name == &apos;first-paint&apos; 首次绘制，绘制body</span><br><span class="line">    // entry.entryType == &apos;paint&apos; &amp;&amp; entry.name == &apos;first-contentful-paint&apos; 首次有内容的绘制，第一个dom元素绘制完成</span><br><span class="line">    // entry.entryType == &apos;paint&apos; &amp;&amp; entry.name == &apos;first-meaningful-paint&apos; 首次有意义的绘制</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line">let observer = new PerformanceObserver(callback);</span><br><span class="line">let options = &#123;</span><br><span class="line">  // entryTypes不能为空</span><br><span class="line">  entryTypes: [</span><br><span class="line">    &apos;longTask&apos;, // 长任务(&gt;50ms)</span><br><span class="line">    &apos;frame&apos;, // 帧的变化，常用于动画监听，使用时注意兼容</span><br><span class="line">    &apos;navigation&apos;, // 页面加载||刷新||重定向</span><br><span class="line">    &apos;resource&apos;, // 资源加载</span><br><span class="line">    &apos;mark&apos;,//  自定义记录的某个时间点</span><br><span class="line">    &apos;measure&apos;,//  自定义记录的某个时间段</span><br><span class="line">    &apos;paint&apos;//  浏览器绘制</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line">observer.observe(options) // 当记录的性能指标在指定的entryTypes中时，将调用回调函数；</span><br></pre></td></tr></table></figure></p>
+
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://ymtonny.cn/2022/06/17/browse-observer/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js/">js</a></li></ul>
+
+
+    </footer>
+
+  </div>
+
+  
+  
+  <nav class="article-nav">
+    
+    
+      <a href="/2022/05/11/typescript/" class="article-nav-link">
+        <strong class="article-nav-caption">下一篇</strong>
+        <div class="article-nav-title">typescript分享</div>
+      </a>
+    
+  </nav>
+
+
+  
+
+  
+
+  
+  
+<div class="gitalk" id="gitalk-container"></div>
+<link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.6.2/gitalk.min.css">
+<script src="https://cdn.bootcss.com/gitalk/1.6.2/gitalk.min.js"></script>
+<script src="https://cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.min.js"></script>
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: '2144b8ba49571a940c51',
+    clientSecret: '942f1619cc0a763cc4c1ed7ab9e1c0b1eebddb91',
+    repo: 'MyBlog',
+    owner: 'ymTonny',
+    admin: ['ymTonny'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2022
+        YmTonny
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>访问量:<span id="busuanzi_value_page_pv"></span></i>
+  <i>独立访客:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/03/03/dM8UGxB2Ef6mZIQ.jpg" alt="YmTonny Blogs"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/resume">简历</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/Tap">玩一玩</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" target="_blank" href="/wegame">冒险岛</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" target="_blank" href="https://ymtonny.github.io/mylove/Love.html">爱情树</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" target="_blank" href="https://ymtonny.github.io/love_520/">LOVE</a>
+      </li>
+    
+    
+  </ul>
+  
+    <ul class="nav nav-friend">
+      <span>友链</span>
+      
+      <li class="friend-item">
+        <a class="nav-item-link" target="_blank" href="https://glieen.cn">glieen&#39;s</a>
+      </li>
+      
+      <li class="friend-item">
+        <a class="nav-item-link" target="_blank" href="https://zalmon.cn">zalmon</a>
+      </li>
+      
+    </ul>
+  
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://i.loli.net/2020/03/03/jGZqJn12skVdfAB.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://i.loli.net/2020/03/03/EaedjqmkbuSMvYy.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.min.js"></script>
+<script src="/js/share.js"></script>
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['面朝大海，春暖花开','我已不再年轻，但岁月教会我智慧','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+<script src="/js/tocbot.min.js"></script>
+<script>
+  // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+  tocbot.init({
+    tocSelector: '.tocbot',
+    contentSelector: '.article-entry',
+    headingSelector: 'h1, h2, h3, h4, h5, h6',
+    hasInnerContainers: true,
+    scrollSmooth: true,
+    scrollContainer:'main',
+    positionFixedSelector: '.tocbot',
+    positionFixedClass: 'is-position-fixed',
+    fixedSidebarOffset: 'auto',
+    onClick: (e) => {
+      $('.toc-link').removeClass('is-active-link');
+      $(`a[href=${e.target.hash}]`).addClass('is-active-link');
+      $(e.target.hash).scrollIntoView();
+      return false;
+    }
+  });
+</script>
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+<script src="/js/ayer.js"></script>
+<script src="/js/love.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=22707008&auto=0&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
