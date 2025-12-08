@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+    
+  <meta name="description" content="ymtonny" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <title>
+     YmTonny Blogs
+  </title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+  
+  <link rel="shortcut icon" href="https://i.loli.net/2020/03/03/dM8UGxB2Ef6mZIQ.jpg" />
+  
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/js/pace.min.js"></script>
+
+  
+
+  
+
+</head>
+
+</html>
+
+<body>
+  <div id="app">
+    <main class="content">
+      <section class="outer">
+  <article id="page-" class="article article-type-page" itemscope
+  itemprop="blogPost" data-scroll-reveal>
+
+  <div class="article-inner">
+    
+
+    
+
+    
+
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+
+
+      
+
+      
+      <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>学生积分管理系统</title>
+  <meta name="generator" content="hexo-theme-yilia-plus">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 首页 - 学生列表页面 -->
+    <div id="home-page" class="page active">
+        <div class="page-header">
+            <h1>学生积分管理</h1>
+            <div style="display: flex; gap: 8px;">
+                <button id="export-excel-btn" class="secondary-btn">
+                    <i class="fas fa-file-export"></i> 导出
+                </button>
+                <button id="add-student-btn" class="primary-btn">
+                    <i class="fas fa-plus"></i> 添加学生
+                </button>
+            </div>
+        </div>
+        
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="搜索学生...">
+        </div>
+        
+        <div id="student-list" class="student-list">
+            <!-- 学生列表将在这里动态生成 -->
+        </div>
+    </div>
+
+    <!-- 积分抽奖页面 -->
+    <div id="lottery-page" class="page">
+        <div class="page-header">
+            <h1>积分抽奖</h1>
+            <button id="add-lottery-prize-btn" class="primary-btn">
+                <i class="fas fa-plus"></i> 添加奖项
+            </button>
+        </div>
+        
+        <div class="lottery-container">
+            <div class="wheel-container">
+                <div class="wheel">
+                    <div class="wheel-center">
+                        <div class="spin-btn" id="spin-wheel-btn">抽奖</div>
+                        <div class="lottery-cost-info">
+                            <span id="lottery-cost-display">消耗10积分</span>
+                        </div>
+                    </div>
+                    <div id="wheel-prizes" class="wheel-prizes">
+                        <!-- 抽奖项将在这里动态生成 -->
+                    </div>
+                </div>
+            </div>
+            <div class="lottery-prizes">
+                <h3>抽奖项管理</h3>
+                <div class="lottery-settings">
+                    <div class="form-group">
+                        <label for="lottery-cost-input">每次抽奖消耗积分：</label>
+                        <input type="number" id="lottery-cost-input" value="10" min="0" style="width: 80px; margin-left: 10px;">
+                    </div>
+                </div>
+                <div id="lottery-prize-list" class="prize-list">
+                    <!-- 抽奖项列表将在这里动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 积分兑换页面 -->
+    <div id="rewards-page" class="page">
+        <div class="page-header">
+            <h1>积分兑换</h1>
+            <button id="add-reward-btn" class="primary-btn">
+                <i class="fas fa-plus"></i> 添加奖品
+            </button>
+        </div>
+        
+        <div class="rewards-grid">
+            <!-- 兑换奖品将在这里动态生成 -->
+        </div>
+        
+        <div class="rewards-management">
+            <h3>奖品管理</h3>
+            <div id="reward-list" class="prize-list">
+                <!-- 奖品列表将在这里动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 班级管理页面 -->
+    <div id="classes-page" class="page">
+        <div class="page-header">
+            <h1>班级管理</h1>
+            <div class="header-actions">
+                <button id="add-class-btn" class="primary-btn">
+                    <i class="fas fa-plus"></i> 添加班级
+                </button>
+                <button id="import-excel-btn" class="secondary-btn">
+                    <i class="fas fa-file-import"></i> 导入Excel
+                </button>
+            </div>
+        </div>
+        
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="class-search-input" placeholder="搜索班级...">
+        </div>
+        
+        <div id="class-list" class="class-list">
+            <!-- 班级列表将在这里动态生成 -->
+        </div>
+    </div>
+
+    <!-- 查看学生弹窗 -->
+    <div id="view-students-modal" class="modal student-selection-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="view-students-title">查看学生</h3>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="view-students-search" placeholder="搜索学生...">
+            </div>
+            <div id="view-students-list" class="student-list">
+                <!-- 学生列表将在这里动态生成 -->
+            </div>
+            <div class="modal-actions">
+                <button id="add-student-in-modal-btn" class="primary-btn">
+                    <i class="fas fa-plus"></i> 添加学生
+                </button>
+                <button id="close-view-students-btn" class="secondary-btn">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="ios-footer">
+        <div class="tab-bar">
+            <button class="tab-btn active" data-page="home-page">
+                <i class="fas fa-home"></i>
+                <span>首页</span>
+            </button>
+            <button class="tab-btn" data-page="lottery-page">
+                <i class="fas fa-gift"></i>
+                <span>抽奖</span>
+            </button>
+            <button class="tab-btn" data-page="rewards-page">
+                <i class="fas fa-exchange-alt"></i>
+                <span>兑换</span>
+            </button>
+            <button class="tab-btn" data-page="classes-page">
+                <i class="fas fa-users"></i>
+                <span>班级</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+    
+    <!-- 提示弹窗 -->
+    <div id="toast-container" class="toast-container">
+        <!-- 提示弹窗将在这里动态生成 -->
+    </div>
+    
+    <!-- 确认弹窗 -->
+    <div id="confirm-modal" class="confirm-modal">
+        <div class="confirm-content">
+            <div class="confirm-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="confirm-message" id="confirm-message"></div>
+            <div class="confirm-actions">
+                <button id="confirm-cancel" class="confirm-btn cancel-btn">取消</button>
+                <button id="confirm-ok" class="confirm-btn ok-btn">确定</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 添加班级模态框 -->
+    <div id="add-class-modal" class="modal">
+        <div class="modal-content">
+            <h3>添加班级</h3>
+            <div class="form-group">
+                <label for="class-name-input">班级名称</label>
+                <input type="text" id="class-name-input" placeholder="例如：三年级(1)班">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-add-class-btn" class="secondary-btn">取消</button>
+                <button id="confirm-add-class-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加学生模态框 -->
+    <div id="add-student-modal" class="modal">
+        <div class="modal-content">
+            <h3>添加学生</h3>
+            <div class="form-group">
+                <label for="student-class-select">选择班级</label>
+                <select id="student-class-select"></select>
+            </div>
+            <div class="form-group">
+                <label for="student-name-input">学生姓名</label>
+                <input type="text" id="student-name-input" placeholder="例如：张三">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-add-student-btn" class="secondary-btn">取消</button>
+                <button id="confirm-add-student-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 积分编辑模态框 -->
+    <div id="points-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>编辑积分</h3>
+            <div class="form-group">
+                <div id="current-points-display" style="text-align: center; margin-bottom: 15px; font-size: 16px; color: #333;"></div>
+                <label for="points-input">调整积分数量（正数为增加，负数为减少）</label>
+                <div class="points-control">
+                    <button id="minus-points" class="points-btn">-</button>
+                    <input type="number" id="points-input" value="0" min="-9999">
+                    <button id="plus-points" class="points-btn">+</button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-points-btn" class="secondary-btn">取消</button>
+                <button id="clear-points-btn" class="secondary-btn">清除积分</button>
+                <button id="confirm-points-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加抽奖奖项模态框 -->
+    <div id="add-lottery-prize-modal" class="modal">
+        <div class="modal-content">
+            <h3>添加抽奖奖项</h3>
+            <div class="form-group">
+                <label for="lottery-prize-name">奖项名称</label>
+                <input type="text" id="lottery-prize-name" placeholder="例如：10积分">
+            </div>
+            <div class="form-group">
+                <label for="lottery-prize-value">积分值</label>
+                <input type="number" id="lottery-prize-value" placeholder="积分数量" min="0">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-add-lottery-prize-btn" class="secondary-btn">取消</button>
+                <button id="confirm-add-lottery-prize-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加兑换奖项模态框 -->
+    <div id="add-reward-prize-modal" class="modal">
+        <div class="modal-content">
+            <h3>添加兑换奖品</h3>
+            <div class="form-group">
+                <label for="reward-prize-name">奖品名称</label>
+                <input type="text" id="reward-prize-name" placeholder="例如：铅笔">
+            </div>
+            <div class="form-group">
+                <label for="reward-prize-points">所需积分</label>
+                <input type="number" id="reward-prize-points" placeholder="积分数量" min="1">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-add-reward-prize-btn" class="secondary-btn">取消</button>
+                <button id="confirm-add-reward-prize-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学生选择模态框 -->
+    <div id="student-selection-modal" class="modal student-selection-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="student-selection-title">选择学生</h3>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="student-selection-search" placeholder="搜索学生...">
+            </div>
+            <div id="student-selection-list" class="student-list">
+                <!-- 学生列表将在这里动态生成 -->
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-student-selection-btn" class="secondary-btn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入Excel模态框 -->
+    <div id="import-excel-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>导入Excel学生信息</h3>
+            <div class="form-group">
+                <label for="excel-file-input">选择Excel文件</label>
+                <input type="file" id="excel-file-input" accept=".xlsx, .xls" style="display: none;">
+                <div class="file-upload-area" id="excel-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>点击选择Excel文件或拖拽文件到此处</p>
+                    <p class="file-hint">支持 .xlsx, .xls 格式</p>
+                </div>
+                <div id="file-info" class="file-info" style="display: none;">
+                    <i class="fas fa-file-excel"></i>
+                    <span id="file-name"></span>
+                    <button id="remove-file-btn" class="remove-file-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="import-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="filter-existing-checkbox" checked>
+                    <span class="checkmark"></span>
+                    过滤已存在的学生（推荐）
+                </label>
+                <p class="option-hint">自动过滤掉Excel中已经在系统中存在的班级下的学生</p>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-import-btn" class="secondary-btn">取消</button>
+                <button id="confirm-import-btn" class="primary-btn" disabled>开始导入</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/excel.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
+      
+      <!-- reward -->
+      
+      <div id="reward-btn">
+        打赏
+      </div>
+      
+    </div>
+    
+    
+      <!-- copyright -->
+      
+    <footer class="article-footer">
+      
+          
+<div class="share-btn">
+      <span class="share-sns share-outer">
+        <i class="ri-share-forward-line"></i>
+        分享
+      </span>
+      <div class="share-wrap">
+        <i class="arrow"></i>
+        <div class="share-icons">
+          
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="ri-weibo-fill"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="ri-wechat-fill"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="ri-qq-fill"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="ri-douban-line"></i>
+          </a>
+          <!-- <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a> -->
+          
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="ri-facebook-circle-fill"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="ri-twitter-fill"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="ri-google-fill"></i>
+          </a>
+        </div>
+      </div>
+</div>
+
+<div class="wx-share-modal">
+    <a class="modal-close" href="javascript:;"><i class="ri-close-circle-line"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://ymtonny.cn/lanjinling/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div id="share-mask"></div>
+      
+      
+
+    </footer>
+
+  </div>
+
+  
+  
+
+  
+
+  
+
+  
+
+</article>
+</section>
+      <footer class="footer">
+  <div class="outer">
+    <ul class="list-inline">
+      <li>
+        &copy;
+        2019-2025
+        YmTonny
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    <ul class="list-inline">
+      <li>
+        
+        
+        <span>
+  <i>访问量:<span id="busuanzi_value_page_pv"></span></i>
+  <i>独立访客:<span id="busuanzi_value_site_uv"></span></i>
+</span>
+        
+      </li>
+      
+      <li>
+        <!-- cnzz统计 -->
+        
+      </li>
+    </ul>
+  </div>
+</footer>
+      <div class="to_top">
+        <div class="totop" id="totop">
+  <i class="ri-arrow-up-line"></i>
+</div>
+      </div>
+    </main>
+    <aside class="sidebar">
+      <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+  <div class="logo">
+    <a href="/"><img src="https://i.loli.net/2020/03/03/dM8UGxB2Ef6mZIQ.jpg" alt="YmTonny Blogs"></a>
+  </div>
+  
+  <ul class="nav nav-main">
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">主页</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">归档</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">分类</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">标签</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/resume">简历</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/Tap">玩一玩</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" target="_blank" href="/wegame">冒险岛</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" target="_blank" href="https://ymtonny.github.io/mylove/Love.html">爱情树</a>
+      </li>
+    
+    
+    
+      <li class="nav-item">
+        <a class="nav-item-link" target="_blank" href="https://ymtonny.github.io/love_520/">LOVE</a>
+      </li>
+    
+    
+  </ul>
+  
+    <ul class="nav nav-friend">
+      <span>友链</span>
+      
+      <li class="friend-item">
+        <a class="nav-item-link" target="_blank" href="https://glieen.cn">glieen&#39;s</a>
+      </li>
+      
+      <li class="friend-item">
+        <a class="nav-item-link" target="_blank" href="https://zalmon.cn">zalmon</a>
+      </li>
+      
+    </ul>
+  
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      
+      <a class="nav-item-link nav-item-search"  title="搜索">
+        <i class="ri-search-line"></i>
+      </a>
+      
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+    </aside>
+    <div id="mask"></div>
+
+<!-- #reward -->
+<div id="reward">
+  <span class="close"><i class="ri-close-line"></i></span>
+  <p class="reward-p"><i class="ri-cup-line"></i>请我喝杯咖啡吧~</p>
+  <div class="reward-box">
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://i.loli.net/2020/03/03/jGZqJn12skVdfAB.jpg">
+      <span class="reward-type">支付宝</span>
+    </div>
+    
+    
+    <div class="reward-item">
+      <img class="reward-img" src="https://i.loli.net/2020/03/03/EaedjqmkbuSMvYy.jpg">
+      <span class="reward-type">微信</span>
+    </div>
+    
+  </div>
+</div>
+    <script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+<script src="/js/lazyload.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/busuanzi@2.3.0/bsz.pure.mini.min.js"></script>
+<script src="/js/share.js"></script>
+
+
+
+<script>
+  try {
+    var typed = new Typed("#subtitle", {
+    strings: ['面朝大海，春暖花开','我已不再年轻，但岁月教会我智慧','想要的都拥有，得不到的都释怀'],
+    startDelay: 0,
+    typeSpeed: 200,
+    loop: true,
+    backSpeed: 100,
+    showCursor: true
+    });
+  } catch (err) {
+  }
+  
+</script>
+
+
+
+
+<script>
+  var ayerConfig = {
+    mathjax: false
+  }
+</script>
+
+<script src="/js/ayer.js"></script>
+<script src="/js/love.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jquery-modal@0.9.2/jquery.modal.min.css">
+
+
+<!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
+
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
+
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css">
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"></script>
+
+<script>
+    function viewer_init() {
+        let pswpElement = document.querySelectorAll('.pswp')[0];
+        let $imgArr = document.querySelectorAll(('.article-entry img:not(.reward-img)'))
+
+        $imgArr.forEach(($em, i) => {
+            $em.onclick = () => {
+                // slider展开状态
+                // todo: 这样不好，后面改成状态
+                if (document.querySelector('.left-col.show')) return
+                let items = []
+                $imgArr.forEach(($em2, i2) => {
+                    let img = $em2.getAttribute('data-idx', i2)
+                    let src = $em2.getAttribute('data-target') || $em2.getAttribute('src')
+                    let title = $em2.getAttribute('alt')
+                    // 获得原图尺寸
+                    const image = new Image()
+                    image.src = src
+                    items.push({
+                        src: src,
+                        w: image.width || $em2.width,
+                        h: image.height || $em2.height,
+                        title: title
+                    })
+                })
+                var gallery = new PhotoSwipe(pswpElement, PhotoSwipeUI_Default, items, {
+                    index: parseInt(i)
+                });
+                gallery.init()
+            }
+        })
+    }
+    viewer_init()
+</script>
+
+
+
+
+<script type="text/javascript" src="https://js.users.51.la/20544303.js"></script>
+
+    
+    <div id="music">
+    
+    
+    
+    <iframe frameborder="no" border="1" marginwidth="0" marginheight="0" width="200" height="52"
+        src="//music.163.com/outchain/player?type=2&id=22707008&auto=0&height=32"></iframe>
+</div>
+
+<style>
+    #music {
+        position: fixed;
+        right: 15px;
+        bottom: 0;
+        z-index: 998;
+    }
+</style>
+    
+  </div>
+</body>
+
+</html>
