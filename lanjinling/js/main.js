@@ -269,6 +269,16 @@ class ClassPointsApp {
         studentSelectionSearch.addEventListener('input', (e) => {
             this.loadStudentSelectionList(e.target.value);
         });
+
+        // 抽奖结果弹窗关闭事件
+        const lotteryResultModal = document.getElementById('lottery-result-modal');
+        if (lotteryResultModal) {
+            lotteryResultModal.addEventListener('click', (e) => {
+                if (e.target === lotteryResultModal) {
+                    this.closeLotteryResultModal();
+                }
+            });
+        }
         
         window.addEventListener('click', (e) => {
             if (e.target === studentSelectionModal) {
@@ -977,12 +987,8 @@ class ClassPointsApp {
             
             await window.dbManager.updateStudentPoints(student.id, newPoints);
             
-            let message = `恭喜${student.name}！抽中了：${prize.name}`;
-            if (prize.value > 0) {
-                message += `，获得${prize.value}积分`;
-            }
-            message += `（消耗${lotteryCost}积分）`;
-            this.showToast(message, 'success', 5000);
+            // 显示抽奖结果动画弹窗
+            await this.showLotteryResult(student, prize, lotteryCost, newPoints);
             
             // 刷新当前页面
             if (this.currentPage === 'class-list-page') {
@@ -992,6 +998,140 @@ class ClassPointsApp {
             console.error('抽奖失败:', error);
             this.showToast('抽奖失败', 'error');
         }
+    }
+
+    // 显示抽奖结果动画弹窗
+    async showLotteryResult(student, prize, lotteryCost, newPoints) {
+        return new Promise((resolve) => {
+            const modal = document.getElementById('lottery-result-modal');
+            const studentName = document.getElementById('lottery-student-name');
+            const prizeName = document.getElementById('lottery-prize-name');
+            const pointsInfo = document.getElementById('lottery-points-info');
+            const okBtn = document.getElementById('lottery-result-ok');
+            const shareBtn = document.getElementById('lottery-result-share');
+            
+            // 设置弹窗内容
+            studentName.textContent = student.name;
+            prizeName.textContent = prize.name;
+            
+            let pointsMessage = `消耗${lotteryCost}积分`;
+            if (prize.value > 0) {
+                pointsMessage += `，获得${prize.value}积分`;
+            }
+            pointsMessage += `，当前积分：${newPoints}`;
+            pointsInfo.textContent = pointsMessage;
+            
+            // 创建五彩纸屑动画
+            this.createConfetti();
+            
+            // 显示弹窗
+            modal.classList.add('active');
+            
+            // 确定按钮事件
+            const handleOk = () => {
+                this.closeLotteryResultModal();
+                resolve();
+            };
+            
+            // 分享按钮事件
+            const handleShare = () => {
+                this.shareLotteryResult(student, prize, lotteryCost);
+            };
+            
+            okBtn.addEventListener('click', handleOk);
+            shareBtn.addEventListener('click', handleShare);
+            
+            // 点击弹窗外部关闭
+            const handleOutsideClick = (e) => {
+                if (e.target === modal) {
+                    this.closeLotteryResultModal();
+                    resolve();
+                }
+            };
+            
+            window.addEventListener('click', handleOutsideClick);
+            
+            // 保存事件监听器以便后续移除
+            this.lotteryResultHandlers = {
+                ok: handleOk,
+                share: handleShare,
+                outside: handleOutsideClick
+            };
+        });
+    }
+
+    // 关闭抽奖结果弹窗
+    closeLotteryResultModal() {
+        const modal = document.getElementById('lottery-result-modal');
+        const okBtn = document.getElementById('lottery-result-ok');
+        const shareBtn = document.getElementById('lottery-result-share');
+        
+        // 移除事件监听器
+        if (this.lotteryResultHandlers) {
+            okBtn.removeEventListener('click', this.lotteryResultHandlers.ok);
+            shareBtn.removeEventListener('click', this.lotteryResultHandlers.share);
+            window.removeEventListener('click', this.lotteryResultHandlers.outside);
+            this.lotteryResultHandlers = null;
+        }
+        
+        // 添加关闭动画
+        modal.classList.add('closing');
+        
+        setTimeout(() => {
+            modal.classList.remove('active', 'closing');
+        }, 400);
+    }
+
+    // 创建五彩纸屑动画
+    createConfetti() {
+        const container = document.querySelector('.confetti-container');
+        container.innerHTML = '';
+        
+        // 创建50个五彩纸屑
+        for (let i = 0; i < 50; i++) {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            
+            // 随机位置和颜色
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.animationDelay = Math.random() * 2 + 's';
+            
+            container.appendChild(confetti);
+        }
+    }
+
+    // 分享抽奖结果
+    shareLotteryResult(student, prize, lotteryCost) {
+        let shareText = `🎉 恭喜${student.name}在积分抽奖中抽中了${prize.name}！`;
+        if (prize.value > 0) {
+            shareText += ` 获得${prize.value}积分`;
+        }
+        shareText += `（消耗${lotteryCost}积分）`;
+        
+        // 尝试使用Web Share API
+        if (navigator.share) {
+            navigator.share({
+                title: '抽奖结果分享',
+                text: shareText,
+                url: window.location.href
+            }).catch((error) => {
+                console.log('分享失败:', error);
+                this.copyToClipboard(shareText);
+            });
+        } else {
+            // 如果不支持Web Share API，则复制到剪贴板
+            this.copyToClipboard(shareText);
+        }
+    }
+
+    // 复制文本到剪贴板
+    copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            this.showToast('抽奖结果已复制到剪贴板', 'success', 2000);
+        }).catch((error) => {
+            console.error('复制失败:', error);
+            this.showToast('复制失败，请手动复制', 'error');
+        });
     }
 
     // 加载抽奖项

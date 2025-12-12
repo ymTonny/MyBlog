@@ -1433,3 +1433,289 @@ body {
 .header-actions .secondary-btn i {
     margin-right: 4px;
 }
+
+/* 抽奖结果弹窗样式 */
+.lottery-result-modal {
+    z-index: 1000;
+}
+
+.lottery-result-content {
+    max-width: 320px;
+    width: 90%;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 
+        0 20px 60px rgba(255, 215, 0, 0.4),
+        0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: modalBounce 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes modalBounce {
+    0% {
+        transform: scale(0.3);
+        opacity: 0;
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.lottery-animation {
+    position: relative;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+}
+
+.confetti-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #ff6b6b;
+    animation: confettiFall 3s linear forwards;
+}
+
+.confetti:nth-child(2n) {
+    background: #4ecdc4;
+}
+
+.confetti:nth-child(3n) {
+    background: #45b7d1;
+}
+
+.confetti:nth-child(4n) {
+    background: #96ceb4;
+}
+
+.confetti:nth-child(5n) {
+    background: #feca57;
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(200px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.prize-icon {
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, #ff6b6b 0%, #ff9ff3 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 
+        0 8px 32px rgba(255, 107, 107, 0.4),
+        inset 0 0 0 4px white,
+        inset 0 0 20px rgba(255, 255, 255, 0.8);
+    animation: prizePulse 2s infinite alternate;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes prizePulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 
+            0 8px 32px rgba(255, 107, 107, 0.4),
+            inset 0 0 0 4px white,
+            inset 0 0 20px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        transform: scale(1.1);
+        box-shadow: 
+            0 12px 40px rgba(255, 107, 107, 0.6),
+            inset 0 0 0 4px white,
+            inset 0 0 30px rgba(255, 255, 255, 1);
+    }
+}
+
+.prize-icon i {
+    font-size: 48px;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.sparkle-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    animation: sparkleTwinkle 2s infinite;
+}
+
+.sparkle:nth-child(1) {
+    top: 20%;
+    left: 20%;
+    animation-delay: 0s;
+}
+
+.sparkle:nth-child(2) {
+    top: 30%;
+    right: 25%;
+    animation-delay: 0.5s;
+}
+
+.sparkle:nth-child(3) {
+    bottom: 25%;
+    left: 15%;
+    animation-delay: 1s;
+}
+
+.sparkle:nth-child(4) {
+    bottom: 35%;
+    right: 20%;
+    animation-delay: 1.5s;
+}
+
+.sparkle:nth-child(5) {
+    top: 45%;
+    left: 50%;
+    animation-delay: 0.8s;
+}
+
+@keyframes sparkleTwinkle {
+    0%, 100% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+}
+
+.lottery-result-info {
+    padding: 24px;
+    text-align: center;
+    background: white;
+}
+
+.result-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff6b6b;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: titleGlow 2s infinite alternate;
+}
+
+@keyframes titleGlow {
+    0% {
+        text-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+    }
+    100% {
+        text-shadow: 0 4px 12px rgba(255, 107, 107, 0.6);
+    }
+}
+
+.student-name {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1c1c1e;
+    margin-bottom: 8px;
+}
+
+.prize-name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #007aff;
+    margin-bottom: 8px;
+    padding: 8px 16px;
+    background: rgba(0, 122, 255, 0.1);
+    border-radius: 12px;
+    display: inline-block;
+}
+
+.points-info {
+    font-size: 14px;
+    color: #8e8e93;
+    margin-top: 12px;
+}
+
+.lottery-result-actions {
+    padding: 16px 24px 24px;
+    display: flex;
+    gap: 12px;
+    background: white;
+    border-top: 1px solid #e5e5ea;
+}
+
+.lottery-result-actions button {
+    flex: 1;
+    padding: 12px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#lottery-result-ok {
+    background: linear-gradient(135deg, #007aff 0%, #0056cc 100%);
+    color: white;
+}
+
+#lottery-result-ok:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 122, 255, 0.4);
+}
+
+#lottery-result-share {
+    background: linear-gradient(135deg, #34c759 0%, #28a745 100%);
+    color: white;
+}
+
+#lottery-result-share:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 199, 89, 0.4);
+}
+
+/* 弹窗关闭动画 */
+.lottery-result-modal.closing {
+    animation: modalClose 0.4s ease-in forwards;
+}
+
+@keyframes modalClose {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+}
