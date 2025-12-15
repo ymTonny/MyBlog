@@ -158,8 +158,8 @@ body {
 }
 
 .student-list {
-    display: grid;
-    gap: 8px;
+    height: calc(100vh - 220px);
+    overflow: auto;
 }
 
 /* 学生列表 */
@@ -175,7 +175,6 @@ body {
     position: relative;
     overflow: hidden;
     transition: transform 0.3s ease;
-    touch-action: pan-x;
 }
 
 .student-item:active {
@@ -812,9 +811,6 @@ body {
 
 .student-selection-modal .student-list::-webkit-scrollbar-thumb:hover {
     background: #8e8e93;
-}
-        opacity: 1;
-    }
 }
 
 @keyframes modalSlideIn {
