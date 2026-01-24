@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>学生积分管理系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 首页 - 学生列表页面 -->
+    <div id="home-page" class="page active">
+        <div class="page-header">
+            <h1>学生积分管理</h1>
+            <div style="display: flex; gap: 8px;">
+                <button id="export-excel-btn" class="secondary-btn">
+                    <i class="fas fa-file-export"></i> 导出
+                </button>
+                <button id="add-student-btn" class="primary-btn">
+                    <i class="fas fa-plus"></i> 添加学生
+                </button>
+            </div>
+        </div>
+        
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="search-input" placeholder="搜索学生...">
+        </div>
+        
+        <div id="student-list" class="student-list">
+            <!-- 学生列表将在这里动态生成 -->
+        </div>
+    </div>
+
+    <!-- 积分抽奖页面 -->
+    <div id="lottery-page" class="page">
+        <div class="page-header">
+            <h1>积分抽奖</h1>
+            <button id="add-lottery-prize-btn" class="primary-btn">
+                <i class="fas fa-plus"></i> 添加奖项
+            </button>
+        </div>
+        
+        <div class="lottery-container">
+            <div class="wheel-container">
+                <div class="wheel">
+                    <div class="wheel-center">
+                        <div class="spin-btn" id="spin-wheel-btn">抽奖</div>
+                        <div class="lottery-cost-info">
+                            <span id="lottery-cost-display">消耗10积分</span>
+                        </div>
+                    </div>
+                    <div id="wheel-prizes" class="wheel-prizes">
+                        <!-- 抽奖项将在这里动态生成 -->
+                    </div>
+                </div>
+            </div>
+            <div class="lottery-prizes">
+                <h3>抽奖项管理</h3>
+                <div class="lottery-settings">
+                    <div class="form-group">
+                        <label for="lottery-cost-input">每次抽奖消耗积分：</label>
+                        <input type="number" id="lottery-cost-input" value="10" min="0" style="width: 80px; margin-left: 10px;">
+                    </div>
+                </div>
+                <div id="lottery-prize-list" class="prize-list">
+                    <!-- 抽奖项列表将在这里动态生成 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 积分兑换页面 -->
+    <div id="rewards-page" class="page">
+        <div class="page-header">
+            <h1>积分兑换</h1>
+            <button id="add-reward-btn" class="primary-btn">
+                <i class="fas fa-plus"></i> 添加奖品
+            </button>
+        </div>
+        
+        <div class="rewards-grid">
+            <!-- 兑换奖品将在这里动态生成 -->
+        </div>
+        
+        <div class="rewards-management">
+            <h3>奖品管理</h3>
+            <div id="reward-list" class="prize-list">
+                <!-- 奖品列表将在这里动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 班级管理页面 -->
+    <div id="classes-page" class="page">
+        <div class="page-header">
+            <h1>班级管理</h1>
+            <div class="header-actions">
+                <button id="add-class-btn" class="primary-btn">
+                    <i class="fas fa-plus"></i> 添加班级
+                </button>
+                <button id="import-excel-btn" class="secondary-btn">
+                    <i class="fas fa-file-import"></i> 导入Excel
+                </button>
+            </div>
+        </div>
+        
+        <div class="search-bar">
+            <i class="fas fa-search"></i>
+            <input type="text" id="class-search-input" placeholder="搜索班级...">
+        </div>
+        
+        <div id="class-list" class="class-list">
+            <!-- 班级列表将在这里动态生成 -->
+        </div>
+    </div>
+
+    <!-- 查看学生弹窗 -->
+    <div id="view-students-modal" class="modal student-selection-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="view-students-title">查看学生</h3>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="view-students-search" placeholder="搜索学生...">
+            </div>
+            <div id="view-students-list" class="student-list">
+                <!-- 学生列表将在这里动态生成 -->
+            </div>
+            <div class="modal-actions">
+                <button id="add-student-in-modal-btn" class="primary-btn">
+                    <i class="fas fa-plus"></i> 添加学生
+                </button>
+                <button id="close-view-students-btn" class="secondary-btn">关闭</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <div class="ios-footer">
+        <div class="tab-bar">
+            <button class="tab-btn active" data-page="home-page">
+                <i class="fas fa-home"></i>
+                <span>首页</span>
+            </button>
+            <button class="tab-btn" data-page="lottery-page">
+                <i class="fas fa-gift"></i>
+                <span>抽奖</span>
+            </button>
+            <button class="tab-btn" data-page="rewards-page">
+                <i class="fas fa-exchange-alt"></i>
+                <span>兑换</span>
+            </button>
+            <button class="tab-btn" data-page="classes-page">
+                <i class="fas fa-users"></i>
+                <span>班级</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- 模态框 -->
+    
+    <!-- 提示弹窗 -->
+    <div id="toast-container" class="toast-container">
+        <!-- 提示弹窗将在这里动态生成 -->
+    </div>
+    
+    <!-- 确认弹窗 -->
+    <div id="confirm-modal" class="confirm-modal">
+        <div class="confirm-content">
+            <div class="confirm-icon">
+                <i class="fas fa-question-circle"></i>
+            </div>
+            <div class="confirm-message" id="confirm-message"></div>
+            <div class="confirm-actions">
+                <button id="confirm-cancel" class="confirm-btn cancel-btn">取消</button>
+                <button id="confirm-ok" class="confirm-btn ok-btn">确定</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 添加班级模态框 -->
+    <div id="add-class-modal" class="modal">
+        <div class="modal-content">
+            <h3>添加班级</h3>
+            <div class="form-group">
+                <label for="class-name-input">班级名称</label>
+                <input type="text" id="class-name-input" placeholder="例如：三年级(1)班">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-add-class-btn" class="secondary-btn">取消</button>
+                <button id="confirm-add-class-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 抽奖结果弹窗 -->
+    <div id="lottery-result-modal" class="modal lottery-result-modal">
+        <div class="modal-content lottery-result-content">
+            <div class="lottery-animation">
+                <div class="confetti-container"></div>
+                <div class="prize-icon">
+                    <i class="fas fa-gift"></i>
+                </div>
+                <div class="sparkle-container">
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                    <div class="sparkle"></div>
+                </div>
+            </div>
+            <div class="lottery-result-info">
+                <h3 class="result-title">恭喜中奖！</h3>
+                <div class="student-name" id="lottery-student-name"></div>
+                <div class="prize-name" id="lottery-prize-name"></div>
+                <div class="points-info" id="lottery-points-info"></div>
+            </div>
+            <div class="lottery-result-actions">
+                <button id="lottery-result-ok" class="primary-btn">确定</button>
+                <button id="lottery-result-share" class="secondary-btn">分享</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加学生模态框 -->
+    <div id="add-student-modal" class="modal">
+        <div class="modal-content">
+            <h3>添加学生</h3>
+            <div class="form-group">
+                <label for="student-class-select">选择班级</label>
+                <select id="student-class-select"></select>
+            </div>
+            <div class="form-group">
+                <label for="student-name-input">学生姓名</label>
+                <input type="text" id="student-name-input" placeholder="例如：张三">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-add-student-btn" class="secondary-btn">取消</button>
+                <button id="confirm-add-student-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 积分编辑模态框 -->
+    <div id="points-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>编辑积分</h3>
+            <div class="form-group">
+                <div id="current-points-display" style="text-align: center; margin-bottom: 15px; font-size: 16px; color: #333;"></div>
+                <label for="points-input">调整积分数量（正数为增加，负数为减少）</label>
+                <div class="points-control">
+                    <button id="minus-points" class="points-btn">-</button>
+                    <input type="number" id="points-input" value="0" min="-9999">
+                    <button id="plus-points" class="points-btn">+</button>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-points-btn" class="secondary-btn">取消</button>
+                <button id="clear-points-btn" class="secondary-btn">清除积分</button>
+                <button id="confirm-points-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加抽奖奖项模态框 -->
+    <div id="add-lottery-prize-modal" class="modal">
+        <div class="modal-content">
+            <h3>添加抽奖奖项</h3>
+            <div class="form-group">
+                <label for="lottery-prize-name">奖项名称</label>
+                <input type="text" id="lottery-prize-name" placeholder="例如：10积分">
+            </div>
+            <div class="form-group">
+                <label for="lottery-prize-value">积分值</label>
+                <input type="number" id="lottery-prize-value" placeholder="积分数量" min="0">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-add-lottery-prize-btn" class="secondary-btn">取消</button>
+                <button id="confirm-add-lottery-prize-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加兑换奖项模态框 -->
+    <div id="add-reward-prize-modal" class="modal">
+        <div class="modal-content">
+            <h3>添加兑换奖品</h3>
+            <div class="form-group">
+                <label for="reward-prize-name">奖品名称</label>
+                <input type="text" id="reward-prize-name" placeholder="例如：铅笔">
+            </div>
+            <div class="form-group">
+                <label for="reward-prize-points">所需积分</label>
+                <input type="number" id="reward-prize-points" placeholder="积分数量" min="1">
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-add-reward-prize-btn" class="secondary-btn">取消</button>
+                <button id="confirm-add-reward-prize-btn" class="primary-btn">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 学生选择模态框 -->
+    <div id="student-selection-modal" class="modal student-selection-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 id="student-selection-title">选择学生</h3>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="student-selection-search" placeholder="搜索学生...">
+            </div>
+            <div id="student-selection-list" class="student-list">
+                <!-- 学生列表将在这里动态生成 -->
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-student-selection-btn" class="secondary-btn">取消</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 导入Excel模态框 -->
+    <div id="import-excel-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>导入Excel学生信息</h3>
+            <div class="form-group">
+                <label for="excel-file-input">选择Excel文件</label>
+                <input type="file" id="excel-file-input" accept=".xlsx, .xls" style="display: none;">
+                <div class="file-upload-area" id="excel-upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>点击选择Excel文件或拖拽文件到此处</p>
+                    <p class="file-hint">支持 .xlsx, .xls 格式</p>
+                </div>
+                <div id="file-info" class="file-info" style="display: none;">
+                    <i class="fas fa-file-excel"></i>
+                    <span id="file-name"></span>
+                    <button id="remove-file-btn" class="remove-file-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="import-options">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="filter-existing-checkbox" checked>
+                    <span class="checkmark"></span>
+                    过滤已存在的学生（推荐）
+                </label>
+                <p class="option-hint">自动过滤掉Excel中已经在系统中存在的班级下的学生</p>
+            </div>
+            <div class="modal-actions">
+                <button id="cancel-import-btn" class="secondary-btn">取消</button>
+                <button id="confirm-import-btn" class="primary-btn" disabled>开始导入</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="js/db.js"></script>
+    <script src="js/excel.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

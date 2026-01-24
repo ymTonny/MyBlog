@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生活费用分摊计算器</title>
+    <style>
+        /* CSS 样式 */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f4f7f6;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            box-sizing: border-box; /* 确保 padding 不会增加宽度 */
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        button:active {
+            transform: scale(0.99);
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 15px;
+            border: 1px solid #dcdcdc;
+            border-radius: 8px;
+            background-color: #e9f7ff;
+            visibility: hidden;
+        }
+
+        .result p {
+            margin: 8px 0;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        .result strong {
+            color: #007bff;
+            font-size: 1.1em;
+        }
+        .detail {
+          margin-bottom: 10px;
+          span {
+            display: inline-block;
+            border: 1px solid #ccc;
+            padding: 0 5px;
+            border-radius: 4px;
+          }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 contenteditable="true">费用分摊</h1>
+
+    <div class="input-group">
+        <label for="totalCost">总费用 (元):</label>
+        <div class="detail">详情：<span contenteditable="true" id="totalCostDetail"></span></div>
+        <input type="number" id="totalCost" placeholder="例如: 150.80" min="0" step="0.01">
+    </div>
+
+    <div class="input-group">
+        <label for="usage1">居民1 用量:</label>
+        <div class="detail">详情：<span contenteditable="true" id="usage1Detail"></span></div>
+        <input type="number" id="usage1" placeholder="例如: 55" min="0" step="0.01">
+    </div>
+
+    <div class="input-group">
+        <label for="usage2">居民2 用量:</label>
+        <div class="detail">详情：<span contenteditable="true" id="usage2Detail"></span></div>
+        <input type="number" id="usage2" placeholder="例如: 45" min="0" step="0.01">
+    </div>
+
+    <!-- <button onclick="calculateCost()">计算分摊费用</button> -->
+
+    <div class="result" id="results">
+        <!-- <p>输入数据并点击 **计算** 按钮。</p> -->
+    </div>
+</div>
+
+<script>
+    /* JavaScript 逻辑 */
+    function calculateCost() {
+        // 获取输入值，并尝试将它们转换为浮点数
+        const totalCostInput = document.getElementById('totalCost').value;
+        const usage1Input = document.getElementById('usage1').value;
+        const usage2Input = document.getElementById('usage2').value;
+
+        // 检查输入是否为空
+        if (!totalCostInput || !usage1Input || !usage2Input) {
+            // document.getElementById('results').innerHTML = '<p style="color: red;">请填写所有输入项！</p>';
+            return;
+        }
+
+        // 转换为浮点数
+        const totalCost = parseFloat(totalCostInput);
+        const usage1 = parseFloat(usage1Input);
+        const usage2 = parseFloat(usage2Input);
+
+        // 验证输入是否为有效的非负数
+        if (isNaN(totalCost) || isNaN(usage1) || isNaN(usage2) || totalCost < 0 || usage1 < 0 || usage2 < 0) {
+            //  document.getElementById('results').innerHTML = '<p style="color: red;">请输入有效的非负数！</p>';
+            return;
+        }
+
+        // 计算总用量
+        const totalUsage = usage1 + usage2;
+
+        // 获取结果显示的 DOM 元素
+        const resultsDiv = document.getElementById('results');
+
+        // 检查总用量是否为零
+        if (totalUsage === 0) {
+            // if (totalCost > 0) {
+            //      resultsDiv.innerHTML = '<p style="color: red;">用量总和为零，但总费用大于零，无法计算单价！</p>';
+            // } else {
+            //      resultsDiv.innerHTML = '<p>总费用和总用量都为零，无需分摊。</p>';
+            // }
+            return;
+        }
+
+        // 1. 计算单价 (总费用 / 总用量)
+        const unitPrice = totalCost / totalUsage;
+        // 使用 toFixed(2) 保留两位小数，但计算时使用原始浮点数
+        const displayUnitPrice = unitPrice.toFixed(4); // 单价可以保留更多小数以确保精度
+
+        // 2. 计算居民1和居民2应付费用
+        const cost1 = usage1 * unitPrice;
+        const cost2 = usage2 * unitPrice;
+
+        // 3. 将结果保留两位小数 (货币单位)
+        // 使用 toFixed(2)
+        const displayCost1 = cost1.toFixed(2);
+        const displayCost2 = cost2.toFixed(2);
+        resultsDiv.style.visibility = 'visible';
+        // 验证计算结果的总和是否接近原始总费用（用于调试和确认精度）
+        // const checkTotal = parseFloat(displayCost1) + parseFloat(displayCost2);
+        // console.log("Check Total:", checkTotal);
+
+        // 4. 显示结果
+        resultsDiv.innerHTML = `
+            <p>总用量: <strong>${totalUsage.toFixed(2)}</strong></p>
+            <p>单价 (元/用量): <strong>${displayUnitPrice}</strong></p>
+            <hr style="border: 0; border-top: 1px dashed #ccc; margin: 10px 0;">
+            <p>居民1 应付费用: <strong>${displayCost1} 元</strong></p>
+            <p>居民2 应付费用: <strong>${displayCost2} 元</strong></p>
+        `;
+    }
+    window.onload = () => {
+        const totalCostDetail = document.getElementById('totalCostDetail');
+        const usage1Detail = document.getElementById('usage1Detail');
+        const usage2Detail = document.getElementById('usage2Detail');
+        totalCostDetail.oninput = (e) => {
+            try {
+                const val = eval(e.target.textContent);
+                document.getElementById('totalCost').value = val;
+                calculateCost();
+            } catch (err) {}
+        }
+        usage1Detail.oninput = (e) => {
+            try {
+                const val = eval(e.target.textContent);
+                document.getElementById('usage1').value = val;
+                calculateCost();
+            } catch (err) {}
+        }
+        usage2Detail.oninput = (e) => {
+            try {
+                const val = eval(e.target.textContent);
+                document.getElementById('usage2').value = val;
+                calculateCost();
+            } catch (err) {}
+        }
+        const usage1Input = document.getElementById('usage1');
+        const usage2Input = document.getElementById('usage2');
+        const totalCostInput = document.getElementById('totalCost');
+        totalCostInput.oninput = (e) => {
+          calculateCost();
+        }
+        usage1Input.oninput = (e) => {
+          calculateCost();
+        }
+        usage2Input.oninput = (e) => {
+          calculateCost();
+        }
+    }
+</script>
+
+</body>
+</html>
