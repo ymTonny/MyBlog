@@ -907,10 +907,6 @@
                         <span class="icon">📦</span>
                         <span>其他</span>
                     </button>
-                    <button class="quick-action" id="scanQr">
-                        <span class="icon">📷</span>
-                        <span>扫码</span>
-                    </button>
                 </div>
                 <div class="form-group">
                     <label>零食名称 *</label>
@@ -1009,23 +1005,6 @@
                 <button class="btn btn-outline" id="cancelEdit">取消</button>
                 <button class="btn btn-primary" id="confirmEdit">更新</button>
             </div>
-        </div>
-    </div>
-
-    <div class="scanner-overlay" id="scannerOverlay">
-        <div class="scanner-header">
-            <h3>扫码录入</h3>
-            <button class="scanner-close" id="closeScanner">&times;</button>
-        </div>
-        <video id="scannerVideo" playsinline webkit-playsinline></video>
-        <p class="scanner-tip">将条形码对准框内即可自动识别</p>
-        <div class="scanner-tips">
-            <p>📋 iOS 用户首次使用需：</p>
-            <p>设置 → Safari → 允许网站访问相机</p>
-        </div>
-        <div class="manual-input">
-            <input type="text" id="manualBarcode" placeholder="或手动输入条形码" autocomplete="off">
-            <button id="confirmBarcode">确定</button>
         </div>
     </div>
 
@@ -1193,41 +1172,6 @@
                     btn.classList.add('selected');
                 });
             });
-
-            const scanQr = document.getElementById('scanQr');
-            const scannerOverlay = document.getElementById('scannerOverlay');
-            const closeScanner = document.getElementById('closeScanner');
-            const confirmBarcode = document.getElementById('confirmBarcode');
-            const manualBarcode = document.getElementById('manualBarcode');
-
-            scanQr.addEventListener('click', function() {
-                startScanner();
-            });
-
-            closeScanner.addEventListener('click', function() {
-                stopScanner();
-            });
-
-            scannerOverlay.addEventListener('click', function(e) {
-                if (e.target === e.currentTarget) {
-                    stopScanner();
-                }
-            });
-
-            confirmBarcode.addEventListener('click', function() {
-                const barcode = manualBarcode.value.trim();
-                if (barcode) {
-                    stopScanner();
-                    handleBarcodeScan(barcode);
-                }
-            });
-
-            manualBarcode.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    confirmBarcode.click();
-                }
-            });
-
             var settingsBtn = document.getElementById('settingsBtn');
             var settingsModal = document.getElementById('settingsModal');
             var closeSettings = document.getElementById('closeSettings');
@@ -1315,123 +1259,6 @@
                     });
             }
             return Promise.resolve(false);
-        }
-
-        function startScanner() {
-            const scannerOverlay = document.getElementById('scannerOverlay');
-            scannerOverlay.classList.add('show');
-            document.body.style.overflow = 'hidden';
-
-            if (typeof Html5Qrcode === 'undefined') {
-                showToast('扫码功能加载中，请稍候...');
-                setTimeout(function() {
-                    if (typeof Html5Qrcode !== 'undefined') {
-                        initScanner();
-                    } else {
-                        showToast('扫码功能加载失败，请手动输入');
-                        stopScanner();
-                    }
-                }, 1500);
-                return;
-            }
-
-            if (!isHttps()) {
-                showToast('请使用 HTTPS 访问以启用扫码功能，或手动输入条形码');
-                stopScanner();
-                return;
-            }
-
-            initScanner();
-        }
-
-        function initScanner() {
-            var videoElement = document.getElementById('scannerVideo');
-            
-            html5QrCode = new Html5Qrcode("scannerVideo");
-            
-            var config = {
-                fps: 10,
-                qrbox: { width: 250, height: 120 },
-                aspectRatio: 1.5,
-                disableFlip: false,
-                verbose: false
-            };
-
-            var constraints = {
-                video: {
-                    facingMode: "environment",
-                    width: { ideal: 1280 },
-                    height: { ideal: 720 }
-                }
-            };
-
-            html5QrCode.start(
-                constraints,
-                config,
-                onScanSuccess,
-                onScanFailure
-            ).then(function() {
-                isScanning = true;
-                showToast('将条形码对准框内');
-            }).catch(function(err) {
-                console.error('相机启动失败:', err);
-                handleScannerError(err);
-            });
-        }
-
-        function handleScannerError(err) {
-            var errorMsg = '无法启动相机';
-            
-            if (err.name === 'NotAllowedError' || err.message.indexOf('Permission') !== -1) {
-                errorMsg = '相机权限被拒绝，请到设置中允许访问相机';
-            } else if (err.name === 'NotFoundError' || err.message.indexOf('No camera') !== -1) {
-                errorMsg = '未检测到相机设备';
-            } else if (err.name === 'NotReadableError' || err.message.indexOf('in use') !== -1) {
-                errorMsg = '相机正在被其他应用使用';
-            } else if (!isHttps()) {
-                errorMsg = '扫码功能需要 HTTPS 环境，请手动输入条形码';
-            }
-            
-            showToast(errorMsg);
-            stopScanner();
-        }
-
-        function onScanSuccess(decodedText, decodedResult) {
-            if (isScanning) {
-                isScanning = false;
-                stopScanner();
-                handleBarcodeScan(decodedText);
-            }
-        }
-
-        function onScanFailure(error) {
-        }
-
-        function stopScanner() {
-            const scannerOverlay = document.getElementById('scannerOverlay');
-            scannerOverlay.classList.remove('show');
-            document.body.style.overflow = '';
-            document.getElementById('manualBarcode').value = '';
-
-            if (html5QrCode && isScanning) {
-                html5QrCode.stop().then(function() {
-                    html5QrCode.clear();
-                    isScanning = false;
-                }).catch(function(err) {
-                    console.error('停止扫码失败:', err);
-                    html5QrCode = null;
-                    isScanning = false;
-                });
-            }
-        }
-
-        function handleBarcodeScan(barcode) {
-            const addModal = document.getElementById('addModal');
-            addModal.classList.add('show');
-            document.body.style.overflow = 'hidden';
-            document.getElementById('snackName').value = barcode;
-            document.getElementById('snackName').focus();
-            showToast('已识别条形码: ' + barcode);
         }
 
         function clearForm() {
@@ -1560,7 +1387,7 @@
 
             if (daysLeft < 0) {
                 return { status: 'danger', label: '已过期', daysLeft: daysLeft, class: 'danger' };
-            } else if (daysLeft <= 7) {
+            } else if (daysLeft <= 20) {
                 return { status: 'warning', label: '即将到期', daysLeft: daysLeft, class: 'warning' };
             } else {
                 return { status: 'normal', label: '正常', daysLeft: daysLeft, class: 'safe' };
