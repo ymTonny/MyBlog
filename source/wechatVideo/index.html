@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="renderer" content="webkit" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <title>微信视频号地址解析工具</title>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+      #iframe {
+        position: absolute;
+        top: 0;
+        z-index: -1;
+      }
+      textarea {
+        width: auto;
+        height: auto;
+        border: none;
+        background-color: rgba(58, 117, 247, 0.5);
+        font-size: 13px;
+        color: #fff;
+      }
+      h3 {
+        color: black;
+      }
+      textarea:focus-visible {
+        outline: 1px solid rgb(58, 117, 247);
+      }
+      textarea::placeholder {
+        color: #fff;
+      }
+      blockquote {
+        border-left-color: black;
+      }
+      .test {
+        height: 100vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      #video {
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe
+      id="iframe"
+      src="./js/heod9927.html"
+      frameborder="0"
+      width="100%"
+      height="100%"
+    ></iframe>
+    <div class="test">
+      <div class="left">
+        <div>
+          <blockquote class="teal-text darken-2">
+            <h3>微信视频号地址解析工具</h3>
+          </blockquote>
+        </div>
+        <div>
+          <textarea
+            id="txt"
+            rows="20"
+            cols="90"
+            class="z-depth-2"
+            placeholder="请拷贝源码至此处"
+          ></textarea>
+          <br />
+          <br />
+          <!-- <button onclick="prase()">解析下载</button> -->
+          <a class="waves-effect waves-light btn-small" onclick="prase()"
+            ><i class="material-icons right">cloud_download</i>解析下载</a
+          >
+        </div>
+      </div>
+      <div class="right">
+        <iframe src="" id="video" width="400" height="500"></iframe>
+      </div>
+    </div>
+  </body>
+
+  <script type="text/javascript">
+    function prase() {
+      const regex = /<video.*?src="([^"]*)"[^>]*>(?:<\/video>)?/gm;
+      const str = document.getElementById("txt").value;
+      let url;
+      let m;
+
+      while ((m = regex.exec(str)) !== null) {
+        if (m.index === regex.lastIndex) {
+          regex.lastIndex++;
+        }
+        m.forEach((match, groupIndex) => {
+          url = match;
+        });
+      }
+      url = url.replace(/&amp;/g, "&");
+      const dom = document.getElementById("video");
+      dom.setAttribute("src", url);
+      // const a = document.createElement("a");
+      // a.style.display = "none";
+      // a.href = url;
+      // a.target = "_blank";
+      // a.click();
+    }
+  </script>
+</html>

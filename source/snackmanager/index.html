@@ -821,6 +821,44 @@
         .import-status.error {
             color: var(--danger);
         }
+
+        .camera-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 1;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .image-viewer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            cursor: pointer;
+        }
+
+        .image-viewer.show {
+            display: flex;
+        }
+
+        .image-viewer img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            cursor: default;
+        }
     </style>
 </head>
 <body>
@@ -883,7 +921,10 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h2>添加零食</h2>
-                <button class="modal-close" id="closeModal">&times;</button>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <button class="camera-btn" id="cameraBtn" title="拍照识别添加">📷</button>
+                    <button class="modal-close" id="closeModal">&times;</button>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="quick-actions">
@@ -946,6 +987,13 @@
                     <label>备注</label>
                     <input type="text" id="snackRemark" placeholder="可选" autocomplete="off">
                 </div>
+                <div class="form-group" id="addImagePreview" style="display:none;">
+                    <label>商品图片</label>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <img id="addImagePreviewImg" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--border);">
+                        <button type="button" class="btn btn-outline" id="removeAddImage" style="flex:none;padding:8px 12px;font-size:12px;">删除图片</button>
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-outline" id="cancelAdd">取消</button>
@@ -954,11 +1002,16 @@
         </div>
     </div>
 
+    <input type="file" id="cameraInput" accept="image/*" capture="environment" style="display:none">
+
     <div class="modal" id="editModal">
         <div class="modal-content">
             <div class="modal-header">
                 <h2>编辑零食</h2>
-                <button class="modal-close" id="closeEditModal">&times;</button>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <button class="camera-btn" id="editCameraBtn" title="拍照更换图片">📷</button>
+                    <button class="modal-close" id="closeEditModal">&times;</button>
+                </div>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="editId">
@@ -999,6 +1052,13 @@
                 <div class="form-group">
                     <label>备注</label>
                     <input type="text" id="editRemark" placeholder="可选" autocomplete="off">
+                </div>
+                <div class="form-group" id="editImagePreview" style="display:none;">
+                    <label>商品图片</label>
+                    <div style="display:flex;align-items:center;gap:10px;">
+                        <img id="editImagePreviewImg" style="width:80px;height:80px;object-fit:cover;border-radius:8px;border:1px solid var(--border);">
+                        <button type="button" class="btn btn-outline" id="removeEditImage" style="flex:none;padding:8px 12px;font-size:12px;">删除图片</button>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1050,6 +1110,7 @@
         let searchKeyword = '';
         let html5QrCode = null;
         let isScanning = false;
+        let currentImageData = '';
 
         function init() {
             loadData();
@@ -1098,6 +1159,30 @@
                 addModal.classList.add('show');
                 setDefaultDate();
                 document.body.style.overflow = 'hidden';
+            });
+
+            document.getElementById('cameraBtn').addEventListener('click', function() {
+                document.getElementById('cameraInput').click();
+            });
+
+            document.getElementById('editCameraBtn').addEventListener('click', function() {
+                document.getElementById('cameraInput').click();
+            });
+
+            document.getElementById('cameraInput').addEventListener('change', function(e) {
+                if (e.target.files.length > 0) {
+                    handleCameraCapture(e.target.files[0]);
+                }
+            });
+
+            document.getElementById('removeAddImage').addEventListener('click', function() {
+                currentImageData = '';
+                document.getElementById('addImagePreview').style.display = 'none';
+            });
+
+            document.getElementById('removeEditImage').addEventListener('click', function() {
+                currentImageData = '';
+                document.getElementById('editImagePreview').style.display = 'none';
             });
 
             function closeAddModal() {
@@ -1270,6 +1355,8 @@
             document.querySelectorAll('.quick-action').forEach(function(b) {
                 b.classList.remove('selected');
             });
+            currentImageData = '';
+            document.getElementById('addImagePreview').style.display = 'none';
         }
 
         function addSnack() {
@@ -1281,7 +1368,7 @@
             const cost = parseFloat(document.getElementById('snackCost').value) || 0;
             const remark = document.getElementById('snackRemark').value.trim();
 
-            if (!name || !productionDate || !shelfLife) {
+            if (!productionDate || !shelfLife) {
                 showToast('请填写必填项');
                 return;
             }
@@ -1295,6 +1382,7 @@
                 shelfLife: shelfLife,
                 cost: cost,
                 remark: remark,
+                image: currentImageData || '',
                 createdAt: new Date().toISOString()
             };
 
@@ -1336,6 +1424,7 @@
                     shelfLife: shelfLife,
                     cost: cost,
                     remark: remark,
+                    image: currentImageData || snacks[index].image || '',
                     createdAt: snacks[index].createdAt
                 };
                 saveData();
@@ -1372,6 +1461,13 @@
                 document.getElementById('editShelfLife').value = snack.shelfLife;
                 document.getElementById('editCost').value = snack.cost;
                 document.getElementById('editRemark').value = snack.remark || '';
+                currentImageData = snack.image || '';
+                if (currentImageData) {
+                    document.getElementById('editImagePreview').style.display = '';
+                    document.getElementById('editImagePreviewImg').src = currentImageData;
+                } else {
+                    document.getElementById('editImagePreview').style.display = 'none';
+                }
                 document.getElementById('editModal').classList.add('show');
                 document.body.style.overflow = 'hidden';
             }
@@ -1498,6 +1594,9 @@
                 html += '<span class="card-title">' + getCategoryIcon(snack.category) + ' ' + escapeHtml(snack.name) + '</span>';
                 html += '<span class="card-status ' + status.status + '">' + status.label + '</span>';
                 html += '</div>';
+                if (snack.image) {
+                    html += '<div style="margin-bottom:8px;"><img src="' + snack.image + '" style="width:100%;max-height:150px;object-fit:cover;border-radius:8px;cursor:pointer;" loading="lazy" onclick="event.stopPropagation();viewImage(this.src)"></div>';
+                }
                 html += '<div class="card-info">';
                 html += '<span>📦 数量: ' + snack.quantity + '</span>';
                 html += '<span>🏷️ ' + snack.category + '</span>';
@@ -1636,7 +1735,57 @@
             }, 2500);
         }
 
+        function handleCameraCapture(file) {
+            if (!file) return;
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                var img = new Image();
+                img.onload = function() {
+                    var canvas = document.createElement('canvas');
+                    var maxW = 200;
+                    var scale = Math.min(maxW / img.width, 1);
+                    canvas.width = Math.round(img.width * scale);
+                    canvas.height = Math.round(img.height * scale);
+                    var ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+                    currentImageData = canvas.toDataURL('image/jpeg', 0.7);
+
+                    var addPreview = document.getElementById('addImagePreview');
+                    var editPreview = document.getElementById('editImagePreview');
+                    if (document.getElementById('addModal').classList.contains('show')) {
+                        document.getElementById('addImagePreviewImg').src = currentImageData;
+                        addPreview.style.display = '';
+                    }
+                    if (document.getElementById('editModal').classList.contains('show')) {
+                        document.getElementById('editImagePreviewImg').src = currentImageData;
+                        editPreview.style.display = '';
+                    }
+                    showToast('图片已添加');
+                };
+                img.src = e.target.result;
+            };
+            reader.onerror = function() {
+                showToast('读取图片失败');
+            };
+            reader.readAsDataURL(file);
+            document.getElementById('cameraInput').value = '';
+        }
+
+        function viewImage(src) {
+            document.getElementById('viewerImage').src = src;
+            document.getElementById('imageViewer').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeImageViewer() {
+            document.getElementById('imageViewer').classList.remove('show');
+            document.body.style.overflow = '';
+        }
+
         init();
     </script>
+    <div class="image-viewer" id="imageViewer" onclick="closeImageViewer()">
+        <img id="viewerImage" src="" onclick="event.stopPropagation()">
+    </div>
 </body>
 </html>
