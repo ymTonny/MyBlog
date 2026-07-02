@@ -1368,7 +1368,7 @@
             const cost = parseFloat(document.getElementById('snackCost').value) || 0;
             const remark = document.getElementById('snackRemark').value.trim();
 
-            if (!name || !productionDate || !shelfLife) {
+            if (!productionDate || !shelfLife) {
                 showToast('请填写必填项');
                 return;
             }
