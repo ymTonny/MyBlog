@@ -1104,7 +1104,10 @@
     <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
     <script>
         const STORAGE_KEY = 'snack_inventory';
+        const IMAGE_STORE_KEY = 'snack_image_store';
         let snacks = [];
+        let imageStore = {};
+        let imageDBPromise = null;
         let currentTab = 'all';
         let currentFilter = 'all';
         let searchKeyword = '';
@@ -1114,11 +1117,13 @@
 
         function init() {
             loadData();
-            renderSnacks();
-            updateStats();
-            updateDataInfo();
-            setDefaultDate();
-            bindEvents();
+            loadImageStore().then(function() {
+                renderSnacks();
+                updateStats();
+                updateDataInfo();
+                setDefaultDate();
+                bindEvents();
+            });
         }
 
         function loadData() {
@@ -1136,10 +1141,168 @@
         function saveData() {
             try {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(snacks));
+                cleanupImageStore();
             } catch (e) {
                 console.error('数据保存失败', e);
                 showToast('数据保存失败，请检查存储空间');
             }
+        }
+
+        function getImageDB() {
+            if (!imageDBPromise) {
+                imageDBPromise = new Promise(function(resolve, reject) {
+                    var request = indexedDB.open('SnackManagerDB', 1);
+                    request.onerror = function() { reject(request.error); };
+                    request.onsuccess = function() {
+                        var db = request.result;
+                        db.onversionchange = function() { db.close(); };
+                        resolve(db);
+                    };
+                    request.onupgradeneeded = function(e) {
+                        var db = e.target.result;
+                        if (!db.objectStoreNames.contains('images')) {
+                            db.createObjectStore('images');
+                        }
+                    };
+                });
+            }
+            return imageDBPromise;
+        }
+
+        function loadImageStore() {
+            return getImageDB().then(function(db) {
+                return new Promise(function(resolve) {
+                    var lsData = localStorage.getItem(IMAGE_STORE_KEY);
+                    if (lsData) {
+                        try {
+                            var oldImages = JSON.parse(lsData);
+                            var tx = db.transaction('images', 'readwrite');
+                            var store = tx.objectStore('images');
+                            for (var k in oldImages) {
+                                if (oldImages.hasOwnProperty(k)) store.put(oldImages[k], k);
+                            }
+                            localStorage.removeItem(IMAGE_STORE_KEY);
+                        } catch(e) {}
+                    }
+                    var toMigrate = [];
+                    for (var i = 0; i < snacks.length; i++) {
+                        if (snacks[i].image && snacks[i].image.indexOf('data:') === 0) {
+                            toMigrate.push(snacks[i]);
+                        }
+                    }
+                    if (toMigrate.length === 0) { resolve(); return; }
+                    var tx = db.transaction('images', 'readwrite');
+                    var store = tx.objectStore('images');
+                    for (var i = 0; i < toMigrate.length; i++) {
+                        var s = toMigrate[i];
+                        var key = hashImage(s.image);
+                        store.put(s.image, key);
+                        imageStore[key] = s.image;
+                        s.image = key;
+                    }
+                    tx.oncomplete = function() {
+                        saveData();
+                        resolve();
+                    };
+                });
+            });
+        }
+
+        function saveImageStore() {
+            getImageDB().then(function(db) {
+                var tx = db.transaction('images', 'readwrite');
+                var store = tx.objectStore('images');
+                store.clear();
+                for (var k in imageStore) {
+                    if (imageStore.hasOwnProperty(k)) store.put(imageStore[k], k);
+                }
+                tx.onerror = function() { console.error('IndexedDB写入失败'); };
+            }).catch(function(e) {
+                console.error('图片存储失败', e);
+            });
+        }
+
+        function hashImage(dataUrl) {
+            var hash = 0;
+            for (var i = 0; i < dataUrl.length; i++) {
+                var char = dataUrl.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return 'i' + Math.abs(hash).toString(36);
+        }
+
+        function storeImage(dataUrl) {
+            if (!dataUrl) return '';
+            var key = hashImage(dataUrl);
+            if (!imageStore[key]) {
+                imageStore[key] = dataUrl;
+                saveImageStore();
+            }
+            return key;
+        }
+
+        function getStoredImage(key) {
+            if (!key) return '';
+            if (key.indexOf('data:') === 0) return key;
+            return imageStore[key] || '';
+        }
+
+        function loadImageAsync(key) {
+            if (!key) return Promise.resolve('');
+            if (key.indexOf('data:') === 0) return Promise.resolve(key);
+            if (imageStore[key]) return Promise.resolve(imageStore[key]);
+            return getImageDB().then(function(db) {
+                return new Promise(function(resolve) {
+                    var tx = db.transaction('images', 'readonly');
+                    var store = tx.objectStore('images');
+                    var req = store.get(key);
+                    req.onsuccess = function() {
+                        var data = req.result || '';
+                        if (data) imageStore[key] = data;
+                        resolve(data);
+                    };
+                    req.onerror = function() { resolve(''); };
+                });
+            });
+        }
+
+        function loadCardImages(container) {
+            var imgs = container.querySelectorAll('[data-imgkey]');
+            for (var i = 0; i < imgs.length; i++) {
+                (function(img) {
+                    var key = img.getAttribute('data-imgkey');
+                    var cached = getStoredImage(key);
+                    if (cached) {
+                        img.src = cached;
+                        img.onclick = function(e) { e.stopPropagation(); viewImage(cached); };
+                    } else {
+                        loadImageAsync(key).then(function(src) {
+                            if (src) {
+                                img.src = src;
+                                img.onclick = function(e) { e.stopPropagation(); viewImage(src); };
+                            }
+                        });
+                    }
+                })(imgs[i]);
+            }
+        }
+
+        function cleanupImageStore() {
+            var usedKeys = {};
+            for (var i = 0; i < snacks.length; i++) {
+                if (snacks[i].image && snacks[i].image.indexOf('data:') !== 0) {
+                    usedKeys[snacks[i].image] = true;
+                }
+            }
+            var changed = false;
+            for (var k in imageStore) {
+                if (imageStore.hasOwnProperty(k) && !usedKeys[k]) {
+                    delete imageStore[k];
+                    changed = true;
+                }
+            }
+            if (changed) saveImageStore();
         }
 
         function setDefaultDate() {
@@ -1301,16 +1464,22 @@
             });
 
             clearData.addEventListener('click', function() {
-                if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
-                    if (confirm('再次确认：确定要删除所有零食记录吗？')) {
-                        snacks = [];
-                        saveData();
-                        renderSnacks();
-                        updateStats();
-                        updateDataInfo();
-                        showToast('数据已清空');
+                    if (confirm('确定要清空所有数据吗？此操作不可恢复！')) {
+                        if (confirm('再次确认：确定要删除所有零食记录吗？')) {
+                            snacks = [];
+                            imageStore = {};
+                            getImageDB().then(function(db) {
+                                var tx = db.transaction('images', 'readwrite');
+                                var store = tx.objectStore('images');
+                                store.clear();
+                            });
+                            saveData();
+                            renderSnacks();
+                            updateStats();
+                            updateDataInfo();
+                            showToast('数据已清空');
+                        }
                     }
-                }
             });
         }
 
@@ -1382,7 +1551,7 @@
                 shelfLife: shelfLife,
                 cost: cost,
                 remark: remark,
-                image: currentImageData || '',
+                image: storeImage(currentImageData),
                 createdAt: new Date().toISOString()
             };
 
@@ -1424,7 +1593,7 @@
                     shelfLife: shelfLife,
                     cost: cost,
                     remark: remark,
-                    image: currentImageData || snacks[index].image || '',
+                    image: currentImageData ? storeImage(currentImageData) : snacks[index].image,
                     createdAt: snacks[index].createdAt
                 };
                 saveData();
@@ -1461,13 +1630,15 @@
                 document.getElementById('editShelfLife').value = snack.shelfLife;
                 document.getElementById('editCost').value = snack.cost;
                 document.getElementById('editRemark').value = snack.remark || '';
-                currentImageData = snack.image || '';
-                if (currentImageData) {
-                    document.getElementById('editImagePreview').style.display = '';
-                    document.getElementById('editImagePreviewImg').src = currentImageData;
-                } else {
-                    document.getElementById('editImagePreview').style.display = 'none';
-                }
+                loadImageAsync(snack.image || '').then(function(src) {
+                    currentImageData = src || '';
+                    if (currentImageData) {
+                        document.getElementById('editImagePreview').style.display = '';
+                        document.getElementById('editImagePreviewImg').src = currentImageData;
+                    } else {
+                        document.getElementById('editImagePreview').style.display = 'none';
+                    }
+                });
                 document.getElementById('editModal').classList.add('show');
                 document.body.style.overflow = 'hidden';
             }
@@ -1595,7 +1766,7 @@
                 html += '<span class="card-status ' + status.status + '">' + status.label + '</span>';
                 html += '</div>';
                 if (snack.image) {
-                    html += '<div style="margin-bottom:8px;"><img src="' + snack.image + '" style="width:100%;max-height:150px;object-fit:cover;border-radius:8px;cursor:pointer;" loading="lazy" onclick="event.stopPropagation();viewImage(this.src)"></div>';
+                    html += '<div style="margin-bottom:8px;background:#f0f0f0;border-radius:8px;min-height:50px;"><img data-imgkey="' + snack.image + '" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" style="width:100%;max-height:150px;object-fit:cover;border-radius:8px;cursor:pointer;display:block;" loading="lazy"></div>';
                 }
                 html += '<div class="card-info">';
                 html += '<span>📦 数量: ' + snack.quantity + '</span>';
@@ -1616,6 +1787,7 @@
             }
 
             container.innerHTML = html;
+            loadCardImages(container);
         }
 
         function escapeHtml(text) {
@@ -1635,10 +1807,11 @@
             }
 
             var exportData = {
-                version: '1.0',
+                version: '1.1',
                 exportTime: new Date().toISOString(),
                 count: snacks.length,
-                data: snacks
+                data: snacks,
+                images: imageStore
             };
 
             var jsonStr = JSON.stringify(exportData, null, 2);
@@ -1699,10 +1872,16 @@
                     if (mergeMode) {
                         var oldCount = snacks.length;
                         snacks = snacks.concat(imported.data);
+                        if (imported.images) {
+                            Object.assign(imageStore, imported.images);
+                            saveImageStore();
+                        }
                         showToast('已合并，新增 ' + importCount + ' 条（总计 ' + snacks.length + ' 条）');
                     } else {
                         if (confirm('确定要替换所有现有数据吗？原有数据将丢失！')) {
                             snacks = imported.data;
+                            imageStore = imported.images || {};
+                            saveImageStore();
                             showToast('已替换为 ' + importCount + ' 条记录');
                         } else {
                             return;
@@ -1742,13 +1921,13 @@
                 var img = new Image();
                 img.onload = function() {
                     var canvas = document.createElement('canvas');
-                    var maxW = 200;
+                    var maxW = 100;
                     var scale = Math.min(maxW / img.width, 1);
                     canvas.width = Math.round(img.width * scale);
                     canvas.height = Math.round(img.height * scale);
                     var ctx = canvas.getContext('2d');
                     ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                    currentImageData = canvas.toDataURL('image/jpeg', 0.7);
+                    currentImageData = canvas.toDataURL('image/jpeg', 0.4);
 
                     var addPreview = document.getElementById('addImagePreview');
                     var editPreview = document.getElementById('editImagePreview');
