@@ -1,0 +1,1400 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#f7f8fa" />
+    <title>经营账本</title>
+    <style>
+      :root {
+        --bg: #f6f7f9;
+        --card: #fff;
+        --text: #18212f;
+        --muted: #7a8494;
+        --line: #e9edf2;
+        --primary: #2563eb;
+        --primary-soft: #eff6ff;
+        --green: #16a34a;
+        --red: #dc2626;
+        --shadow: 0 8px 28px rgba(24, 33, 47, 0.06);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+          "Microsoft YaHei", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      button,
+      input {
+        font: inherit;
+      }
+      button {
+        border: 0;
+        cursor: pointer;
+      }
+      .app {
+        max-width: 720px;
+        margin: 0 auto;
+        width: 100%;
+        height: 100dvh;
+        min-height: 100dvh;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+      .top {
+        padding: 16px 18px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex: 0 0 auto;
+      }
+      .brand {
+        font-size: 20px;
+        font-weight: 800;
+      }
+      .date-mini {
+        font-size: 13px;
+        color: var(--muted);
+      }
+      .page {
+        display: none;
+        padding: 8px 16px 96px;
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        -webkit-overflow-scrolling: touch;
+      }
+      .page.active {
+        display: block;
+        flex: 1;
+      }
+      .hero {
+        background: linear-gradient(135deg, #1d4ed8, #2563eb);
+        color: #fff;
+        border-radius: 24px;
+        padding: 22px;
+        box-shadow: 0 14px 40px rgba(37, 99, 235, 0.2);
+      }
+      .hero .label {
+        opacity: 0.82;
+        font-size: 13px;
+      }
+      .hero .amount {
+        font-size: 40px;
+        font-weight: 800;
+        letter-spacing: -1px;
+        margin: 7px 0 4px;
+      }
+      .hero .sub {
+        font-size: 13px;
+        opacity: 0.82;
+      }
+      .grid2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .action {
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px;
+        min-height: 86px;
+        text-align: left;
+        box-shadow: var(--shadow);
+      }
+      .action b {
+        display: block;
+        margin-top: 8px;
+      }
+      .action span {
+        font-size: 26px;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 16px;
+        margin-top: 12px;
+        box-shadow: var(--shadow);
+      }
+      .card-recent {
+        height: 37vh;
+      }
+      .card-recent .list {
+        height: calc(100% - 21px);
+        overflow: auto;
+      }
+      .card-purchase {
+        height: 38vh;
+        overflow: hidden;
+      }
+      .card-purchase .list {
+        height: calc(100% - 21px);
+        overflow: auto;
+      }
+      .section-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 12px;
+      }
+      .section-title h3 {
+        margin: 0;
+        font-size: 16px;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .stat-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .stat {
+        padding: 12px;
+        background: #fafbfc;
+        border-radius: 14px;
+      }
+      .stat small {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
+      .stat strong {
+        display: block;
+        margin-top: 5px;
+        font-size: 18px;
+      }
+      .form label {
+        display: block;
+        font-size: 13px;
+        color: var(--muted);
+        margin: 0 0 7px;
+      }
+      .form input {
+        width: 100%;
+        height: 50px;
+        border: 1px solid #dfe4ea;
+        border-radius: 14px;
+        background: #fff;
+        padding: 0 14px;
+        outline: none;
+      }
+      .form input:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+      }
+      .field {
+        margin-bottom: 14px;
+      }
+      .btn {
+        height: 50px;
+        border-radius: 14px;
+        padding: 0 18px;
+        font-weight: 700;
+      }
+      .btn-primary {
+        width: 100%;
+        background: var(--primary);
+        color: #fff;
+      }
+      .btn-ghost {
+        background: #f2f4f7;
+        color: var(--text);
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+      .row > * {
+        flex: 1;
+      }
+      .tabs {
+        position: fixed;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: min(720px, 100%);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        padding: 10px 10px calc(10px + env(safe-area-inset-bottom));
+        background: rgba(255, 255, 255, 0.96);
+        backdrop-filter: blur(16px);
+        border-top: 1px solid var(--line);
+        z-index: 10;
+      }
+      .tab {
+        background: transparent;
+        color: var(--muted);
+        font-size: 12px;
+        padding: 6px 0;
+      }
+      .tab.active {
+        color: var(--primary);
+        font-weight: 800;
+      }
+      .tab .ico {
+        display: block;
+        font-size: 19px;
+        margin-bottom: 3px;
+      }
+      .list {
+        display: flex;
+        flex-direction: column;
+      }
+      .item {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--line);
+      }
+      .item:last-child {
+        border-bottom: 0;
+      }
+      .item .left b {
+        display: block;
+        font-size: 14px;
+      }
+      .item .left span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 4px;
+      }
+      .amount {
+        font-weight: 800;
+      }
+      .green {
+        color: var(--green);
+      }
+      .red {
+        color: var(--red);
+      }
+      .week-head,
+      .month-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .switch {
+        display: flex;
+        gap: 5px;
+        background: #f2f4f7;
+        padding: 4px;
+        border-radius: 11px;
+      }
+      .switch button {
+        background: transparent;
+        border-radius: 8px;
+        padding: 6px 10px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .switch button.active {
+        background: #fff;
+        color: var(--text);
+        box-shadow: 0 2px 7px rgba(0, 0, 0, 0.06);
+      }
+      .chart {
+        height: 190px;
+        display: flex;
+        gap: 7px;
+        align-items: flex-end;
+        padding: 16px 4px 28px;
+      }
+      .bar-wrap {
+        flex: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        position: relative;
+      }
+      .bar {
+        width: 72%;
+        max-width: 34px;
+        background: #2563eb;
+        border-radius: 8px 8px 3px 3px;
+        min-height: 3px;
+      }
+      .bar-val {
+        position: absolute;
+        bottom: calc(var(--h) + 6px);
+        font-size: 10px;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+      .bar-label {
+        position: absolute;
+        bottom: -23px;
+        font-size: 10px;
+        color: var(--muted);
+      }
+      .big-profit {
+        font-size: 34px;
+        font-weight: 800;
+        margin: 8px 0;
+      }
+      .notice {
+        padding: 12px 14px;
+        background: #fefce8;
+        border: 1px solid #fef08a;
+        border-radius: 14px;
+        font-size: 13px;
+        color: #854d0e;
+      }
+      .empty {
+        padding: 22px 0;
+        text-align: center;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .danger {
+        color: var(--red);
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: 96px;
+        transform: translateX(-50%) translateY(12px);
+        background: rgba(24, 33, 47, 0.94);
+        color: #fff;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.25s;
+        z-index: 20;
+      }
+      .toast.show {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+      @media (max-width: 420px) {
+        .hero .amount {
+          font-size: 34px;
+        }
+        .stat strong {
+          font-size: 16px;
+        }
+        .page {
+          padding-left: 13px;
+          padding-right: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="top">
+        <div class="brand">经营账本</div>
+        <div class="date-mini" id="todayText"></div>
+      </header>
+
+      <main id="page-today" class="page active">
+        <section class="hero">
+          <div class="label">今天营业额</div>
+          <div id="todaySales" class="amount">¥0.00</div>
+          <div id="todayStatus" class="sub">还没有录入今日营业额</div>
+        </section>
+        <div class="grid2">
+          <button class="action" onclick="showQuick('sales')">
+            <span>🧾</span><b>记录今日营业</b>
+            <div class="muted">每天打烊录一笔</div>
+          </button>
+          <button class="action" onclick="showQuick('purchase')">
+            <span>📦</span><b>记录进货</b>
+            <div class="muted">有进货时再记录</div>
+          </button>
+        </div>
+        <section class="card">
+          <div class="section-title">
+            <h3>本月概览</h3>
+            <span class="muted" id="monthName"></span>
+          </div>
+          <div class="stat-row">
+            <div class="stat">
+              <small>营业额</small><strong id="mSales">¥0</strong>
+            </div>
+            <div class="stat">
+              <small>进货</small><strong id="mPurchase">¥0</strong>
+            </div>
+            <div class="stat">
+              <small>利润</small><strong class="green" id="mProfit">¥0</strong>
+            </div>
+          </div>
+        </section>
+        <section class="card card-recent">
+          <div class="section-title">
+            <h3>最近记录</h3>
+            <span class="muted">最新 6 笔</span>
+          </div>
+          <div id="recentList" class="list"></div>
+        </section>
+      </main>
+
+      <main id="page-purchase" class="page">
+        <section class="card form">
+          <div class="section-title">
+            <h3>记录进货</h3>
+            <span class="muted">有进货再填写</span>
+          </div>
+          <div class="field">
+            <label>进货日期</label><input id="pDate" type="date" />
+          </div>
+          <div class="field">
+            <label>进货金额</label
+            ><input
+              id="pAmount"
+              inputmode="decimal"
+              placeholder="请输入金额，例如 860"
+            />
+          </div>
+          <div class="field">
+            <label>备注（可选）</label
+            ><input id="pNote" placeholder="例如：饮料补货" />
+          </div>
+          <button class="btn btn-primary" onclick="savePurchase()">
+            保存进货
+          </button>
+        </section>
+        <section class="card card-purchase">
+          <div class="section-title">
+            <h3>进货记录</h3>
+            <span class="muted">可查看历史</span>
+          </div>
+          <div id="purchaseList" class="list"></div>
+        </section>
+      </main>
+
+      <main id="page-week" class="page">
+        <section class="card">
+          <div class="week-head">
+            <div>
+              <div class="muted">本周营业额</div>
+              <div id="weekTotal" class="big-profit">¥0.00</div>
+              <div id="weekRange" class="muted"></div>
+            </div>
+            <div class="switch">
+              <button id="prevWeek" onclick="moveWeek(-1)">‹</button
+              ><button id="thisWeek" onclick="resetWeek()">本周</button
+              ><button id="nextWeek" onclick="moveWeek(1)">›</button>
+            </div>
+          </div>
+        </section>
+        <section class="card">
+          <div class="section-title">
+            <h3>7天营业额</h3>
+            <span class="muted">仅统计营业额</span>
+          </div>
+          <div id="weekChart" class="chart"></div>
+        </section>
+        <section class="card">
+          <div class="section-title"><h3>周汇总</h3></div>
+          <div class="stat-row">
+            <div class="stat">
+              <small>营业天数</small><strong id="weekDays">0天</strong>
+            </div>
+            <div class="stat">
+              <small>日均营业额</small><strong id="weekAvg">¥0</strong>
+            </div>
+            <div class="stat">
+              <small>最高单日</small><strong id="weekMax">¥0</strong>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <main id="page-month" class="page">
+        <section class="card">
+          <div class="month-head">
+            <div>
+              <div class="muted">月度结算</div>
+              <h2 id="monthTitle" style="margin: 5px 0 0"></h2>
+            </div>
+            <div class="switch">
+              <button onclick="moveMonth(-1)">‹</button
+              ><button onclick="resetMonth()">本月</button
+              ><button onclick="moveMonth(1)">›</button>
+            </div>
+          </div>
+          <div class="stat-row" style="margin-top: 16px">
+            <div class="stat">
+              <small>营业额</small><strong id="monthSales">¥0</strong>
+            </div>
+            <div class="stat">
+              <small>进货</small><strong id="monthPurchase">¥0</strong>
+            </div>
+            <div class="stat">
+              <small>利润</small
+              ><strong id="monthProfit" class="green">¥0</strong>
+            </div>
+          </div>
+          <div class="notice" style="margin-top: 14px">
+            利润按月结算：<b>当月营业额 − 当月进货总额</b
+            >。进货不会绑定到某一天。
+          </div>
+        </section>
+        <section class="card">
+          <div class="section-title"><h3>月度数据</h3></div>
+          <div class="list">
+            <div class="item">
+              <div class="left">
+                <b>营业天数</b><span>有销售记录的日期</span>
+              </div>
+              <div id="monthDays" class="amount">0 天</div>
+            </div>
+            <div class="item">
+              <div class="left"><b>进货次数</b><span>当月所有进货单</span></div>
+              <div id="monthPurchaseCount" class="amount">0 次</div>
+            </div>
+            <div class="item">
+              <div class="left">
+                <b>日均营业额</b><span>营业额 ÷ 营业天数</span>
+              </div>
+              <div id="monthAvg" class="amount">¥0</div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <section
+        id="quickModal"
+        style="
+          display: none;
+          position: fixed;
+          inset: 0;
+          background: rgba(15, 23, 42, 0.45);
+          z-index: 30;
+          padding: 20px;
+          align-items: flex-end;
+          justify-content: center;
+        "
+      >
+        <div
+          style="
+            width: min(680px, 100%);
+            background: #fff;
+            border-radius: 24px;
+            padding: 20px;
+            margin-bottom: env(safe-area-inset-bottom);
+          "
+        >
+          <div class="section-title">
+            <h3 id="modalTitle">记录今日营业</h3>
+            <button
+              class="btn btn-ghost"
+              style="height: 38px; padding: 0 12px"
+              onclick="closeQuick()"
+            >
+              关闭
+            </button>
+          </div>
+          <div class="form">
+            <div class="field">
+              <label id="modalDateLabel">营业日期</label
+              ><input id="sDate" type="date" />
+            </div>
+            <div class="field">
+              <label>金额</label
+              ><input
+                id="sAmount"
+                inputmode="decimal"
+                placeholder="请输入金额"
+              />
+            </div>
+            <button
+              class="btn btn-primary"
+              id="modalSave"
+              onclick="saveSales()"
+            >
+              保存营业额
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <nav class="tabs">
+        <button
+          class="tab active"
+          data-page="today"
+          onclick="switchPage('today')"
+        >
+          <span class="ico">🏠</span>今日</button
+        ><button
+          class="tab"
+          data-page="purchase"
+          onclick="switchPage('purchase')"
+        >
+          <span class="ico">📦</span>进货</button
+        ><button class="tab" data-page="week" onclick="switchPage('week')">
+          <span class="ico">📊</span>周报</button
+        ><button class="tab" data-page="month" onclick="switchPage('month')">
+          <span class="ico">💰</span>月结
+        </button>
+      </nav>
+    </div>
+    <div id="toast" class="toast"></div>
+    <!--<script>
+      const DB_NAME = "shopProfitDB",
+        DB_VERSION = 1;
+      let db;
+      let weekOffset = 0,
+        monthOffset = 0;
+      function money(n) {
+        return (
+          "¥" +
+          Number(n || 0).toLocaleString("zh-CN", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        );
+      }
+      function ymd(d) {
+        return d.toISOString().slice(0, 10);
+      }
+      function parseDate(s) {
+        const [y, m, day] = s.split("-").map(Number);
+        return new Date(y, m - 1, day);
+      }
+      function monthKey(d) {
+        return d.toISOString().slice(0, 7);
+      }
+      function monthLabel(d) {
+        return d.getFullYear() + "年" + (d.getMonth() + 1) + "月";
+      }
+      function fmtShort(s) {
+        const d = parseDate(s);
+        return d.getMonth() + 1 + "/" + d.getDate();
+      }
+      function weekStart(base) {
+        const d = new Date(base.getFullYear(), base.getMonth(), base.getDate());
+        const day = d.getDay() || 7;
+        d.setDate(d.getDate() - day + 1);
+        return d;
+      }
+      function addDays(d, n) {
+        const x = new Date(d);
+        x.setDate(x.getDate() + n);
+        return x;
+      }
+      function openDB() {
+        return new Promise((res, rej) => {
+          const req = indexedDB.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains("sales")) {
+              const s = db.createObjectStore("sales", { keyPath: "date" });
+            }
+            if (!db.objectStoreNames.contains("purchases")) {
+              const p = db.createObjectStore("purchases", {
+                keyPath: "id",
+                autoIncrement: true,
+              });
+              p.createIndex("date", "date");
+            }
+          };
+          req.onsuccess = () => {
+            db = req.result;
+            res();
+          };
+          req.onerror = () => rej(req.error);
+        });
+      }
+      function tx(store, mode = "readonly") {
+        return db.transaction(store, mode).objectStore(store);
+      }
+      function getSales() {
+        return new Promise((res, rej) => {
+          const r = tx("sales").getAll();
+          r.onsuccess = () => res(r.result || []);
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function getPurchases() {
+        return new Promise((res, rej) => {
+          const r = tx("purchases").getAll();
+          r.onsuccess = () => res(r.result || []);
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function putSales(obj) {
+        return new Promise((res, rej) => {
+          const r = tx("sales", "readwrite").put(obj);
+          r.onsuccess = () => res();
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function addPurchase(obj) {
+        return new Promise((res, rej) => {
+          const r = tx("purchases", "readwrite").add(obj);
+          r.onsuccess = () => res();
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function delPurchase(id) {
+        return new Promise((res, rej) => {
+          const r = tx("purchases", "readwrite").delete(id);
+          r.onsuccess = () => res();
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 1800);
+      }
+      function switchPage(name) {
+        document
+          .querySelectorAll(".page")
+          .forEach((x) => x.classList.remove("active"));
+        document.getElementById("page-" + name).classList.add("active");
+        document
+          .querySelectorAll(".tab")
+          .forEach((x) =>
+            x.classList.toggle("active", x.dataset.page === name),
+          );
+        if (name === "today") renderToday();
+        if (name === "purchase") renderPurchases();
+        if (name === "week") renderWeek();
+        if (name === "month") renderMonth();
+      }
+      function showQuick(type) {
+        const m = document.getElementById("quickModal");
+        m.style.display = "flex";
+        const today = ymd(new Date());
+        document.getElementById("sDate").value = today;
+        document.getElementById("sAmount").value = "";
+        document.getElementById("modalTitle").textContent =
+          type === "sales" ? "记录营业额" : "记录进货";
+        document.getElementById("modalSave").onclick =
+          type === "sales" ? saveSales : savePurchaseFromModal;
+        setTimeout(() => document.getElementById("sAmount").focus(), 120);
+      }
+      function closeQuick() {
+        document.getElementById("quickModal").style.display = "none";
+      }
+      async function saveSales() {
+        const date = document.getElementById("sDate").value;
+        const val = Number(document.getElementById("sAmount").value);
+        if (!date || !isFinite(val) || val < 0) {
+          showToast("请输入正确金额");
+          return;
+        }
+        await putSales({ date, amount: Math.round(val * 100) / 100 });
+        closeQuick();
+        showToast("营业额已保存");
+        renderToday();
+        renderWeek();
+        renderMonth();
+      }
+      async function savePurchaseFromModal() {
+        const date = document.getElementById("sDate").value;
+        const val = Number(document.getElementById("sAmount").value);
+        if (!date || !isFinite(val) || val <= 0) {
+          showToast("请输入正确金额");
+          return;
+        }
+        await addPurchase({
+          date,
+          amount: Math.round(val * 100) / 100,
+          note: "",
+        });
+        closeQuick();
+        showToast("进货已保存");
+        renderToday();
+        renderPurchases();
+        renderMonth();
+      }
+      async function savePurchase() {
+        const date = document.getElementById("pDate").value;
+        const val = Number(document.getElementById("pAmount").value);
+        const note = document.getElementById("pNote").value.trim();
+        if (!date || !isFinite(val) || val <= 0) {
+          showToast("请输入正确金额");
+          return;
+        }
+        await addPurchase({ date, amount: Math.round(val * 100) / 100, note });
+        document.getElementById("pAmount").value = "";
+        document.getElementById("pNote").value = "";
+        showToast("进货已保存");
+        renderPurchases();
+        renderMonth();
+        renderToday();
+      }
+      async function renderToday() {
+        const sales = await getSales(),
+          purchases = await getPurchases(),
+          today = ymd(new Date()),
+          month = monthKey(new Date());
+        const td = sales.find((x) => x.date === today);
+        document.getElementById("todaySales").textContent = money(
+          td?.amount || 0,
+        );
+        document.getElementById("todayStatus").textContent = td
+          ? "今日营业额已记录，可随时修改"
+          : "还没有录入今日营业额";
+        const ms = sales
+          .filter((x) => x.date.startsWith(month))
+          .reduce((a, x) => a + x.amount, 0);
+        const mp = purchases
+          .filter((x) => x.date.startsWith(month))
+          .reduce((a, x) => a + x.amount, 0);
+        document.getElementById("mSales").textContent = money(ms);
+        document.getElementById("mPurchase").textContent = money(mp);
+        document.getElementById("mProfit").textContent = money(ms - mp);
+        document.getElementById("monthName").textContent = monthLabel(
+          new Date(),
+        );
+        const all = [];
+        sales.forEach((x) =>
+          all.push({ date: x.date, type: "销售", amount: x.amount }),
+        );
+        purchases.forEach((x) =>
+          all.push({
+            date: x.date,
+            type: "进货",
+            amount: x.amount,
+            note: x.note,
+          }),
+        );
+        all.sort((a, b) => b.date.localeCompare(a.date));
+        const html = all
+          .slice(0, 6)
+          .map(
+            (x) =>
+              `<div class="item"><div class="left"><b>${x.type}</b><span>${fmtShort(x.date)}${x.note ? " · " + escapeHtml(x.note) : ""}</span></div><div class="amount ${x.type === "进货" ? "red" : "green"}">${x.type === "进货" ? "-" : "+"}${money(x.amount)}</div></div>`,
+          )
+          .join("");
+        document.getElementById("recentList").innerHTML =
+          html || '<div class="empty">暂时还没有记录</div>';
+      }
+      async function renderPurchases() {
+        const arr = (await getPurchases()).sort(
+          (a, b) => b.date.localeCompare(a.date) || b.id - a.id,
+        );
+        const html = arr
+          .map(
+            (x) =>
+              `<div class="item"><div class="left"><b>${fmtShort(x.date)} · 进货</b><span>${x.note ? escapeHtml(x.note) : "无备注"}</span></div><div class="row" style="flex:0 0 auto"><div class="amount red">-${money(x.amount)}</div><button class="btn btn-ghost" style="height:34px;padding:0 10px" onclick="removePurchase(${x.id})">删除</button></div></div>`,
+          )
+          .join("");
+        document.getElementById("purchaseList").innerHTML =
+          html || '<div class="empty">还没有进货记录</div>';
+      }
+      async function removePurchase(id) {
+        if (!confirm("确定删除这笔进货记录吗？")) return;
+        await delPurchase(id);
+        showToast("已删除");
+        renderPurchases();
+        renderToday();
+        renderMonth();
+      }
+      function weekData(base, sales) {
+        const start = weekStart(base),
+          days = [];
+        for (let i = 0; i < 7; i++) {
+          const d = addDays(start, i);
+          const key = ymd(d);
+          days.push({
+            key,
+            label: ["一", "二", "三", "四", "五", "六", "日"][i],
+            amount: sales.find((x) => x.date === key)?.amount || 0,
+          });
+        }
+        return days;
+      }
+      async function renderWeek() {
+        const base = addDays(new Date(), weekOffset * 7),
+          sales = await getSales(),
+          data = weekData(base, sales),
+          total = data.reduce((a, x) => a + x.amount, 0),
+          days = data.filter((x) => x.amount > 0).length,
+          max = Math.max(...data.map((x) => x.amount), 0),
+          avg = days ? total / days : 0;
+        const start = weekStart(base),
+          end = addDays(start, 6);
+        document.getElementById("weekTotal").textContent = money(total);
+        document.getElementById("weekRange").textContent =
+          fmtShort(ymd(start)) + "（周一）— " + fmtShort(ymd(end)) + "（周日）";
+        document.getElementById("weekDays").textContent = days + "天";
+        document.getElementById("weekAvg").textContent = money(avg);
+        document.getElementById("weekMax").textContent = money(max);
+        const chart = document.getElementById("weekChart");
+        const maxH = Math.max(max, 1);
+        chart.innerHTML = data
+          .map((x) => {
+            const h = Math.max(3, (x.amount / maxH) * 140);
+            return `<div class="bar-wrap"><span class="bar-val" style="--h:${h}px">${x.amount ? money(x.amount) : ""}</span><div class="bar" style="height:${h}px"></div><span class="bar-label">${x.label}</span></div>`;
+          })
+          .join("");
+      }
+      function moveWeek(n) {
+        weekOffset += n;
+        renderWeek();
+      }
+      function resetWeek() {
+        weekOffset = 0;
+        renderWeek();
+      }
+      async function renderMonth() {
+        const base = new Date(
+            new Date().getFullYear(),
+            new Date().getMonth() + monthOffset,
+            1,
+          ),
+          key = monthKey(base),
+          sales = await getSales(),
+          purchases = await getPurchases();
+        const ms = sales
+            .filter((x) => x.date.startsWith(key))
+            .reduce((a, x) => a + x.amount, 0),
+          mp = purchases
+            .filter((x) => x.date.startsWith(key))
+            .reduce((a, x) => a + x.amount, 0),
+          unique = new Set(
+            sales
+              .filter((x) => x.date.startsWith(key) && x.amount > 0)
+              .map((x) => x.date),
+          ).size,
+          count = purchases.filter((x) => x.date.startsWith(key)).length;
+        document.getElementById("monthTitle").textContent = monthLabel(base);
+        document.getElementById("monthSales").textContent = money(ms);
+        document.getElementById("monthPurchase").textContent = money(mp);
+        document.getElementById("monthProfit").textContent = money(ms - mp);
+        document.getElementById("monthDays").textContent = unique + " 天";
+        document.getElementById("monthPurchaseCount").textContent =
+          count + " 次";
+        document.getElementById("monthAvg").textContent = money(
+          unique ? ms / unique : 0,
+        );
+      }
+      function moveMonth(n) {
+        monthOffset += n;
+        renderMonth();
+      }
+      function resetMonth() {
+        monthOffset = 0;
+        renderMonth();
+      }
+      function escapeHtml(s) {
+        return String(s).replace(
+          /[&<>'"]/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              "'": "&#39;",
+              '"': "&quot;",
+            })[c],
+        );
+      }
+      (async () => {
+        await openDB();
+        document.getElementById("todayText").textContent =
+          monthLabel(new Date()) + " " + new Date().getDate() + "日";
+        document.getElementById("pDate").value = ymd(new Date());
+        document.getElementById("sDate").value = ymd(new Date());
+        await renderToday();
+      })().catch((e) => {
+        console.error(e);
+        showToast("数据库初始化失败");
+      });
+    </script>-->
+    <script>
+      const DB_NAME = "shopProfitDB",
+        DB_VERSION = 1;
+      let db;
+      let weekOffset = 0,
+        monthOffset = 0;
+      function money(n) {
+        return (
+          "¥" +
+          Number(n || 0).toLocaleString("zh-CN", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })
+        );
+      }
+      function ymd(d) {
+        return (
+          d.getFullYear() +
+          "-" +
+          String(d.getMonth() + 1).padStart(2, "0") +
+          "-" +
+          String(d.getDate()).padStart(2, "0")
+        );
+      }
+      function parseDate(s) {
+        const [y, m, day] = s.split("-").map(Number);
+        return new Date(y, m - 1, day);
+      }
+      function monthKey(d) {
+        return (
+          d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0")
+        );
+      }
+      function monthLabel(d) {
+        return d.getFullYear() + "年" + (d.getMonth() + 1) + "月";
+      }
+      function fmtShort(s) {
+        const d = parseDate(s);
+        return d.getMonth() + 1 + "/" + d.getDate();
+      }
+      function weekStart(base) {
+        const d = new Date(base.getFullYear(), base.getMonth(), base.getDate());
+        const day = d.getDay() || 7;
+        d.setDate(d.getDate() - day + 1);
+        return d;
+      }
+      function addDays(d, n) {
+        const x = new Date(d);
+        x.setDate(x.getDate() + n);
+        return x;
+      }
+      function openDB() {
+        return new Promise((res, rej) => {
+          const req = indexedDB.open(DB_NAME, DB_VERSION);
+          req.onupgradeneeded = (e) => {
+            const db = e.target.result;
+            if (!db.objectStoreNames.contains("sales")) {
+              const s = db.createObjectStore("sales", { keyPath: "date" });
+            }
+            if (!db.objectStoreNames.contains("purchases")) {
+              const p = db.createObjectStore("purchases", {
+                keyPath: "id",
+                autoIncrement: true,
+              });
+              p.createIndex("date", "date");
+            }
+          };
+          req.onsuccess = () => {
+            db = req.result;
+            res();
+          };
+          req.onerror = () => rej(req.error);
+        });
+      }
+      function tx(store, mode = "readonly") {
+        return db.transaction(store, mode).objectStore(store);
+      }
+      function getSales() {
+        return new Promise((res, rej) => {
+          const r = tx("sales").getAll();
+          r.onsuccess = () => res(r.result || []);
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function getPurchases() {
+        return new Promise((res, rej) => {
+          const r = tx("purchases").getAll();
+          r.onsuccess = () => res(r.result || []);
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function putSales(obj) {
+        return new Promise((res, rej) => {
+          const r = tx("sales", "readwrite").put(obj);
+          r.onsuccess = () => res();
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function addPurchase(obj) {
+        return new Promise((res, rej) => {
+          const r = tx("purchases", "readwrite").add(obj);
+          r.onsuccess = () => res();
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function delPurchase(id) {
+        return new Promise((res, rej) => {
+          const r = tx("purchases", "readwrite").delete(id);
+          r.onsuccess = () => res();
+          r.onerror = () => rej(r.error);
+        });
+      }
+      function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 1800);
+      }
+      function switchPage(name) {
+        document
+          .querySelectorAll(".page")
+          .forEach((x) => x.classList.remove("active"));
+        document.getElementById("page-" + name).classList.add("active");
+        document
+          .querySelectorAll(".tab")
+          .forEach((x) =>
+            x.classList.toggle("active", x.dataset.page === name),
+          );
+        if (name === "today") renderToday();
+        if (name === "purchase") renderPurchases();
+        if (name === "week") renderWeek();
+        if (name === "month") renderMonth();
+      }
+      function showQuick(type) {
+        const m = document.getElementById("quickModal");
+        m.style.display = "flex";
+        const today = ymd(new Date());
+        document.getElementById("sDate").value = today;
+        document.getElementById("sAmount").value = "";
+        document.getElementById("modalTitle").textContent =
+          type === "sales" ? "记录营业额" : "记录进货";
+        document.getElementById("modalSave").onclick =
+          type === "sales" ? saveSales : savePurchaseFromModal;
+        setTimeout(() => document.getElementById("sAmount").focus(), 120);
+      }
+      function closeQuick() {
+        document.getElementById("quickModal").style.display = "none";
+      }
+      async function saveSales() {
+        const date = document.getElementById("sDate").value;
+        const val = Number(document.getElementById("sAmount").value);
+        if (!date || !isFinite(val) || val < 0) {
+          showToast("请输入正确金额");
+          return;
+        }
+        await putSales({ date, amount: Math.round(val * 100) / 100 });
+        closeQuick();
+        showToast("营业额已保存");
+        renderToday();
+        renderWeek();
+        renderMonth();
+      }
+      async function savePurchaseFromModal() {
+        const date = document.getElementById("sDate").value;
+        const val = Number(document.getElementById("sAmount").value);
+        if (!date || !isFinite(val) || val <= 0) {
+          showToast("请输入正确金额");
+          return;
+        }
+        await addPurchase({
+          date,
+          amount: Math.round(val * 100) / 100,
+          note: "",
+        });
+        closeQuick();
+        showToast("进货已保存");
+        renderToday();
+        renderPurchases();
+        renderMonth();
+      }
+      async function savePurchase() {
+        const date = document.getElementById("pDate").value;
+        const val = Number(document.getElementById("pAmount").value);
+        const note = document.getElementById("pNote").value.trim();
+        if (!date || !isFinite(val) || val <= 0) {
+          showToast("请输入正确金额");
+          return;
+        }
+        await addPurchase({ date, amount: Math.round(val * 100) / 100, note });
+        document.getElementById("pAmount").value = "";
+        document.getElementById("pNote").value = "";
+        showToast("进货已保存");
+        renderPurchases();
+        renderMonth();
+        renderToday();
+      }
+      async function renderToday() {
+        const sales = await getSales(),
+          purchases = await getPurchases(),
+          today = ymd(new Date()),
+          month = monthKey(new Date());
+        const td = sales.find((x) => x.date === today);
+        document.getElementById("todaySales").textContent = money(
+          td?.amount || 0,
+        );
+        document.getElementById("todayStatus").textContent = td
+          ? "今日营业额已记录，可随时修改"
+          : "还没有录入今日营业额";
+        const ms = sales
+          .filter((x) => x.date.startsWith(month))
+          .reduce((a, x) => a + x.amount, 0);
+        const mp = purchases
+          .filter((x) => x.date.startsWith(month))
+          .reduce((a, x) => a + x.amount, 0);
+        document.getElementById("mSales").textContent = money(ms);
+        document.getElementById("mPurchase").textContent = money(mp);
+        document.getElementById("mProfit").textContent = money(ms - mp);
+        document.getElementById("monthName").textContent = monthLabel(
+          new Date(),
+        );
+        const all = [];
+        sales.forEach((x) =>
+          all.push({ date: x.date, type: "销售", amount: x.amount }),
+        );
+        purchases.forEach((x) =>
+          all.push({
+            date: x.date,
+            type: "进货",
+            amount: x.amount,
+            note: x.note,
+          }),
+        );
+        all.sort((a, b) => b.date.localeCompare(a.date));
+        const html = all
+          .slice(0, 6)
+          .map(
+            (x) =>
+              `<div class="item"><div class="left"><b>${x.type}</b><span>${fmtShort(x.date)}${x.note ? " · " + escapeHtml(x.note) : ""}</span></div><div class="amount ${x.type === "进货" ? "red" : "green"}">${x.type === "进货" ? "-" : "+"}${money(x.amount)}</div></div>`,
+          )
+          .join("");
+        document.getElementById("recentList").innerHTML =
+          html || '<div class="empty">暂时还没有记录</div>';
+      }
+      async function renderPurchases() {
+        const arr = (await getPurchases()).sort(
+          (a, b) => b.date.localeCompare(a.date) || b.id - a.id,
+        );
+        const html = arr
+          .map(
+            (x) =>
+              `<div class="item"><div class="left"><b>${fmtShort(x.date)} · 进货</b><span>${x.note ? escapeHtml(x.note) : "无备注"}</span></div><div class="row" style="flex:0 0 auto"><div class="amount red">-${money(x.amount)}</div><button class="btn btn-ghost" style="height:34px;padding:0 10px" onclick="removePurchase(${x.id})">删除</button></div></div>`,
+          )
+          .join("");
+        document.getElementById("purchaseList").innerHTML =
+          html || '<div class="empty">还没有进货记录</div>';
+      }
+      async function removePurchase(id) {
+        if (!confirm("确定删除这笔进货记录吗？")) return;
+        await delPurchase(id);
+        showToast("已删除");
+        renderPurchases();
+        renderToday();
+        renderMonth();
+      }
+      function weekData(base, sales) {
+        const start = weekStart(base),
+          days = [];
+        for (let i = 0; i < 7; i++) {
+          const d = addDays(start, i);
+          const key = ymd(d);
+          days.push({
+            key,
+            label: ["一", "二", "三", "四", "五", "六", "日"][i],
+            amount: sales.find((x) => x.date === key)?.amount || 0,
+          });
+        }
+        return days;
+      }
+      async function renderWeek() {
+        const base = addDays(new Date(), weekOffset * 7),
+          sales = await getSales(),
+          data = weekData(base, sales),
+          total = data.reduce((a, x) => a + x.amount, 0),
+          days = data.filter((x) => x.amount > 0).length,
+          max = Math.max(...data.map((x) => x.amount), 0),
+          avg = days ? total / days : 0;
+        const start = weekStart(base),
+          end = addDays(start, 6);
+        document.getElementById("weekTotal").textContent = money(total);
+        document.getElementById("weekRange").textContent =
+          fmtShort(ymd(start)) + "（周一）— " + fmtShort(ymd(end)) + "（周日）";
+        document.getElementById("weekDays").textContent = days + "天";
+        document.getElementById("weekAvg").textContent = money(avg);
+        document.getElementById("weekMax").textContent = money(max);
+        const chart = document.getElementById("weekChart");
+        const maxH = Math.max(max, 1);
+        chart.innerHTML = data
+          .map((x) => {
+            const h = Math.max(3, (x.amount / maxH) * 140);
+            return `<div class="bar-wrap"><span class="bar-val" style="--h:${h}px">${x.amount ? money(x.amount) : ""}</span><div class="bar" style="height:${h}px"></div><span class="bar-label">${x.label}</span></div>`;
+          })
+          .join("");
+      }
+      function moveWeek(n) {
+        weekOffset += n;
+        renderWeek();
+      }
+      function resetWeek() {
+        weekOffset = 0;
+        renderWeek();
+      }
+      async function renderMonth() {
+        const base = new Date(
+            new Date().getFullYear(),
+            new Date().getMonth() + monthOffset,
+            1,
+          ),
+          key = monthKey(base),
+          sales = await getSales(),
+          purchases = await getPurchases();
+        const ms = sales
+            .filter((x) => x.date.startsWith(key))
+            .reduce((a, x) => a + x.amount, 0),
+          mp = purchases
+            .filter((x) => x.date.startsWith(key))
+            .reduce((a, x) => a + x.amount, 0),
+          unique = new Set(
+            sales
+              .filter((x) => x.date.startsWith(key) && x.amount > 0)
+              .map((x) => x.date),
+          ).size,
+          count = purchases.filter((x) => x.date.startsWith(key)).length;
+        document.getElementById("monthTitle").textContent = monthLabel(base);
+        document.getElementById("monthSales").textContent = money(ms);
+        document.getElementById("monthPurchase").textContent = money(mp);
+        document.getElementById("monthProfit").textContent = money(ms - mp);
+        document.getElementById("monthDays").textContent = unique + " 天";
+        document.getElementById("monthPurchaseCount").textContent =
+          count + " 次";
+        document.getElementById("monthAvg").textContent = money(
+          unique ? ms / unique : 0,
+        );
+      }
+      function moveMonth(n) {
+        monthOffset += n;
+        renderMonth();
+      }
+      function resetMonth() {
+        monthOffset = 0;
+        renderMonth();
+      }
+      function escapeHtml(s) {
+        return String(s).replace(
+          /[&<>'"]/g,
+          (c) =>
+            ({
+              "&": "&amp;",
+              "<": "&lt;",
+              ">": "&gt;",
+              "'": "&#39;",
+              '"': "&quot;",
+            })[c],
+        );
+      }
+      (async () => {
+        await openDB();
+        document.getElementById("todayText").textContent =
+          monthLabel(new Date()) + " " + new Date().getDate() + "日";
+        document.getElementById("pDate").value = ymd(new Date());
+        document.getElementById("sDate").value = ymd(new Date());
+        await renderToday();
+      })().catch((e) => {
+        console.error(e);
+        showToast("数据库初始化失败");
+      });
+    </script>
+  </body>
+</html>
